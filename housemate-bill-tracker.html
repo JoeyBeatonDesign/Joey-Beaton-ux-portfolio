@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HouseMate Bill Tracker — Joey Beaton</title>
+  <meta name="description" content="Case study: HouseMate Bill Tracker — UX design process and outcomes." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ── Nav ───────────────────────────────────────────────── -->
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Joey Beaton</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Work</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <div class="container">
+
+      <!-- ── Case study hero ───────────────────────────────── -->
+      <div class="case-hero">
+        <span class="label">Case study</span>
+        <h1>HouseMate Bill Tracker</h1>
+        <p class="hero-sub">
+          BillSmart is a concept app designed to simplify splitting shared household bills.
+        </p>
+
+        <div class="case-meta">
+          <div class="meta-item">
+            <span class="label">Role</span>
+            <p>Lead UX Designer</p>
+          </div>
+          <div class="meta-item">
+            <span class="label">Timeline</span>
+            <p>Jan – Apr 2025 (4 months)</p>
+          </div>
+          <div class="meta-item">
+            <span class="label">Team</span>
+            <p>2 designers, 3 engineers, 1 PM</p>
+          </div>
+          <div class="meta-item">
+            <span class="label">Platform</span>
+            <p>Web app, iOS</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Cover image ──────────────────────────────────── -->
+      <div class="case-cover case-cover--mobile">
+        <img src="images/housemate-hero.png" alt="HouseMate Bill Tracker hero" />
+      </div>
+
+      <!-- ── Body: sidebar TOC + content ──────────────────── -->
+      <div class="case-body">
+
+        <!-- Sticky table of contents (hidden on mobile) -->
+        <aside class="case-toc">
+          <p class="case-toc-label">Contents</p>
+          <ul>
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#research">Research</a></li>
+            <li><a href="#define">Define</a></li>
+            <li><a href="#ideation">Ideation</a></li>
+            <li><a href="#design">Design</a></li>
+            <li><a href="#testing">Testing</a></li>
+            <li><a href="#outcome">Outcome</a></li>
+          </ul>
+        </aside>
+
+        <!-- Main content -->
+        <div class="case-content">
+
+          <!-- 01 Overview -->
+          <section id="overview">
+            <span class="label">01 — Overview</span>
+            <h2>The problem</h2>
+            <p>
+              BillSmart is a concept app for splitting shared household bills and automating payment
+              reminders — designed to remove the social awkwardness of chasing housemates for money.
+            </p>
+            <p>
+              This case study focuses on one core flow: inputting a bill and automating reminders,
+              seen through the lens of Sarah, a user who wants the app to do the "nagging" for her.
+            </p>
+
+            <div class="insight-grid" style="margin-top: var(--space-md);">
+              <div class="insight-card">
+                <span class="label">The challenge</span>
+                <p>Design a bill-splitting flow that removes the social friction of chasing housemates for payment.</p>
+              </div>
+              <div class="insight-card">
+                <span class="label">My role</span>
+                <p>Competitive research, persona definition, user journey mapping, and UX design.</p>
+              </div>
+              <div class="insight-card">
+                <span class="label">Focus</span>
+                <p>Core flow: inputting a bill and setting up automated reminders.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- 02 Research -->
+          <section id="research">
+            <span class="label">02 — Research</span>
+            <h2>Competitive audit</h2>
+            <p>
+              I ran a competitive audit of Tricount, Splitwise, Settle Up, and Groupie (Tikkie).
+              All four are polished and reputable — none are low quality — but they differ on
+              positioning: Tricount for roommates and trip-splitting, Splitwise as the established
+              default, Settle Up for users wanting more customisation.
+            </p>
+
+            <h3>Key weaknesses across competitors</h3>
+            <p>
+              Tricount lacks payment integration and instant settlements. Splitwise has monetisation
+              creep and an increasingly cluttered UI. Settle Up lacks polish and item-level splitting.
+            </p>
+
+            <div class="insight-grid">
+              <div class="insight-card">
+                <span class="label">Tricount</span>
+                <p>No payment integration or instant settlement — users still have to chase manually.</p>
+              </div>
+              <div class="insight-card">
+                <span class="label">Splitwise</span>
+                <p>Monetisation creep and outdated UI erode trust in an otherwise dominant product.</p>
+              </div>
+              <div class="insight-card">
+                <span class="label">Settle Up</span>
+                <p>Lacks polish and item-level splitting; feels built for accountants, not housemates.</p>
+              </div>
+            </div>
+
+            <h3>The critical gap</h3>
+            <p>
+              None of the audited apps had strong native reminder systems, and none were built for
+              cohabitation specifically — they're trip-splitting tools with household features bolted
+              on as an afterthought.
+            </p>
+          </section>
+
+          <!-- 03 Define -->
+          <section id="define">
+            <span class="label">03 — Define</span>
+            <h2>Personas & problem statement</h2>
+            <p>
+              From the research, I defined four personas representing different money personalities
+              within a shared house.
+            </p>
+
+            <div class="insight-grid">
+              <div class="insight-card">
+                <span class="label">Sarah</span>
+                <p>Organised, anxious, hates confrontation. Wants bills handled without having to ask.</p>
+              </div>
+              <div class="insight-card">
+                <span class="label">Maya</span>
+                <p>Freelancer with inconsistent income. Wants a simple "what do I owe" view.</p>
+              </div>
+              <div class="insight-card">
+                <span class="label">Marcus</span>
+                <p>Spends first, needs payday-timed nudges to stay on top of shared costs.</p>
+              </div>
+              <div class="insight-card">
+                <span class="label">Ray</span>
+                <p>New to shared housing. Wants tech to bridge unspoken social norms around money.</p>
+              </div>
+            </div>
+
+            <h3>Sarah's problem statement</h3>
+            <p>
+              This case study focuses on Sarah: a busy, organised professional who needs a clear,
+              unobtrusive way to get bills paid and ensure everyone contributes equally — because
+              she doesn't like confrontation or negotiating over household expenses.
+            </p>
+
+            <h3>Product goal</h3>
+            <p>
+              Remind some users to budget, and reassure others the household's finances are on track,
+              measured through app usage, reminders set, and whether the house stays on top of
+              shared costs.
+            </p>
+          </section>
+
+          <!-- 04 Ideation -->
+          <section id="ideation">
+            <span class="label">04 — Ideation</span>
+            <h2>Finding the direction</h2>
+            <p>
+              The research gap — no competitor treats reminders as a core feature — shaped the
+              direction entirely: rather than a splitting tool with reminders bolted on, BillSmart
+              makes automated, non-confrontational reminders the centre of the experience.
+            </p>
+            <p>
+              For Sarah, this meant designing a flow where she could set expectations once (the bill,
+              the split, the reminder schedule) and let the app take over the follow-up — rather than
+              personally chasing anyone.
+            </p>
+          </section>
+
+          <!-- 05 Design -->
+          <section id="design">
+            <span class="label">05 — Design</span>
+            <h2>Sarah's user journey</h2>
+            <p>
+              Mapping the flow through Sarah's eyes: she recognises a need to track household
+              spending, researches and downloads an app, registers via Google sign-in, and invites
+              housemates via a shareable WhatsApp link.
+            </p>
+            <p>
+              She then inputs a bill and splits it — setting reminder dates at the same time, in the
+              same flow. The app automatically nudges housemates who haven't paid or haven't logged
+              an upcoming bill.
+            </p>
+
+            <div class="image-block image-block--mobile">
+              <img src="images/housemate-hero.png" alt="HouseMate Bill Tracker screens" />
+            </div>
+            <p class="caption">Key screens from the bill input and reminder setup flow.</p>
+
+            <h3>Key decision: reminders come from the app, not from Sarah</h3>
+            <p>
+              The central design decision was framing reminders as coming from the app rather than
+              from any individual housemate. Sarah sets it up once, then steps back — the app does
+              the nagging, removing the social friction entirely.
+            </p>
+          </section>
+
+          <!-- 06 Testing -->
+          <section id="testing">
+            <span class="label">06 — Testing</span>
+            <h2>Decisions & trade-offs</h2>
+            <p>
+              This was a design exercise without formal usability testing — so rather than reported
+              results, here are the key decisions and trade-offs made along the way.
+            </p>
+
+            <div class="insight-grid">
+              <div class="insight-card">
+                <span class="label">Invite by link</span>
+                <p>Chosen over in-app invites to reduce friction, directly addressing Tricount's weakness of requiring notification sign-ups.</p>
+              </div>
+              <div class="insight-card">
+                <span class="label">Reminders at bill entry</span>
+                <p>Defaulted to setting reminders during bill input rather than as a separate step, reducing the chance they're skipped.</p>
+              </div>
+              <div class="insight-card">
+                <span class="label">Open question</span>
+                <p>How nudges should be worded so they don't feel like nagging from the app either — tone matters as much as automation.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- 07 Outcome -->
+          <section id="outcome">
+            <span class="label">07 — Outcome</span>
+            <h2>Results & next steps</h2>
+            <p>
+              This flow addresses Sarah's need directly — but the other personas point to a
+              substantial amount of further work.
+            </p>
+
+            <div class="insight-grid">
+              <div class="insight-card">
+                <span class="label">Maya</span>
+                <p>Needs a simpler "what do I owe" view designed around irregular income.</p>
+              </div>
+              <div class="insight-card">
+                <span class="label">Marcus</span>
+                <p>Needs nudges timed to payday, not to bill due dates.</p>
+              </div>
+              <div class="insight-card">
+                <span class="label">Ray</span>
+                <p>Needs the app to make unspoken house norms around money explicit.</p>
+              </div>
+            </div>
+
+            <h3>Next steps</h3>
+            <p>
+              Prototype flows for Maya, Marcus, and Ray, then test reminder tone and timing with
+              real users — to see whether automation actually reduces the "nag" feeling, or just
+              relocates it.
+            </p>
+          </section>
+
+        </div><!-- /case-content -->
+      </div><!-- /case-body -->
+
+      <!-- ── Next / Prev nav ──────────────────────────────── -->
+      <div class="case-nav">
+        <a href="index.html" class="link-arrow">← All projects</a>
+        <a href="case-study.html" class="link-arrow">Next project →</a>
+      </div>
+
+    </div><!-- /container -->
+  </main>
+
+  <!-- ── Footer ─────────────────────────────────────────────── -->
+  <footer>
+    <div class="footer-inner">
+      <ul class="footer-links">
+        <li><a href="https://www.linkedin.com/in/joeybeaton" target="_blank" rel="noopener">LinkedIn ↗</a></li>
+        <li><a href="mailto:joeybeaton@yahoo.com">joeybeaton@yahoo.com</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+      <span class="footer-copy">© 2025 Joey Beaton</span>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bath for Kids — Accessibility Audit — Joey Beaton</title>
+  <meta name="description" content="Case study: Bath for Kids accessibility audit and remediation — WCAG 2.2 AA compliance across colour, typography, focus states, and navigation." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ── Nav ───────────────────────────────────────────────── -->
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Joey Beaton</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Work</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <div class="container">
+
+      <!-- ── Case study hero ───────────────────────────────── -->
+      <div class="case-hero">
+        <span class="label">Case study</span>
+        <h1>Bath for Kids — Accessibility Audit</h1>
+        <p class="hero-sub">
+          An accessibility audit and remediation project targeting WCAG 2.2 Level AA compliance
+          across a responsive family-travel website — covering colour tokens, typography, focus
+          states, heading structure, and navigation across four breakpoints.
+        </p>
+
+        <div class="case-meta">
+          <div class="meta-item">
+            <span class="label">Role</span>
+            <p>Lead / Solo Accessibility Designer</p>
+          </div>
+          <div class="meta-item">
+            <span class="label">Timeline</span>
+            <p>Ongoing</p>
+          </div>
+          <div class="meta-item">
+            <span class="label">Team</span>
+            <p>Solo design work, handed off to development</p>
+          </div>
+          <div class="meta-item">
+            <span class="label">Platform</span>
+            <p>Responsive website — Desktop, Tablet Medium, Tablet Expanded, Mobile</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Body: sidebar TOC + content ──────────────────── -->
+      <div class="case-body" style="margin-top: var(--space-lg);">
+
+        <!-- Sticky table of contents (hidden on mobile) -->
+        <aside class="case-toc">
+          <p class="case-toc-label">Contents</p>
+          <ul>
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#research">Research</a></li>
+            <li><a href="#define">Define</a></li>
+            <li><a href="#ideation">Ideation</a></li>
+            <li><a href="#design">Design</a></li>
+            <li><a href="#testing">Testing</a></li>
+            <li><a href="#outcome">Outcome</a></li>
+          </ul>
+        </aside>
+
+        <!-- Main content -->
+        <div class="case-content">
+
+          <!-- 01 Overview -->
+          <section id="overview">
+            <span class="label">01 — Overview</span>
+            <h2>The project</h2>
+            <p>
+              Bath for Kids is a responsive website helping families plan visits to Bath, UK —
+              covering things to do, parks, and local attractions.
+            </p>
+            <p>
+              This case study covers an accessibility audit and remediation project across the
+              site's design system, targeting WCAG 2.2 Level AA compliance per the DWP
+              Accessibility Manual, spanning colour tokens, typography, heading structure,
+              buttons, and navigation across all four built breakpoints.
+            </p>
+
+            <div class="insight-grid" style="margin-top: var(--space-md);">
+              <div class="insight-card">
+                <span class="label">The challenge</span>
+                <p>Bring an existing design system to WCAG 2.2 AA without breaking its visual identity.</p>
+              </div>
+              <div class="insight-card">
+                <span class="label">My role</span>
+                <p>Solo audit, remediation design, component fixes, and handoff documentation.</p>
+              </div>
+              <div class="insight-card">
+                <span class="label">Scope</span>
+                <p>Colour tokens, focus states, heading structure, buttons, NavBar, and Footer across four breakpoints.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- 02 Research -->
+          <section id="research">
+            <span class="label">02 — Research</span>
+            <h2>Audit methodology</h2>
+            <p>
+              Rather than relying on visual judgement, every contrast claim was calculated directly
+              from the design system's actual hex values using the WCAG relative luminance formula.
+              This mattered: several colours that looked "close enough" on screen were confirmed as
+              genuine failures once calculated.
+            </p>
+            <p>
+              The same rigour applied to verifying fixes — every claimed correction was independently
+              checked at the node level (screenshots, component IDs, instance links) rather than
+              accepted on a confident-sounding summary. This approach surfaced two implementation
+              bugs a purely visual pass would likely have missed.
+            </p>
+          </section>
+
+          <!-- 03 Define -->
+          <section id="define">
+            <span class="label">03 — Define</span>
+            <h2>Gaps identified</h2>
+            <p>
+              The audit identified four categories of accessibility failures.
+            </p>
+
+            <div class="insight-grid">
+              <div class="insight-card">
+                <span class="label">Colour contrast</span>
+                <p>Three tokens (accent, border, bg/hero) failed WCAG 1.4.3/1.4.11, with ratios as low as 1.41:1 against a 4.5:1 requirement.</p>
+              </div>
+              <div class="insight-card">
+                <span class="label">Focus states</span>
+                <p>No visible keyboard or switch-device focus indicator existed anywhere — only Default, Hover, and Disabled states were built.</p>
+              </div>
+              <div class="insight-card">
+                <span class="label">Heading structure</span>
+                <p>No heading across any of the eight built frames referenced a named text style; visual hierarchy was sensible but entirely unenforced.</p>
+              </div>
+              <div class="insight-card">
+                <span class="label">Structural bugs</span>
+                <p>Tablet variants of NavBar and Footer were disconnected from their component sets; a scaled-instance bug caused focus rings to misalign at 768px.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- 04 Ideation -->
+          <section id="ideation">
+            <span class="label">04 — Ideation</span>
+            <h2>Key design decisions</h2>
+            <p>
+              Two decisions shaped the remediation approach.
+            </p>
+
+            <h3>Double-ring focus indicator</h3>
+            <p>
+              A single ring colour can't hit 3:1 contrast against every background in the palette.
+              Two tokens — <em>focus/inner</em> and <em>focus/outer</em> — work together so at
+              least one ring always clears the minimum regardless of what it sits on.
+            </p>
+
+            <h3>Breakpoint-specific heading sizes</h3>
+            <p>
+              Hero and section headings are intentionally smaller on Tablet and Mobile than on
+              Desktop. The fix preserves that variation — semantic level (H1/H2/H3) stays constant
+              while rendered size changes by breakpoint, mirroring practice in mature design systems
+              like GOV.UK's own type scale.
+            </p>
+          </section>
+
+          <!-- 05 Design -->
+          <section id="design">
+            <span class="label">05 — Design</span>
+            <h2>Remediation</h2>
+            <p>
+              The corrected colour tokens now pass AA — for example, bg/hero moved from 3.24:1
+              to 4.78:1 against white text. Beyond the values themselves, 103 layers across three
+              pages were found using hardcoded hex values instead of semantic variables and were
+              re-bound, so future colour changes propagate automatically.
+            </p>
+
+            <h3>Focus states</h3>
+            <p>
+              The Focus state was designed and built across Primary and Secondary buttons and all
+              NavBar links across every breakpoint.
+            </p>
+
+            <h3>Typography</h3>
+            <p>
+              A pre-existing, fully-specified typography system — never previously applied to a
+              single layer — was recovered and reconciled against the built content. Exact matches
+              were reused, drifted values corrected, and gaps filled, resulting in zero remaining
+              manually-styled heading text across the site.
+            </p>
+          </section>
+
+          <!-- 06 Testing -->
+          <section id="testing">
+            <span class="label">06 — Testing</span>
+            <h2>Verification as part of the fix</h2>
+            <p>
+              Verification was treated as inseparable from the fix itself, not a separate pass
+              afterward. This surfaced two content bugs during the type-system reconciliation.
+            </p>
+
+            <div class="insight-grid">
+              <div class="insight-card">
+                <span class="label">Bug 1</span>
+                <p>An initial audit undercounted existing subtitles because its detection threshold missed genuine 16px text already present on Tablet.</p>
+              </div>
+              <div class="insight-card">
+                <span class="label">Bug 2</span>
+                <p>A fix pass briefly created duplicate subtitle content on Mobile, caught via a consecutive-ID pattern check before it was shipped.</p>
+              </div>
+              <div class="insight-card">
+                <span class="label">Outcome</span>
+                <p>Both were corrected within the same working pass rather than shipped and found later.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- 07 Outcome -->
+          <section id="outcome">
+            <span class="label">07 — Outcome</span>
+            <h2>Results & open items</h2>
+            <p>
+              All three flagged colour tokens now pass WCAG AA. Focus states exist across all
+              primary interactive components. Every heading across all eight frames is bound to a
+              named style. Two structural component bugs were fixed at the source rather than
+              patched per-instance.
+            </p>
+
+            <h3>Remaining work</h3>
+            <div class="insight-grid">
+              <div class="insight-card">
+                <span class="label">Alt text (WCAG 1.1.1)</span>
+                <p>Annotation needed for placeholder images and static maps — a map alone isn't usable by a screen reader without an accessible alternative.</p>
+              </div>
+              <div class="insight-card">
+                <span class="label">Tag tap targets (WCAG 2.5.8)</span>
+                <p>If Tags are ever used as interactive filters, their tap target will need enlarging to meet the 24×24px minimum.</p>
+              </div>
+            </div>
+          </section>
+
+        </div><!-- /case-content -->
+      </div><!-- /case-body -->
+
+      <!-- ── Next / Prev nav ──────────────────────────────── -->
+      <div class="case-nav">
+        <a href="index.html" class="link-arrow">← All projects</a>
+        <a href="housemate-bill-tracker.html" class="link-arrow">Next project →</a>
+      </div>
+
+    </div><!-- /container -->
+  </main>
+
+  <!-- ── Footer ─────────────────────────────────────────────── -->
+  <footer>
+    <div class="footer-inner">
+      <ul class="footer-links">
+        <li><a href="https://www.linkedin.com/in/joeybeaton" target="_blank" rel="noopener">LinkedIn ↗</a></li>
+        <li><a href="mailto:joeybeaton@yahoo.com">joeybeaton@yahoo.com</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+      <span class="footer-copy">© 2025 Joey Beaton</span>
+    </div>
+  </footer>
+
+</body>
+</html>

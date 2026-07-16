@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Library App Personalization — Joey Beaton</title>
+  <meta name="description" content="Case study: Library App Personalization — redesigning onboarding so early taps shape a personalized library home page." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ── Nav ───────────────────────────────────────────────── -->
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Joey Beaton</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Work</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <div class="container">
+
+      <!-- ── Case study hero ───────────────────────────────── -->
+      <div class="case-hero">
+        <span class="label">Case study</span>
+        <h1>Library App Personalization</h1>
+        <p class="hero-sub">
+          Redesigning library app onboarding so the first few taps after account creation shape a
+          personalized home page across physical books, ebooks, and audiobooks — instead of
+          defaulting every reader to the same bestseller list.
+        </p>
+
+        <div class="case-meta">
+          <div class="meta-item">
+            <span class="label">Role</span>
+            <p>Lead/Solo Accessibility Designer</p>
+          </div>
+          <div class="meta-item">
+            <span class="label">Timeline</span>
+            <p>Ongoing</p>
+          </div>
+          <div class="meta-item">
+            <span class="label">Team</span>
+            <p>Solo design work, handed off to development</p>
+          </div>
+          <div class="meta-item">
+            <span class="label">Platform</span>
+            <p>Responsive website (Desktop, Tablet Medium, Tablet Expanded, Mobile)</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Body: sidebar TOC + content ──────────────────── -->
+      <div class="case-body">
+
+        <!-- Sticky table of contents (hidden on mobile) -->
+        <aside class="case-toc">
+          <p class="case-toc-label">Contents</p>
+          <ul>
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#research">Research</a></li>
+            <li><a href="#define">Define</a></li>
+            <li><a href="#ideation">Ideation</a></li>
+            <li><a href="#design">Design</a></li>
+            <li><a href="#testing">Testing</a></li>
+            <li><a href="#outcome">Outcome</a></li>
+          </ul>
+        </aside>
+
+        <!-- Main content -->
+        <div class="case-content">
+
+          <!-- 01 Overview -->
+          <section id="overview">
+            <span class="label">01 — Overview</span>
+            <h2>The problem</h2>
+            <p>
+              Redesign onboarding for a library app so the first few interactions after account
+              creation directly shape what a reader sees on their personalized home page — across
+              physical books, ebooks, and audiobooks — rather than defaulting to generic bestseller
+              lists.
+            </p>
+            <p>
+              Scope covered three connected pieces: a taste-capturing onboarding flow, a book-detail
+              recommendation feature ("readers who enjoyed this also read"), and a genuine A/B
+              alternative onboarding path for comparison.
+            </p>
+
+            <div class="insight-grid" style="margin-top: var(--space-md);">
+              <div class="insight-card">
+                <span class="label">Onboarding flow</span>
+                <p>A taste-capturing flow that shapes the home page across books, ebooks, and audiobooks.</p>
+              </div>
+              <div class="insight-card">
+                <span class="label">Recommendations</span>
+                <p>A book-detail "readers who enjoyed this also read" feature.</p>
+              </div>
+              <div class="insight-card">
+                <span class="label">A/B alternative</span>
+                <p>A genuine second onboarding path, built for direct comparison rather than as a minor variant.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- 02 Research -->
+          <section id="research">
+            <span class="label">02 — Research</span>
+            <h2>Understanding the users</h2>
+            <p>
+              This was a self-directed design exercise rather than formal field research — no live
+              user interviews were conducted. Instead, the design was grounded in platform standards,
+              and personal frustration from using Libby and Borrow Box.
+            </p>
+
+            <div class="image-block image-block--mobile" style="max-height: 280px;">
+              <img src="images/public-library-onboarding-research.png" alt="Onboarding research screenshot" style="max-height: 280px; border: 8px solid #1a1a1a;" />
+            </div>
+            <p class="caption">A personalised home screen after onboarding user flow.</p>
+
+            <h3>What informed the design</h3>
+
+            <div class="insight-grid">
+              <div class="insight-card">
+                <span class="label">Reference-pattern grounding</span>
+                <p>Amazon's "customers who bought this also bought" was the direct model for a "readers who enjoyed this also read" feature, adapted to a reading-specific tone and mechanism — collaborative filtering on liked books, not purchases.</p>
+              </div>
+              <div class="insight-card">
+                <span class="label">Standards research</span>
+                <p>Material Design 3's window size classes (Compact/Medium/Expanded) grounded the "life stage" alternative onboarding concept and later informed the separate tablet breakpoint work.</p>
+              </div>
+              <div class="insight-card">
+                <span class="label">Competitive pattern scan</span>
+                <p>Spotify's onboarding style ("how do you like to listen") shaped the question "Books, ebooks, or audiobooks?" — since "how do you like to read" doesn't cover all mediums.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- 03 Define -->
+          <section id="define">
+            <span class="label">03 — Define</span>
+            <h2>Framing the opportunity</h2>
+            <p>
+              Core problem: genre alone gives a personalization system too little signal, and a
+              system with no way to say "not for me" or self-adjust inevitably drifts back toward
+              safe, generic bestseller recommendations — which is exactly what erodes user trust in
+              personalization.
+            </p>
+
+            <div class="image-block">
+              <img src="images/public-library-onboarding-define.png" alt="Like and not for me gesture screen" style="object-position: center 65%;" />
+            </div>
+            <p class="caption">More control over personalisation with 'like' and 'not for me' gestures.</p>
+
+            <p>
+              A persona was used to pressure-test the design: a frustrated reader who feels the app
+              keeps pushing bestsellers rather than anything tailored to them. This persona surfaced
+              several concrete gaps in the first draft.
+            </p>
+
+            <div class="insight-grid">
+              <div class="insight-card">
+                <span class="label">Biased signal</span>
+                <p>Onboarding book grids leaned entirely on popular titles, biasing the signal from day one.</p>
+              </div>
+              <div class="insight-card">
+                <span class="label">No negative signal</span>
+                <p>Only "liked" existed — there was no way to say "not for me."</p>
+              </div>
+              <div class="insight-card">
+                <span class="label">Unexplained fallback</span>
+                <p>The fallback shelf had no framing explaining why it appeared.</p>
+              </div>
+            </div>
+
+            <p>
+              Onboarding also never explained that the reader's taps directly shaped their home
+              page — a fourth gap that carried straight into the design decisions below.
+            </p>
+          </section>
+
+          <!-- 04 Ideation -->
+          <section id="ideation">
+            <span class="label">04 — Ideation</span>
+            <h2>Exploring solutions</h2>
+            <p>
+              Onboarding flow structure: genre picker → tap books you've read and enjoyed, with a
+              refresh mechanism when a reader doesn't recognize anything in a given genre.
+            </p>
+
+
+            <h3>Placing the "show me more" button</h3>
+            <p>
+              Four options were generated and compared: a button under the "don't recognize any of
+              these" prompt, a button grouped with the primary CTAs, an upgraded real button in the
+              same spot, and an in-grid refresh tile. The team landed on an upgraded full-width
+              button in its original position, after weighing discoverability against layout
+              disruption.
+            </p>
+
+            <h3>Two alternative onboarding journeys</h3>
+            <p>
+              Explored as a deliberate divergent step before committing to one direction: a
+              life-stage-first path (Child/Teen/Young Adult/Adult/Senior, reshaping UI complexity and
+              content filtering) and a format-and-context-first path (reading vs. listening, tied to
+              when/how someone actually consumes material). The format-first path was chosen to build
+              out as a genuine A/B alternative.
+            </p>
+          </section>
+
+          <!-- 05 Design -->
+          <section id="design">
+            <span class="label">05 — Design</span>
+            <h2>The solution</h2>
+            <p>
+              Core onboarding and recommendation flow, built across six connected screens: project
+              setup and shared styling rules, the genre picker screen, the book-tap grid with its
+              refresh states, the book detail page's "also read" section, the personalized home page,
+              and a flow map wiring the whole path into a clickable prototype.
+            </p>
+
+            <div class="image-block">
+              <!-- <img src="images/wireframes.jpg" alt="Mid-fidelity wireframes" /> -->
+              Image: wireframes or mid-fidelity prototype
+            </div>
+            <p class="caption">Mid-fidelity wireframes showing the revised information architecture.</p>
+
+            <h3>Decision 1: Iterating from the persona's pain points</h3>
+            <p>
+              Built directly from the persona review: onboarding microcopy explaining its purpose
+              plus a mainstream/niche "adventurousness" toggle, rebalanced book grids (70/30
+              bestseller-to-backlist mix) plus a "not interested" gesture separate from liking,
+              honest relabeling of the fallback shelf ("Popular right now — for a fresh read"), a
+              standalone "tune your recommendations" screen reachable at any time, and an entry point
+              plus flow map update tying it all together.
+            </p>
+
+            <div class="image-block">
+              <!-- <img src="images/final-screens.jpg" alt="Final high-fidelity screens" /> -->
+              Image: final high-fidelity screens
+            </div>
+            <p class="caption">Final screens after two rounds of usability testing and iteration.</p>
+
+            <h3>Decision 2: Refining "show me more"</h3>
+            <p>
+              The plain text link was replaced with a proper full-width button in its existing
+              position, and the flow map's connector labels were updated to match.
+            </p>
+
+            <h3>Decision 3: Building a genuine A/B alternative</h3>
+            <p>
+              The original path was labeled "Onboarding A" for clarity, then a fully independent
+              "Onboarding B" was built — a format picker, a context picker ("when do you usually make
+              time for these"), a cross-format tap grid mixing books, ebooks, and audiobooks, and its
+              own "Home page – variant B" — so the two personalization approaches could be visually
+              compared side by side rather than overwriting one another. A follow-up pass reflowed the
+              flow map into two clean rows once the second path made the original single-row layout
+              overcrowded.
+            </p>
+          </section>
+
+          <!-- 06 Testing -->
+          <section id="testing">
+            <span class="label">06 — Testing</span>
+            <h2>Validating through review, not live testing</h2>
+            <p>
+              No live usability testing occurred, as this was built as a portfolio project. Instead,
+              the design was pressure-tested through structured review methods.
+            </p>
+
+            <div class="insight-grid">
+              <div class="insight-card">
+                <span class="label">Persona-based heuristic review</span>
+                <p>Auditing the first draft against the "frustrated, always-bestsellers" reader to surface concrete design gaps before building further.</p>
+              </div>
+              <div class="insight-card">
+                <span class="label">Structural trade-off comparison</span>
+                <p>Explicitly weighing multiple button-placement options against each other — discoverability vs. visual hierarchy vs. layout disruption — before selecting one.</p>
+              </div>
+              <div class="insight-card">
+                <span class="label">Consistency checks</span>
+                <p>Mirroring the same states and interaction patterns across Onboarding A and B so the two could be fairly compared as a genuine A/B pair.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- 07 Outcome -->
+          <section id="outcome">
+            <span class="label">07 — Outcome</span>
+            <h2>Results & reflections</h2>
+            <p>
+              A completed A/B testing project, ready for the world.
+            </p>
+          </section>
+
+        </div><!-- /case-content -->
+      </div><!-- /case-body -->
+
+      <!-- ── Next / Prev nav ──────────────────────────────── -->
+      <div class="case-nav">
+        <a href="index.html" class="link-arrow">← All projects</a>
+        <a href="case-study.html" class="link-arrow">Next project →</a>
+      </div>
+
+    </div><!-- /container -->
+  </main>
+
+  <!-- ── Footer ─────────────────────────────────────────────── -->
+  <footer>
+    <div class="footer-inner">
+      <ul class="footer-links">
+        <li><a href="https://www.linkedin.com/in/joeybeaton" target="_blank" rel="noopener">LinkedIn ↗</a></li>
+        <li><a href="mailto:joeybeaton@yahoo.com">joeybeaton@yahoo.com</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+      <span class="footer-copy">© 2025 Joey Beaton</span>
+    </div>
+  </footer>
+
+</body>
+</html>
