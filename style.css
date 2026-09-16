@@ -486,8 +486,6 @@ nav {
 .table-wrap {
   overflow-x: auto;
   margin-top: var(--space-sm);
-  border: 1px solid var(--border);
-  border-radius: 8px;
 }
 
 .persona-table {
@@ -501,7 +499,7 @@ nav {
   text-align: left;
   padding: 0.9rem 1.1rem;
   font-size: 0.88rem;
-  border-bottom: 1px solid var(--border);
+  border: 1px solid var(--border);
   vertical-align: top;
 }
 
@@ -519,10 +517,6 @@ nav {
 .persona-table td {
   color: var(--black);
   line-height: 1.5;
-}
-
-.persona-table tbody tr:last-child td {
-  border-bottom: none;
 }
 
 .persona-table .persona-name {
