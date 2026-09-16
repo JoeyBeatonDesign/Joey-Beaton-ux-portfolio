@@ -30,10 +30,10 @@
       <!-- ── Case study hero ───────────────────────────────── -->
       <div class="case-hero">
         <span class="label">Case study</span>
-        <h1>Bath for Kids — Accessibility Audit</h1>
+        <h1>Bath for Kids Accessibility Audit</h1>
         <p class="hero-sub">
           An accessibility audit and remediation project targeting WCAG 2.2 Level AA compliance
-          across a responsive family-travel website — covering colour tokens, typography, focus
+          across a responsive family-travel website, covering colour tokens, typography, focus
           states, heading structure, and navigation across four breakpoints.
         </p>
 
@@ -52,7 +52,7 @@
           </div>
           <div class="meta-item">
             <span class="label">Platform</span>
-            <p>Responsive website — Desktop, Tablet Medium, Tablet Expanded, Mobile</p>
+            <p>Responsive website, Desktop, Tablet Medium, Tablet Expanded, Mobile</p>
           </div>
         </div>
       </div>
@@ -82,7 +82,7 @@
             <span class="label">01 — Overview</span>
             <h2>The project</h2>
             <p>
-              Bath for Kids is a responsive website helping families plan visits to Bath, UK —
+              Bath for Kids is a responsive website helping families plan visits to Bath, UK,
               covering things to do, parks, and local attractions.
             </p>
             <p>
@@ -119,7 +119,7 @@
               genuine failures once calculated.
             </p>
             <p>
-              The same rigour applied to verifying fixes — every claimed correction was independently
+              The same rigour applied to verifying fixes, and every claimed correction was independently
               checked at the node level (screenshots, component IDs, instance links) rather than
               accepted on a confident-sounding summary. This approach surfaced two implementation
               bugs a purely visual pass would likely have missed.
@@ -141,7 +141,7 @@
               </div>
               <div class="insight-card">
                 <span class="label">Focus states</span>
-                <p>No visible keyboard or switch-device focus indicator existed anywhere — only Default, Hover, and Disabled states were built.</p>
+                <p>No visible keyboard or switch-device focus indicator existed anywhere, only Default, Hover, and Disabled states were built.</p>
               </div>
               <div class="insight-card">
                 <span class="label">Heading structure</span>
@@ -165,14 +165,14 @@
             <h3>Double-ring focus indicator</h3>
             <p>
               A single ring colour can't hit 3:1 contrast against every background in the palette.
-              Two tokens — <em>focus/inner</em> and <em>focus/outer</em> — work together so at
+              Two tokens, <em>focus/inner</em> and <em>focus/outer</em>, work together so at
               least one ring always clears the minimum regardless of what it sits on.
             </p>
 
             <h3>Breakpoint-specific heading sizes</h3>
             <p>
               Hero and section headings are intentionally smaller on Tablet and Mobile than on
-              Desktop. The fix preserves that variation — semantic level (H1/H2/H3) stays constant
+              Desktop. The fix preserves that variation, keeping semantic level (H1/H2/H3) constant
               while rendered size changes by breakpoint, mirroring practice in mature design systems
               like GOV.UK's own type scale.
             </p>
@@ -183,7 +183,7 @@
             <span class="label">05 — Design</span>
             <h2>Remediation</h2>
             <p>
-              The corrected colour tokens now pass AA — for example, bg/hero moved from 3.24:1
+              The corrected colour tokens now pass AA, and for example bg/hero moved from 3.24:1
               to 4.78:1 against white text. Beyond the values themselves, 103 layers across three
               pages were found using hardcoded hex values instead of semantic variables and were
               re-bound, so future colour changes propagate automatically.
@@ -197,8 +197,8 @@
 
             <h3>Typography</h3>
             <p>
-              A pre-existing, fully-specified typography system — never previously applied to a
-              single layer — was recovered and reconciled against the built content. Exact matches
+              A pre-existing, fully-specified typography system, never previously applied to a
+              single layer, was recovered and reconciled against the built content. Exact matches
               were reused, drifted values corrected, and gaps filled, resulting in zero remaining
               manually-styled heading text across the site.
             </p>
@@ -244,7 +244,7 @@
             <div class="insight-grid">
               <div class="insight-card">
                 <span class="label">Alt text (WCAG 1.1.1)</span>
-                <p>Annotation needed for placeholder images and static maps — a map alone isn't usable by a screen reader without an accessible alternative.</p>
+                <p>Annotation needed for placeholder images and static maps, since a map alone isn't usable by a screen reader without an accessible alternative.</p>
               </div>
               <div class="insight-card">
                 <span class="label">Tag tap targets (WCAG 2.5.8)</span>
