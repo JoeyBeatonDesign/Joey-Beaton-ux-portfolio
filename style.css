@@ -483,6 +483,54 @@ nav {
 .insight-card .label { margin-bottom: 0.5rem; }
 .insight-card p { font-size: 0.9rem; color: var(--black); }
 
+.table-wrap {
+  overflow-x: auto;
+  margin-top: var(--space-sm);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.persona-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 640px;
+}
+
+.persona-table th,
+.persona-table td {
+  text-align: left;
+  padding: 0.9rem 1.1rem;
+  font-size: 0.88rem;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+
+.persona-table th {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gray);
+  background: var(--light);
+  white-space: nowrap;
+}
+
+.persona-table td {
+  color: var(--black);
+  line-height: 1.5;
+}
+
+.persona-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.persona-table .persona-name {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
 .image-block {
   width: 100%;
   aspect-ratio: 16/9;
