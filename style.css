@@ -406,6 +406,14 @@ nav {
   object-position: top;
 }
 
+.case-cover--natural {
+  aspect-ratio: auto;
+}
+
+.case-cover--natural img {
+  height: auto;
+}
+
 /* Case study body */
 .case-body {
   display: grid;
