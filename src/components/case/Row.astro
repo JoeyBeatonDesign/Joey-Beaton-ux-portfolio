@@ -1,0 +1,76 @@
+---
+// Figma: Case study row. Desktop: Process card (left, offset down by layout/card-offset) + Case study section (right).
+// Mobile: divider, process card, section. The process card title is the step's H2; its big number is decorative.
+import Section from './Section.astro';
+interface Props {
+  number?: string;
+  title?: string;
+  summary?: string;
+  heading?: string;
+  subheading?: string;
+  body?: string;
+  progress?: string;
+  divider?: boolean;
+}
+const { number, title, summary, heading, subheading, body, progress, divider = true } = Astro.props;
+const card = Boolean(title);
+---
+<div class:list={['row', { 'row--card': card }]}>
+  {card && (
+    <>
+      <hr class="divider divider--flush row__mobile-divider" />
+      <div class="row__slot">
+        <div class="pcard">
+          <p class="pcard__number t-heading-page" aria-hidden="true">{number}</p>
+          <h2 class="pcard__title t-heading-item">{title}</h2>
+          <p class="pcard__body t-body">{summary}</p>
+        </div>
+      </div>
+    </>
+  )}
+  <Section class="row__section" title={heading} subheading={subheading} body={body} progress={progress} divider={divider}>
+    <slot />
+  </Section>
+</div>
+
+<style>
+  .row {
+    display: flex;
+    flex-direction: column;
+    gap: var(--layout-block-gap);
+  }
+  .row__slot {
+    padding-top: var(--layout-card-offset);
+  }
+  .pcard {
+    display: flex;
+    flex-direction: column;
+    gap: var(--layout-stack);
+    padding: var(--layout-card-padding);
+    border-radius: var(--radius-card);
+    background: var(--colour-bg-surface);
+  }
+  .pcard__number { color: var(--colour-text-muted); }
+  .pcard__title { color: var(--colour-text-heading); }
+  .pcard__body { color: var(--colour-text-body); }
+
+  @media (min-width: 1280px) {
+    .row {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: var(--layout-gutter);
+    }
+    .row:not(.row--card) {
+      justify-content: flex-end;
+    }
+    .row__mobile-divider { display: none; }
+    .row__slot { flex: none; width: var(--layout-process-card-width); }
+    .row :global(.row__section) { flex: none; }
+    .row--card :global(.row__section) > :global(.divider) { display: block; }
+  }
+  /* Desktop shows the divider inside the section; mobile shows it above the card instead */
+  @media (max-width: 1279px) {
+    .row--card :global(.row__section) > :global(.divider) { display: none; }
+  }
+</style>

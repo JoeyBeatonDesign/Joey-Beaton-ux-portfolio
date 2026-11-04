@@ -1,0 +1,165 @@
+---
+// Figma: Image (Size Large / Figure, Stage On) + Lightbox / Lightbox / Figure.
+// The image sits on colour/bg/image-accent with layout/block-gap padding. Hover: Elevation/Hover + enlarge chip.
+// Clicking opens a lightbox (modal dialog): focus moves to Close, Esc or a click outside closes it,
+// and focus returns to the image. Desktop shows `image`; below 1280px shows `mobile` when given.
+import { getImage } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import Icon from '../Icon.astro';
+
+interface Props {
+  id: string;
+  image: ImageMetadata;
+  mobile?: ImageMetadata;
+  lightbox?: ImageMetadata;
+  alt: string;
+  caption?: string;
+}
+const { id, image, mobile, lightbox, alt, caption } = Astro.props;
+const desk = await getImage({ src: image, format: 'webp', widths: [909, 1818], width: 1818 });
+const mob = mobile ? await getImage({ src: mobile, format: 'webp', widths: [358, 716], width: 716 }) : null;
+const big = await getImage({ src: lightbox ?? image, format: 'webp', width: (lightbox ?? image).width });
+const dialogId = `lightbox-${id}`;
+---
+<figure class="fig">
+  <button type="button" class="fig__media" data-lightbox-open={dialogId} aria-haspopup="dialog">
+    <picture>
+      {mob && <source media="(max-width: 1279px)" srcset={mob.srcSet.attribute} sizes="100vw" />}
+      <img src={desk.src} srcset={desk.srcSet.attribute} sizes="(min-width: 1280px) 813px, 100vw" alt={alt} width={image.width} height={image.height} loading="lazy" decoding="async" />
+    </picture>
+    <span class="fig__chip" aria-hidden="true"><Icon name="enlarge" /></span>
+    <span class="visually-hidden">Enlarge image</span>
+  </button>
+  {caption && <figcaption class="fig__caption t-body">{caption}</figcaption>}
+</figure>
+
+<dialog id={dialogId} class="lightbox" aria-label={alt}>
+  <div class="lightbox__inner">
+    <div class="lightbox__controls">
+      <button type="button" class="lightbox__close" data-lightbox-close aria-label="Close image"><Icon name="close" /></button>
+    </div>
+    <img class="lightbox__img" src={big.src} alt={alt} width={(lightbox ?? image).width} height={(lightbox ?? image).height} loading="lazy" decoding="async" />
+  </div>
+</dialog>
+
+<style>
+  .fig {
+    display: flex;
+    flex-direction: column;
+    gap: var(--layout-inline);
+    width: 100%;
+    max-width: var(--layout-content-width);
+    margin: 0;
+  }
+  .fig__media {
+    position: relative;
+    display: block;
+    width: 100%;
+    padding: var(--layout-block-gap);
+    border: 0;
+    border-radius: var(--radius-card);
+    background: var(--colour-bg-image-accent);
+    cursor: zoom-in;
+    transition: box-shadow 150ms ease-out;
+  }
+  .fig__media img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-image);
+  }
+  .fig__chip {
+    position: absolute;
+    top: var(--layout-stack);
+    right: var(--layout-stack);
+    display: grid;
+    place-items: center;
+    padding: var(--layout-inline);
+    border-radius: var(--radius-button);
+    background: var(--colour-bg-image-accent);
+    color: var(--navy-900);
+    opacity: 0;
+    transition: opacity 150ms ease-out;
+  }
+  .fig__media:hover,
+  .fig__media:focus-visible {
+    box-shadow: 0 var(--space-8) var(--space-24) var(--space-0) var(--colour-shadow);
+  }
+  .fig__media:focus-visible {
+    box-shadow:
+      0 0 0 calc(var(--border-active) * 2) var(--colour-focus-ring-outer),
+      0 var(--space-8) var(--space-24) var(--space-0) var(--colour-shadow);
+  }
+  .fig__media:hover .fig__chip,
+  .fig__media:focus-visible .fig__chip {
+    opacity: 1;
+  }
+  .fig__caption { color: var(--colour-text-body); }
+
+  /* Lightbox: open 200ms fade, close instant */
+  .lightbox {
+    width: 100%;
+    max-width: calc(1376px + 2 * var(--layout-margin));
+    max-height: 100%;
+    margin: auto;
+    padding: var(--layout-margin);
+    border: 0;
+    background: transparent;
+    overflow: auto;
+  }
+  .lightbox[open] { animation: lb-fade 200ms ease-out; }
+  .lightbox::backdrop { background: var(--colour-overlay-scrim); }
+  @keyframes lb-fade { from { opacity: 0; } to { opacity: 1; } }
+  .lightbox__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--layout-card-padding);
+  }
+  .lightbox__controls {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+  }
+  .lightbox__close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--layout-control-size);
+    height: var(--layout-control-size);
+    padding: var(--layout-stack);
+    border: var(--border-default) solid var(--colour-action-outline);
+    border-radius: var(--radius-button);
+    background: var(--colour-bg-page);
+    color: var(--colour-action-outline);
+    cursor: pointer;
+  }
+  .lightbox__img {
+    width: auto;
+    max-width: 100%;
+    height: auto;
+  }
+  @media (min-width: 1280px) {
+    .lightbox__img { max-height: 880px; }
+  }
+</style>
+
+<script>
+  // One handler for every lightbox on the page.
+  document.querySelectorAll<HTMLButtonElement>('[data-lightbox-open]').forEach((opener) => {
+    const dialog = document.getElementById(opener.dataset.lightboxOpen!) as HTMLDialogElement | null;
+    if (!dialog) return;
+    opener.addEventListener('click', () => {
+      dialog.showModal();
+      dialog.querySelector<HTMLButtonElement>('[data-lightbox-close]')?.focus();
+    });
+    dialog.querySelector('[data-lightbox-close]')?.addEventListener('click', () => dialog.close());
+    // Click on the dark area outside the image closes it.
+    dialog.addEventListener('click', (e) => {
+      if (e.target === dialog || e.target === dialog.firstElementChild) dialog.close();
+    });
+    dialog.addEventListener('close', () => opener.focus());
+  });
+</script>

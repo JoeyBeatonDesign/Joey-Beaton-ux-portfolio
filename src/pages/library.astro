@@ -1,0 +1,81 @@
+---
+// Figma: Library - Desktop / Mobile
+import CaseLayout from '../components/case/CaseLayout.astro';
+import Row from '../components/case/Row.astro';
+import Section from '../components/case/Section.astro';
+import Figure from '../components/case/Figure.astro';
+import home from '../assets/figures/library-home-page.png';
+import homeM from '../assets/figures/library-home-page-mobile.png';
+import homeL from '../assets/figures/library-lightbox-home-page.png';
+import genre from '../assets/figures/library-genre-picker.png';
+import genreM from '../assets/figures/library-genre-picker-mobile.png';
+import genreL from '../assets/figures/library-lightbox-genre-picker.png';
+import grid from '../assets/figures/library-book-grid.png';
+import gridM from '../assets/figures/library-book-grid-mobile.png';
+import gridL from '../assets/figures/library-lightbox-book-grid.png';
+import prefs from '../assets/figures/library-preferences.png';
+import prefsM from '../assets/figures/library-preferences-mobile.png';
+import prefsL from '../assets/figures/library-lightbox-preferences.png';
+---
+<CaseLayout
+  title="Library onboarding"
+  pageTitle="Library onboarding case study – Joey Beaton"
+  description="Library onboarding case study: designing a personalised start for a library app, from picking genres and rating books to recommendations you can tune."
+  next="/bath-with-kids/"
+  meta={[['Role', 'Product Designer'], ['Context', 'Personal Project'], ['Focus', 'Personalisation'], ['Tools', 'Figma & Claude Code']]}
+>
+  <div class="group">
+    <Row divider={false} heading="Personalisation of a library app" body="I redesigned a library app onboarding experience so the first few taps after account creation shape a personalised home page, instead of defaulting every reader to the same bestseller list." />
+    <div class="right"><Figure id="library-home" image={home} mobile={homeM} lightbox={homeL} alt="Personalised home screen with rows of books, such as Because you liked Project Hail Mary, and genre picks." /></div>
+  </div>
+
+  <Row number="01" title="The problem" summary="No onboarding led to generic book recommendations" progress="TTTD"
+    body="This was born out of my own frustration with the default reading options from the bestseller list as well as wanting inspiration for what to read that didn’t default to what publishers were trying to sell, but instead was tailored to my tastes." />
+
+  <div class="group">
+    <Row number="02" title="The solution" summary="Building an onboarding journey" progress="TTDD"
+      body={`The first page of onboarding personalises the user’s reading options through two interactions. First, the user picks at least three genres. They can’t continue until they have chosen three, which ensures the library catalogue can offer enough books for the discovery step that follows.
+
+Next, the user moves a slider below the genres to choose between ‘well-known books’ and ‘more adventurous’ options. This gives the app a further signal about the kind of reading the user is likely to enjoy.`} />
+    <div class="right"><Figure id="library-genre" image={genre} mobile={genreM} lightbox={genreL} alt="Onboarding step 1: pick at least 3 genres, then choose well-known or lesser-known books." /></div>
+  </div>
+
+  <div class="group">
+    <Section class="right" body={`On the next page, the user sees a selection of books from their chosen genres, with the instructions ‘tap the heart for books you loved’ and ‘tap X if a book or genre isn’t for you’. Each tap tells the app more about their reading taste. When the user taps ‘X’, a new book replaces it, giving them a second chance to tell the app what they do and don’t enjoy.
+
+If the user doesn’t recognise any of the first books, the cue ‘not see anything familiar’ leads them to the ‘show me more’ button. This shows them 12 more books, so they can give the app a better picture of their taste.
+
+Both onboarding pages include ‘skip this step’ and ‘take me to my homepage’ buttons. These let the user skip onboarding if they already know what book they’re looking for, or if they don’t have time when they first download the app.`} />
+    <div class="right"><Figure id="library-grid" image={grid} mobile={gridM} lightbox={gridL} alt="Onboarding step 2: tap the heart on books you’ve enjoyed, or ask for more, then go to your home page." /></div>
+  </div>
+
+  <div class="group">
+    <Section class="right" body={`When the user arrives at their homepage, they see a personalised list of books based on the ones they told the app they enjoyed.
+
+Finally, the user can keep refining their taste on a dedicated page. Based on Netflix’s thumbs-up ratings, it lets them mark books as ‘loved’, ‘liked’ or ‘not for me’. Each rating tells the app more about the reading they enjoy and helps it recommend other books they’ll like.`} />
+    <div class="right"><Figure id="library-prefs" image={prefs} mobile={prefsM} lightbox={prefsL} alt="Tune your recommendations screen: edit genres, how adventurous to be, liked books and ones you’re not interested in." /></div>
+  </div>
+
+  <Row number="03" title="The journey" summary="What informed my decision making" progress="TDDD"
+    body={`I started from my own frustration with Libby and BorrowBox. Every time I opened them, I was shown the same bestsellers, whatever I’d read before.
+
+To test my first draft, I used a persona: a frustrated reader who feels the app only ever pushes bestsellers. Looking at the onboarding through their eyes showed three clear gaps:
+- The book grids leaned entirely on popular titles
+- There was no way to say “not for me”
+- Nothing told the reader that their taps shaped their homepage
+
+Two existing products shaped how I closed those gaps.
+
+Amazon’s “customers who bought this also bought” was the biggest influence on the two onboarding pages where readers tap the books they liked and didn’t like. Every tap feeds the recommendations, just as every purchase does on Amazon. It also shaped the wording on the homepage. Shelves such as “Because you liked Project Hail Mary” show readers exactly why they’re seeing each set of books.
+
+Netflix’s ratings informed the “tune your recommendations” page. Netflix uses two thumbs up for “love this”, one thumbs up for “like this” and thumbs down for “not for me”. I kept mine to two choices, ‘like this’ and ‘not for me’, but this still enabled readers to keep refining their taste at any time.`} />
+
+  <Row number="04" title="Outcome and reflection" summary="Next steps and learning" progress="DDDD"
+    body={`What I’d change next:
+- Add a “no preference” option to the first page, so readers who don’t mind whether a book is well known or more adventurous don’t have to pick a side
+- Give the tune page three ratings (‘loved’, ‘liked’ and ‘not for me’), like Netflix. The prototype currently has two.
+
+What’s next:
+- Usability testing with real library users, to find out whether onboarding feels worth the effort and whether the homepage actually feels personal
+- Revisit the alternative onboarding route. I built a second version that starts with format and reading habits, similar to Spotify’s “how do you like to listen”. Feedback from one person made me question whether it’s useful, so it needs proper testing before I decide whether to keep it.`} />
+</CaseLayout>

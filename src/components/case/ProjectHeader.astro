@@ -1,0 +1,28 @@
+---
+// Figma: Project header. The project name is the page's H1.
+import ButtonPair from './ButtonPair.astro';
+interface Props { title: string; next?: string }
+const { title, next } = Astro.props;
+---
+<header class="ph container">
+  <h1 class="ph__title t-heading-page">{title}</h1>
+  {next && <ButtonPair href={next} label="Next project" />}
+</header>
+
+<style>
+  .ph {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--layout-stack);
+    padding-top: var(--layout-block-gap);
+  }
+  .ph__title { color: var(--colour-text-heading); }
+  @media (min-width: 1280px) {
+    .ph {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+</style>

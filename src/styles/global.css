@@ -139,6 +139,18 @@ button {
   padding-inline: var(--layout-margin);
 }
 
+/* Figma: Divider (decorative, colour/border/subtle). The "Divider block" adds 32px below it. */
+.divider {
+  width: 100%;
+  height: 0;
+  margin: 0 0 var(--layout-label-gap);
+  border: 0;
+  border-top: var(--border-default) solid var(--colour-border-subtle);
+}
+.divider--flush {
+  margin: 0;
+}
+
 .visually-hidden {
   position: absolute !important;
   width: 1px;

@@ -1,0 +1,108 @@
+---
+// Figma: Bath with Kids - Desktop / Mobile
+import CaseLayout from '../components/case/CaseLayout.astro';
+import Row from '../components/case/Row.astro';
+import Section from '../components/case/Section.astro';
+import Figure from '../components/case/Figure.astro';
+import Callout from '../components/case/Callout.astro';
+import hero from '../assets/figures/bwk-hero.png';
+import lovable from '../assets/figures/bwk-original-lovable.png';
+import tokens from '../assets/figures/bwk-colour-tokens-before-after.png';
+import tokensM from '../assets/figures/bwk-colour-tokens-before-after-mobile.png';
+import focus from '../assets/figures/bwk-focus-states-before-after.png';
+import focusM from '../assets/figures/bwk-focus-states-before-after-mobile.png';
+import typeScale from '../assets/figures/bwk-type-scale-by-breakpoint.png';
+import pinColour from '../assets/figures/bwk-pin-colour-before-after.png';
+import pinColourM from '../assets/figures/bwk-pin-colour-before-after-mobile.png';
+import pinContrast from '../assets/figures/bwk-pin-contrast-before-after.png';
+import pinContrastM from '../assets/figures/bwk-pin-contrast-before-after-mobile.png';
+import finalScreens from '../assets/figures/bwk-final-screens.png';
+---
+<CaseLayout
+  title="Bath with Kids"
+  pageTitle="Bath with Kids accessibility case study – Joey Beaton"
+  description="An accessibility retrofit of the Bath with Kids site to WCAG 2.2 AA, fixing colour contrast, focus states and heading structure with design tokens."
+  next="/billsmart/"
+  meta={[['Role', 'Solo designer'], ['Context', 'Hackathon rebuild'], ['Focus', 'Accessibility (WCAG 2.2 AA)'], ['Tools', 'Lovable, Figma & Claude Code']]}
+>
+  <div class="group">
+    <Row divider={false} heading="An accessibility retrofit" body={`The challenge: bring an existing design system up to WCAG 2.2 AA without losing its visual identity.
+
+Platform: Responsive website across Desktop, Tablet Expanded, Tablet Medium and Mobile
+Standard: WCAG 2.2 Level AA, following the DWP Accessibility Manual`} />
+    <div class="right"><Figure id="bwk-hero" image={hero} alt="The rebuilt Bath with Kids site on desktop and mobile, with a teal header and Things to do cards for parks and activities." /></div>
+  </div>
+
+  <div class="group">
+    <Row number="01" title="The problem" summary="Built in two hours, with no design system or contrast checks." progress="TTTTD"
+      body={`I originally designed and built this website in Lovable at a hackathon in about two hours. Because of the time frame I hadn’t prompted it to create a design system, and contrasting colours hadn’t been taken into consideration. I loved how quick and easy Lovable was to use, but I hadn’t thought about accessibility while building the site.
+
+When I audited it, the gaps fell into four areas:
+- Colour contrast: three colour tokens failed, the worst at 1.41:1 against a 3:1 requirement.
+- Hardcoded colours: hundreds of layers used raw hex values instead of the design system’s variables.
+- Focus states: there was no visible focus indicator anywhere for keyboard or switch-device users.
+- Headings: none of them used a named text style, so nothing enforced the hierarchy.`} />
+    <div class="right"><Figure id="bwk-lovable" image={lovable} alt="The original Lovable site: a bright cyan Welcome page with pink-icon cards for Parks, Activities, Places to Eat and more." /></div>
+  </div>
+
+  <Row number="02" title="The solution" summary="A WCAG 2.2 AA audit, fixed at the design system level." progress="TTTDD"
+    body={`I liked the concept, so I exported it into Figma and decided to run a WCAG 2.2 Level AA audit, following the DWP Accessibility Manual. It was a back-to-front way of working, but an interesting one.
+
+Rather than judging contrast by eye, I calculated every ratio from the actual hex values. Several colours that looked “close enough” on screen turned out to be genuine failures. I used AI tools to apply the fixes, and I checked every change myself in the file rather than taking a summary at its word. Those checks kept turning things up, which you’ll see below.
+
+I fixed everything at the design system level, through colour tokens, components and text styles, so each fix carries across every screen and breakpoint.`} />
+
+  <div class="group">
+    <Row number="03" title="The journey" summary="Five fixes, traced through tokens, components and styles." progress="TTDDD" subheading="Colour contrast"
+      body={`Three colour tokens failed WCAG 1.4.3 (text contrast) or 1.4.11 (non-text contrast). All three now pass AA.
+- Accent (the Primary button): white label went from 2.16:1 to 4.80:1, against a 4.5:1 requirement.
+- Border: against a white card went from 1.41:1 to 3.73:1, against a 3:1 requirement. This was the worst failure.
+- Hero background: white body text went from 3.24:1 to 4.78:1. Interestingly, the large hero heading already passed, because WCAG only asks 3:1 for large text. It was the body copy that failed.`} />
+    <div class="right"><Figure id="bwk-tokens" image={tokens} mobile={tokensM} alt="Before and after: a darker teal banner, a darker orange View on Map button and a stronger card border for better contrast." caption="Before and after: hero, button and border colours now pass WCAG contrast (4.5:1 for text, 3:1 for borders)." /></div>
+  </div>
+
+  <Section class="right" subheading="Getting rid of hardcoded colours" body="Overall I re-bound 427 layers that used raw hex values instead of variables. I worked through every remaining colour by role, adding a handful of semantic tokens, for example a hero band, tag background and icon-on-dark colour. Every colour on Home and Parks is now bound to a semantic token, so a future colour change flows through the whole site." />
+
+  <div class="group">
+    <Section class="right" subheading="Focus states (WCAG 2.4.7)" body="The design system had no visible focus indicator for keyboard or switch-device users. Interactive components only had Default, Hover and Disabled states. I designed and built a new Focus state across all of them." />
+    <div class="right">
+      <Callout label="Design decision">A double-ring indicator. A single ring colour can’t reach 3:1 against every background in this palette. The white outer ring is 8.04:1 on the teal navigation bar, but disappears completely on white (1.00:1). The dark inner ring is 17.22:1 on white, but only 2.14:1 on teal. Used together, at least one ring always clears the minimum, whatever the focused element sits on.</Callout>
+    </div>
+    <div class="right"><Figure id="bwk-focus" image={focus} mobile={focusM} alt="Before, buttons and nav links show no focus. After, a double focus ring stays visible on both white and teal." caption="Before: no visible focus. After: a double ring that stays visible on both white and teal." /></div>
+  </div>
+
+  <div class="group">
+    <Section class="right" subheading="Heading structure (WCAG 1.3.1 / 2.4.6)" body={`When I audited every heading, none of them used a named text style. The visual hierarchy made sense, but nothing in the design system enforced it.
+
+While digging, I found a fully specified typography system already in the file that had never been applied to a single layer. Instead of starting again, I reconciled it against the built content. I reused exact matches, corrected values that had drifted and filled the gaps. Now every heading across all eight frames (Home and Parks at four breakpoints) is bound to a named style, and so are the navigation links.`} />
+    <div class="right">
+      <Callout label="Design decision">Breakpoint-specific sizes, not one forced size. Hero and section headings are smaller on Tablet and Mobile than on Desktop. I kept that rather than forcing one size everywhere, which would either swamp a phone screen or shrink the desktop hero. The semantic level (H1, H2, H3) stays the same while the rendered size changes by breakpoint. That mirrors how mature design systems like GOV.UK’s type scale work.</Callout>
+    </div>
+    <div class="right"><Figure id="bwk-type" image={typeScale} alt="Heading sizes H1 to H3 at desktop, two tablet widths and mobile, with H1 going from 56px on desktop to 36px." /></div>
+  </div>
+
+  <div class="group">
+    <Section class="right" subheading="Embedding the brand colours" body="I replaced the flat map placeholder with an illustrated vector map that has its own set of land, park and road colour tokens, plus a new pin in the site’s orange accent. When I checked the pin against every map colour, it passed 3:1 everywhere except the thin road edges underneath it, which came out at 2.7:1. Rather than darken the brand orange, which would have changed buttons and links across the whole site, I lightened the road-edge colour just enough to reach 3.02:1. The edges stay visible, and the change only touches the map." />
+    <div class="right"><Figure id="bwk-pin-colour" image={pinColour} mobile={pinColourM} alt="Map pin before and after: the bright red pin changed to the site’s brand orange." caption="Before: the red map pin. After: the orange accent pin from the Brand colour token." /></div>
+    <div class="right"><Figure id="bwk-pin-contrast" image={pinContrast} mobile={pinContrastM} alt="Map before and after: the road colour was changed so the orange pin stands out more clearly against it." caption="Lighter road edges raise pin contrast from 2.70:1 to 3.02:1, passing 3:1." /></div>
+  </div>
+
+  <div class="group">
+    <Row number="04" title="Outcome" summary="Every failing token now passes AA." progress="TDDDD"
+      body={`- All three failing colour tokens now pass WCAG AA.
+- Every colour on the Home and Parks screens is bound to a semantic token.
+- Every interactive component has a visible keyboard Focus state.
+- Every heading across all eight frames uses a named text style.
+- The map pin has at least 3:1 contrast against every map colour.
+
+Still to do, in priority order:
+1. Alt text (WCAG 1.1.1). Each photo component needs alt text recorded in the file for handoff. The map should be marked decorative, with a text alternative next to it, the park’s address and a “Get directions” link, because a map image on its own isn’t usable with a screen reader.
+2. Tag tap targets (WCAG 2.5.8). If Tags ever become interactive filters, their tap target will need enlarging to meet the 24 × 24px minimum.`} />
+    <div class="right"><Figure id="bwk-final" image={finalScreens} alt="Final Home and Parks pages at desktop, two tablet widths and Android mobile." /></div>
+  </div>
+
+  <Row number="05" title="Reflection" summary="Accessibility is far harder to add afterwards." progress="DDDDD"
+    body={`Building first and auditing second taught me how much harder accessibility is to add afterwards. Every fix had to be traced back through tokens and components, and a second check found far more than the first. Next time I’d set up a design system with contrast-checked colours and focus states before building a single screen, even at a hackathon.
+
+I also learnt to treat “it looks fine” and “it’s done” as claims to check, not facts. Calculating ratios instead of eyeballing them is what surfaced the card border failure, and checking every AI-assisted change in the file caught mistakes I would otherwise have shipped.`} />
+</CaseLayout>

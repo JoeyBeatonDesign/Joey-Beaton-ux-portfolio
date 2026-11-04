@@ -1,0 +1,49 @@
+---
+// Figma: Button / Pair (Button / Arrow + Button / Primary). One link, so it's a single tab stop.
+import Icon from '../Icon.astro';
+interface Props { href: string; label: string; class?: string }
+const { href, label, class: className } = Astro.props;
+---
+<a href={href} class:list={['pair', className]}>
+  <span class="pair__arrow" aria-hidden="true"><Icon name="arrow-right" /></span>
+  <span class="pair__label t-button">{label}</span>
+</a>
+
+<style>
+  .pair {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--layout-inline);
+    border-radius: var(--radius-button);
+  }
+  .pair__arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--layout-control-size);
+    height: var(--layout-control-size);
+    border: var(--border-default) solid var(--colour-action-outline);
+    border-radius: var(--radius-button);
+    color: var(--colour-action-outline);
+    transition: background-color 150ms ease-out, color 150ms ease-out, border-color 150ms ease-out;
+  }
+  .pair__label {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--layout-control-size);
+    padding: var(--layout-button-y) var(--layout-card-padding);
+    border-radius: var(--radius-button);
+    background: var(--colour-action-bg);
+    color: var(--colour-action-text);
+    white-space: nowrap;
+    transition: background-color 150ms ease-out;
+  }
+  .pair:hover .pair__arrow {
+    background: var(--colour-action-bg-hover);
+    border-color: var(--colour-action-bg-hover);
+    color: var(--colour-action-text);
+  }
+  .pair:hover .pair__label {
+    background: var(--colour-action-bg-hover);
+  }
+</style>

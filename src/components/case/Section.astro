@@ -1,0 +1,59 @@
+---
+// Figma: Case study section (909 wide, right-hand column on desktop).
+// title = H2 (intro only), subheading = H3, then the body copy. Optional divider and progress squares.
+import Rich from './Rich.astro';
+import Progress from './Progress.astro';
+interface Props {
+  title?: string;
+  subheading?: string;
+  body?: string;
+  divider?: boolean;
+  progress?: string;
+  class?: string;
+}
+const { title, subheading, body, divider = false, progress, class: className } = Astro.props;
+---
+<div class:list={['cs', className]}>
+  {divider && <hr class="divider" />}
+  <div class="cs__row">
+    <div class="cs__text">
+      {title && <h2 class="cs__title t-heading-section">{title}</h2>}
+      {subheading && <h3 class="cs__sub t-heading-item">{subheading}</h3>}
+      {body && <Rich text={body} />}
+      <slot />
+    </div>
+    {progress && <Progress steps={progress} />}
+  </div>
+</div>
+
+<style>
+  .cs {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: var(--layout-content-width);
+  }
+  .cs__row {
+    display: flex;
+    flex-direction: column;
+    gap: var(--layout-stack);
+  }
+  .cs__text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--layout-stack);
+    max-width: var(--layout-text-column);
+  }
+  .cs__title,
+  .cs__sub {
+    color: var(--colour-text-heading);
+  }
+  @media (min-width: 1280px) {
+    .cs__row {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .cs__text { width: var(--layout-text-column); }
+  }
+</style>

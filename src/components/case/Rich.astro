@@ -1,0 +1,50 @@
+---
+// Turns plain case-study copy into paragraphs and lists, matching the Figma text:
+// blank line = new paragraph, "- " = bullet item, "1. " = numbered item, other line breaks = <br>.
+interface Props { text: string; class?: string }
+const { text, class: className } = Astro.props;
+type Block = { kind: 'p'; lines: string[] } | { kind: 'ul' | 'ol'; items: string[] };
+const blocks: Block[] = [];
+for (const raw of text.trim().split('\n')) {
+  const line = raw.trimEnd();
+  const last = blocks[blocks.length - 1];
+  if (line === '') { blocks.push({ kind: 'p', lines: [] }); continue; }
+  const ul = line.match(/^- (.*)$/);
+  const ol = line.match(/^\d+\. (.*)$/);
+  if (ul || ol) {
+    const kind = ul ? 'ul' : 'ol';
+    const item = (ul ?? ol)![1];
+    if (last && last.kind === kind) last.items.push(item);
+    else blocks.push({ kind, items: [item] });
+  } else if (last && last.kind === 'p') last.lines.push(line);
+  else blocks.push({ kind: 'p', lines: [line] });
+}
+const clean = blocks.filter((b) => (b.kind === 'p' ? b.lines.length : b.items.length));
+---
+<div class:list={['rich t-body', className]}>
+  {clean.map((b) =>
+    b.kind === 'p'
+      ? <p set:html={b.lines.join('<br />')} />
+      : b.kind === 'ul'
+        ? <ul>{b.items.map((i) => <li set:html={i} />)}</ul>
+        : <ol>{b.items.map((i) => <li set:html={i} />)}</ol>
+  )}
+</div>
+
+<style>
+  .rich {
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+    color: var(--colour-text-body);
+  }
+  .rich :global(ul),
+  .rich :global(ol) {
+    margin: 0;
+    padding-left: var(--layout-card-padding);
+  }
+  .rich :global(p + ul),
+  .rich :global(p + ol) {
+    margin-top: -26px;
+  }
+</style>

@@ -1,0 +1,82 @@
+---
+// Figma: Pulse - Desktop / Mobile (last case study, so no Next project button)
+import CaseLayout from '../components/case/CaseLayout.astro';
+import Row from '../components/case/Row.astro';
+import Figure from '../components/case/Figure.astro';
+import Callout from '../components/case/Callout.astro';
+import DataTable from '../components/case/DataTable.astro';
+import hero from '../assets/figures/pulse-hero.png';
+import heroM from '../assets/figures/pulse-hero-mobile.png';
+import phase2 from '../assets/figures/pulse-phase-2.png';
+import phase2M from '../assets/figures/pulse-phase-2-mobile.png';
+---
+<CaseLayout
+  title="Pulse"
+  pageTitle="Pulse user research case study – Joey Beaton"
+  description="Usability testing a student connection app with real students: what five one-to-one sessions revealed in Phase 1 and the research plan for Phase 2."
+  meta={[['Role', 'UX Research Lead'], ['Team', 'Founder (product) and me (research)'], ['Platform', 'Mobile app'], ['Status', 'Phase 1 complete, Phase 2 starting soon']]}
+>
+  <div class="group">
+    <Row heading="Testing a student connection app with real students" body={`An app that helps university students connect, chat and meet up in person.
+
+The challenge: find out whether students can use Pulse without help, and give the founder evidence rather than guesswork about what to fix.`} />
+    <div class="right"><Figure id="pulse-hero" image={hero} mobile={heroM} alt="Participant quote: ‘What’s a pulse? Sounds like I’m in some sort of medical procedure.’ From 5 one-to-one sessions." /></div>
+  </div>
+
+  <Row number="01" title="The problem" summary="Nobody outside the team had tried the app yet." progress="TTTD"
+    body="Pulse helps university students connect, chat and meet up in person. The app was built, but nobody outside the team had tried it yet. I'm leading the user research to find out what works, what doesn't and why. I wrote the test questions, and the founder and I ran the sessions together." />
+
+  <div class="group">
+    <Row number="02" title="Phase 1: Usability testing" summary="Five one-to-one sessions, watching rather than asking." progress="TTDD"
+      body={`I ran one-to-one sessions with five students, looking at three things:
+- Navigation and task success: can students find what they need to move on to the next step?
+- Wayfinding: do they know where they are in the journey, and how many steps are left?
+- Trust: do they hesitate when they're asked for something sensitive, like revealing their identity to another user, too early or without context?
+
+I also watched how students reacted to the icebreaker questions and the Geopulse mini-game.`} />
+    <div class="right">
+      <Callout label="Research decision">I didn't ask students whether they'd use an app like this. People almost always say yes to that question, because of social desirability bias, so the answer wouldn't tell us anything. Watching what they actually did was far more useful.</Callout>
+    </div>
+  </div>
+
+  <div class="group">
+    <Row number="03" title="What we found" summary="Clear fixes, from the check-in to the paired chats." progress="TDDD"
+      body={`- The next step wasn't obvious. After answering "How are you feeling today?", one participant didn't know what to do next, and found the floor was empty.
+- The check-in options didn't fit everyone: "So what do I do if I'm not any of those?"
+- The name confused people: "What's a pulse? Sounds like I'm in some sort of medical procedure."
+- Paired chats were unclear. A participant could see their match's answer but not the question, so neither of us could tell whether we'd been asked the same thing.
+- Revealing identity raised safety questions, such as whether accounts would be linked to the university.
+- The onboarding tutorial and the small profile icon also caused problems.
+- On the positive side, participants enjoyed the Geopulse mini-game.
+
+When I presented the findings to the founder, the paired chat problem turned out to be a bug, so it went straight onto the fix list. For the safety concerns, I recommended making the safety features clearer in the onboarding tutorial, and adding a reassurance message that always stays visible in the chat window. The name finding also contributed to renaming the app Itspulse, although the new name isn't on the branding, app or website yet.`} />
+    <div class="right">
+      <DataTable
+        caption="Findings"
+        columns="180px repeat(2, minmax(0, 1fr))"
+        headers={['Issue', 'What happened', 'What happened next']}
+        rows={[
+          { cells: ["The next step wasn't obvious", 'After answering "How are you feeling today?", one participant didn\'t know what to do next, and found the floor was empty.', 'Shared with the founder'] },
+          { cells: ['Check-in options', 'quote:"So what do I do if I\'m not any of those?"', 'Shared with the founder'] },
+          { cells: ['The name', 'quote:"What\'s a pulse? Sounds like I\'m in some sort of medical procedure."', 'Contributed to the rename to Itspulse'] },
+          { cells: ['Paired chats', "A participant could see their match's answer but not the question.", 'A bug, added to the fix list'] },
+          { cells: ['Revealing identity', 'Safety questions, such as whether accounts would be linked to the university.', 'Recommended clearer safety features in the onboarding tutorial, and a reassurance message always visible in chat'] },
+          { cells: ['Onboarding and profile icon', 'The onboarding tutorial and the small profile icon caused problems.', 'Shared with the founder'] },
+          { cells: ['Geopulse mini-game', 'Participants enjoyed it.', 'A positive to keep'] },
+        ]}
+      />
+    </div>
+  </div>
+
+  <div class="group">
+    <Row number="04" title="Next: Phase 2" summary="A second round to test the changes." progress="DDDD"
+      body={`A second small group will test the updated app soon. This round goes deeper into four areas:
+- Expectations: does the app work the way students expect it to?
+- Navigation and task success: can they complete the core journey?
+- Friction: where do they hesitate or feel overloaded?
+- Satisfaction: how do they feel about the app afterwards?
+
+I'll update this case study with the findings.`} />
+    <div class="right"><Figure id="pulse-phase2" image={phase2} mobile={phase2M} alt="Phase 2 research plan in four areas: expectations, navigation and task success, friction, and satisfaction." /></div>
+  </div>
+</CaseLayout>

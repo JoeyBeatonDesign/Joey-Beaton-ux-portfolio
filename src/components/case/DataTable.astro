@@ -1,0 +1,108 @@
+---
+// Figma: Persona table (BillSmart) and Findings table (Pulse).
+// Desktop: a real table with a header row and dividers. Mobile: one card per row, each value under its label.
+// rows: [label, ...cells]; cells may start with "quote:" to use Body/Quote. Optional `quote` shows a full-width quote under the row.
+interface Row { cells: string[]; quote?: string }
+interface Props {
+  caption: string;
+  headers: string[];
+  rows: Row[];
+  columns: string; // CSS grid-template-columns for desktop, from the Figma column widths
+  quoteFirstOnMobile?: boolean;
+}
+const { caption, headers, rows, columns, quoteFirstOnMobile = false } = Astro.props;
+const isQuote = (c: string) => c.startsWith('quote:');
+const strip = (c: string) => c.replace(/^quote:/, '');
+---
+<div class="dt" style={`--cols: ${columns}`}>
+  <table class="dt__table">
+    <caption class="visually-hidden">{caption}</caption>
+    <thead>
+      <tr>{headers.map((h) => <th scope="col" class="t-label">{h}</th>)}</tr>
+    </thead>
+    {rows.map((r) => (
+      <tbody>
+        <tr>
+          {r.cells.map((c, i) => i === 0
+            ? <th scope="row" class="t-body-strong">{c}</th>
+            : <td class={isQuote(c) ? 't-body-quote' : 't-body'}>{strip(c)}</td>)}
+        </tr>
+        {r.quote && <tr class="dt__quote-row"><td colspan={headers.length} class="t-body-quote">{r.quote}</td></tr>}
+      </tbody>
+    ))}
+  </table>
+
+  <ul class="dt__cards">
+    {rows.map((r) => (
+      <li class="dt__card">
+        <p class="t-body-strong dt__name">{r.cells[0]}</p>
+        {quoteFirstOnMobile && r.quote && <p class="t-body-quote dt__q">{r.quote}</p>}
+        {r.cells.slice(1).map((c, i) => (
+          <>
+            <p class="t-label dt__label">{headers[i + 1]}</p>
+            <p class={isQuote(c) ? 't-body-quote' : 't-body'}>{strip(c)}</p>
+          </>
+        ))}
+        {!quoteFirstOnMobile && r.quote && <p class="t-body-quote dt__q">{r.quote}</p>}
+      </li>
+    ))}
+  </ul>
+</div>
+
+<style>
+  .dt {
+    width: 100%;
+    max-width: var(--layout-content-width);
+  }
+  .dt__table { display: none; }
+  .dt__cards {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .dt__card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--layout-inline);
+    padding-block: var(--layout-stack);
+    border-bottom: var(--border-default) solid var(--colour-border-subtle);
+  }
+  .dt__name,
+  .dt__label,
+  th { color: var(--colour-text-heading); }
+  .t-body, td { color: var(--colour-text-body); }
+  .t-body-quote, .dt__q { color: var(--colour-text-muted); }
+
+  @media (min-width: 1280px) {
+    .dt__cards { display: none; }
+    .dt__table {
+      display: table;
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .dt__table tr {
+      display: grid;
+      grid-template-columns: var(--cols);
+      gap: var(--layout-stack);
+    }
+    th, td {
+      padding: 0;
+      text-align: left;
+      vertical-align: top;
+    }
+    thead tr {
+      padding-block: var(--layout-stack);
+      border-bottom: var(--border-default) solid var(--colour-border-subtle);
+    }
+    thead th { color: var(--colour-text-heading); }
+    tbody {
+      display: block;
+      padding-block: var(--layout-stack);
+      border-bottom: var(--border-default) solid var(--colour-border-subtle);
+    }
+    tbody tr + tr { margin-top: var(--layout-inline); }
+    .dt__quote-row { grid-template-columns: 1fr !important; }
+    .dt__quote-row td { color: var(--colour-text-muted); }
+    tbody td.t-body-quote { color: var(--colour-text-muted); }
+  }
+</style>

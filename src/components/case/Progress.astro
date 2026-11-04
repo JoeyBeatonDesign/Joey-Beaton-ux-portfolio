@@ -1,0 +1,24 @@
+---
+// Figma: Progress (squares: D = done, T = to do). Decorative.
+interface Props { steps: string }
+const { steps } = Astro.props;
+---
+<div class="progress" aria-hidden="true">
+  {[...steps].map((s) => <span class:list={['progress__step', { 'is-done': s === 'D' }]} />)}
+</div>
+
+<style>
+  .progress {
+    display: flex;
+    align-items: center;
+    gap: var(--layout-inline);
+  }
+  .progress__step {
+    width: var(--layout-progress-dot);
+    height: var(--layout-progress-dot);
+    background: var(--colour-progress-todo);
+  }
+  .progress__step.is-done {
+    background: var(--colour-progress-done);
+  }
+</style>

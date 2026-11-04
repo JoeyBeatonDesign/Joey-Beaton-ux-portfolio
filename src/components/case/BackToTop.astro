@@ -1,0 +1,49 @@
+---
+// Figma: Back to top (Button / Arrow, Direction=Up). Floats bottom right; hidden until the
+// visitor has scrolled one screen. Click scrolls smoothly to the top (300ms feel; instant with reduced motion).
+import Icon from '../Icon.astro';
+---
+<a href="#top" class="btt" data-back-to-top aria-label="Back to top" hidden>
+  <Icon name="arrow-up" />
+</a>
+
+<style>
+  .btt {
+    position: fixed;
+    right: var(--layout-margin);
+    bottom: var(--layout-margin);
+    z-index: 10;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--layout-control-size);
+    height: var(--layout-control-size);
+    border: var(--border-default) solid var(--colour-action-outline);
+    border-radius: var(--radius-button);
+    background: var(--colour-button-float-bg);
+    color: var(--colour-button-float-icon);
+    transition: background-color 150ms ease-out, color 150ms ease-out, border-color 150ms ease-out;
+  }
+  .btt[hidden] { display: none; }
+  .btt:hover,
+  .btt:focus-visible {
+    background: var(--colour-action-bg-hover);
+    border-color: var(--colour-action-bg-hover);
+    color: var(--colour-action-text);
+  }
+</style>
+
+<script>
+  const btn = document.querySelector<HTMLAnchorElement>('[data-back-to-top]');
+  if (btn) {
+    const update = () => { btn.hidden = window.scrollY < window.innerHeight; };
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+      document.getElementById('main')?.focus({ preventScroll: true });
+    });
+  }
+</script>

@@ -1,0 +1,44 @@
+---
+// Figma: Project meta (four Meta items under a divider). A description list, not headings.
+interface Props { items: [string, string][] }
+const { items } = Astro.props;
+---
+<div class="pm">
+  <hr class="divider" />
+  <dl class="pm__items">
+    {items.map(([label, value]) => (
+      <div class="pm__item">
+        <dt class="t-label">{label}</dt>
+        <dd class="t-heading-item">{value}</dd>
+      </div>
+    ))}
+  </dl>
+</div>
+
+<style>
+  .pm {
+    display: flex;
+    flex-direction: column;
+    gap: var(--layout-stack);
+  }
+  .pm__items {
+    display: flex;
+    flex-direction: column;
+    gap: var(--layout-card-padding);
+    margin: 0;
+  }
+  .pm__item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--layout-inline);
+  }
+  dt { color: var(--colour-text-body); }
+  dd { margin: 0; color: var(--colour-text-heading); }
+  @media (min-width: 1280px) {
+    .pm__items {
+      flex-direction: row;
+      gap: var(--layout-gutter);
+    }
+    .pm__item { flex: 1; }
+  }
+</style>

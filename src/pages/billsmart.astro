@@ -1,0 +1,89 @@
+---
+// Figma: BillSmart - Desktop / Mobile
+import CaseLayout from '../components/case/CaseLayout.astro';
+import Row from '../components/case/Row.astro';
+import Section from '../components/case/Section.astro';
+import Figure from '../components/case/Figure.astro';
+import Callout from '../components/case/Callout.astro';
+import DataTable from '../components/case/DataTable.astro';
+import hero from '../assets/figures/billsmart-hero.png';
+import flow from '../assets/figures/billsmart-user-flow.png';
+import flowM from '../assets/figures/billsmart-user-flow-mobile.png';
+import screens from '../assets/figures/billsmart-key-screens.png';
+import screensM from '../assets/figures/billsmart-key-screens-mobile.png';
+---
+<CaseLayout
+  title="BillSmart"
+  pageTitle="BillSmart case study – Joey Beaton"
+  description="BillSmart is a concept app for splitting household bills without the awkwardness. See the research, personas, user flow and key screens behind it."
+  next="/pulse/"
+  meta={[['Role', 'Solo designer, research through to UI'], ['Context', 'Concept app, Google UX Design Certificate'], ['Focus', 'Adding a bill and setting up automatic reminders'], ['Tools', 'Figma']]}
+>
+  <div class="group">
+    <Row heading="Splitting household bills without the awkwardness" body={`A concept app that splits household bills and sends the payment reminders for you.
+
+The challenge: design a way to split household bills that takes the awkwardness out of chasing housemates for money.`} />
+    <div class="right"><Figure id="billsmart-hero" image={hero} alt="Three BillSmart screens: the home menu, splitting a £400 bill four ways, and the Ready to send summary." /></div>
+  </div>
+
+  <Row number="01" title="The problem" summary="Nobody wants to be the housemate who chases money." progress="TTTTD"
+    body={`I've lived in house shares for many years, and the bills were never the hard part. Asking people to pay them was. Someone always ends up as the person who keeps track, and that person ends up feeling like the bad guy.
+
+BillSmart is a concept app I designed for my Google UX Design Certificate. This case study follows one flow: adding a bill and letting the app send the reminders, so nobody has to.`} />
+
+  <div class="group">
+    <Row number="02" title="Research" summary="Every app I audited treated reminders as an extra." progress="TTTDD"
+      body={`I started with a competitive audit of Splitwise, Tricount and Settle Up. All three are polished, but each left a gap:
+- Splitwise is the default, but its paywalls and dated interface chip away at trust.
+- Tricount has no way to pay inside the app, so you're still chasing people yourself.
+- Settle Up offers lots of options but feels built for accountants, not housemates.`} />
+    <div class="right">
+      <Callout label="Key finding">The biggest finding was what none of them did. None had strong built-in reminders, and none were designed for people who live together. They're trip-splitting tools with household features added on.</Callout>
+    </div>
+  </div>
+
+  <div class="group">
+    <Section class="right" subheading="Personas" body="I built four personas from common bill-splitting problems and from my own years of house shares." />
+    <div class="right">
+      <DataTable
+        caption="Personas"
+        columns="120px repeat(3, minmax(0, 1fr))"
+        quoteFirstOnMobile
+        headers={['Persona', 'Who they are', 'What they need', 'What frustrates them']}
+        rows={[
+          { cells: ['Sarah', 'The organiser, anxious about money', 'The app to do the nagging, with a paper trail', 'Being seen as the bad guy for chasing money'], quote: '"I just need to know the water bill is paid by the 1st, or I won\'t sleep."' },
+          { cells: ['Maya', 'The social glue, irregular income', 'A simple "what do I owe right now" figure', "Fixed deadlines that don't match freelance pay"], quote: '"Money is energy, but unfortunately, the electric company doesn\'t take \'good vibes\' as payment."' },
+          { cells: ['Marcus', 'Laid back, spends first', 'Reminders timed to payday', 'Missing payments because he forgot to check'], quote: '"I\'d love to pay the water bill, but I just spent my \'extra\' cash on an early-bird ticket for the immersive Van Gogh exhibit."' },
+          { cells: ['Ray', 'New to the house, avoids conflict', 'Clear rules instead of unspoken ones', 'Vague requests like "everyone chip in"'], quote: '"I want to help, but I don\'t know the \'unspoken rules\' of the house yet."' },
+        ]}
+      />
+    </div>
+    <Section class="right" body="I chose to design for Sarah. She does the organising in most shared houses, and if the app takes the chasing off her, it also helps Ray, who finds those conversations just as hard." />
+  </div>
+
+  <Row number="03" title="The solution" summary="The app sends the reminders, so Sarah doesn't have to." progress="TTDDD"
+    body={`Because no competitor treated reminders as a core feature, I made them the centre of BillSmart rather than an extra. Sarah sets things up once: the bill, the split and when to remind people. Then the app takes over the follow-up.
+
+The key decision was that reminders come from the app, not from Sarah. Nobody gets a message from a housemate asking for money. They get a neutral nudge from BillSmart.`} />
+
+  <div class="group">
+    <Row number="04" title="The journey" summary="Set it up once, and let the app follow up." progress="TDDDD"
+      body="I mapped Sarah's journey from realising the house needs a better way to track bills, through to the app reminding everyone for her. She signs up, invites her housemates with a WhatsApp link, then adds a bill, splits it and sets reminders in one flow." />
+    <div class="right"><Figure id="billsmart-flow" image={flow} mobile={flowM} alt="User flow from opening the app to entering a bill, splitting it, setting a reminder or QR code, and sending." /></div>
+    <div class="right"><Figure id="billsmart-screens" image={screens} mobile={screensM} alt="Five key screens: home, entering the bill, choosing who to split with, setting a reminder, and reviewing before sending." /></div>
+  </div>
+
+  <Section class="right" subheading="Decisions and trade-offs" body={`- Invite by link: sharing a WhatsApp link is quicker than making everyone sign up first, which is one of Tricount's weak spots.
+- Reminders while adding a bill: setting them in the same step means they're far less likely to be skipped.
+- Still open: how the reminders should be worded. If they sound pushy, the app becomes the nag instead of Sarah, so the tone matters as much as the automation.`} />
+
+  <Row number="05" title="Outcome" summary="One flow designed, three personas still to go." progress="DDDDD"
+    body={`This was a design exercise and it hasn't been tested with users yet, so there are no results to report.
+
+The flow meets Sarah's main need and some of Ray's. The other personas show how much is still to do:
+- Maya needs a simpler "what do I owe" view that works with irregular income.
+- Marcus needs reminders timed to payday, not to the bill's due date.
+- Ray needs the house's money rules made clear for everyone.
+
+Next, I'd prototype flows for Maya, Marcus and Ray, then test the wording and timing of reminders with real housemates. The big question is whether automatic reminders really take away the nagging feeling, or just move it somewhere else.`} />
+</CaseLayout>
