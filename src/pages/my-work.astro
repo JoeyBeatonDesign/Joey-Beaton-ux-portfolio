@@ -1,0 +1,54 @@
+---
+// Figma: My work - Desktop / Mobile
+import Base from '../layouts/Base.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import library from '../assets/mockup-library.png';
+import bath from '../assets/mockup-bath-with-kids.png';
+import billsmart from '../assets/mockup-billsmart.png';
+import pulse from '../assets/mockup-pulse.png';
+---
+<Base
+  title="My work – Joey Beaton"
+  description="Four UX case studies by Joey Beaton: a personalised library app, an accessibility retrofit, a bill-splitting app and usability research with students."
+  current="work"
+>
+  <div class="work container">
+    <h1 class="work__title t-heading-page">Digital work collection</h1>
+    <ProjectCard class="work__c1" href="/library/" number="01" title="Library" meta="Web Design · 2026" image={library} alt="" layout="image-right" />
+    <ProjectCard class="work__c2" href="/bath-with-kids/" number="02" title="Bath with Kids" meta="Web Design · 2026" image={bath} alt="" layout="image-left" />
+    <ProjectCard class="work__c3" href="/billsmart/" number="03" title="BillSmart" meta="Web Design · 2026" image={billsmart} alt="" layout="image-right" />
+    <ProjectCard class="work__c4" href="/pulse/" number="04" title="Pulse" meta="Web Design · 2026" image={pulse} alt="" layout="image-left" />
+  </div>
+</Base>
+
+<style>
+  .work {
+    display: flex;
+    flex-direction: column;
+    gap: var(--layout-block-gap);
+  }
+  .work__title {
+    color: var(--colour-text-heading);
+  }
+
+  /* Desktop: two staggered columns, as in Figma. Left: title, 02, 04. Right: 01, 03. */
+  @media (min-width: 1280px) {
+    .work {
+      display: grid;
+      grid-template-columns: minmax(0, 592px) minmax(0, 592px);
+      justify-content: space-between;
+      column-gap: var(--layout-gutter);
+      row-gap: var(--layout-block-gap);
+      align-items: start;
+      /* Rows reproduce the Figma stagger: title (2 lines), then cards (450 tall) offset by one title height */
+      --t: calc(2 * var(--type-size-heading-page));
+      --c: calc(450px - var(--t) - var(--layout-block-gap));
+      grid-template-rows: var(--t) var(--c) var(--t) var(--c) var(--t);
+    }
+    .work__title { grid-column: 1; grid-row: 1; }
+    .work :global(.work__c1) { grid-column: 2; grid-row: 1 / span 2; }
+    .work :global(.work__c2) { grid-column: 1; grid-row: 2 / span 2; }
+    .work :global(.work__c3) { grid-column: 2; grid-row: 3 / span 2; }
+    .work :global(.work__c4) { grid-column: 1; grid-row: 4 / span 2; }
+  }
+</style>

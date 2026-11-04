@@ -1,0 +1,107 @@
+---
+// Figma: Contact form (State Default / Sent). Validation rules from the component description.
+// Messages are sent with Formspree. Replace FORMSPREE_ENDPOINT once Joey has the form address.
+import Field from './Field.astro';
+import Button from './Button.astro';
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID';
+---
+<div class="contact" data-contact>
+  <form class="contact__form" action={FORMSPREE_ENDPOINT} method="POST" novalidate data-contact-form>
+    <Field id="name" name="name" label="Name" placeholder="Your name" error="Please enter your name" autocomplete="name" />
+    <Field id="email" name="email" type="email" label="Email" placeholder="Your email" error="Please enter a valid email address" autocomplete="email" />
+    <Field id="message" name="message" label="Message" placeholder="Your message" error="Please enter a message" multiline />
+    <!-- Spam trap: hidden from people, filled in by bots. Formspree ignores submissions where it has a value. -->
+    <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="visually-hidden" aria-hidden="true" />
+    <p class="contact__problem t-body" role="alert" hidden data-contact-problem>Sorry, your message didn’t send. Please try again in a moment.</p>
+    <Button type="submit" class="contact__send">Send message</Button>
+  </form>
+  <p class="contact__sent t-heading-item" tabindex="-1" hidden data-contact-sent>Thanks, I’ll be in touch</p>
+</div>
+
+<style>
+  .contact__form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--layout-label-gap);
+  }
+  .contact__form :global(.contact__send) {
+    align-self: flex-start;
+  }
+  @media (max-width: 1279px) {
+    .contact__form :global(.contact__send) {
+      align-self: stretch;
+    }
+  }
+  .contact__problem {
+    color: var(--colour-feedback-error);
+  }
+  .contact__sent {
+    color: var(--colour-text-heading);
+  }
+  .contact__sent:not([hidden]) {
+    animation: sent-fade 300ms ease-out;
+  }
+  @keyframes sent-fade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+</style>
+
+<script>
+  const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  document.querySelectorAll<HTMLElement>('[data-contact]').forEach((root) => {
+    const form = root.querySelector<HTMLFormElement>('[data-contact-form]')!;
+    const sent = root.querySelector<HTMLElement>('[data-contact-sent]')!;
+    const problem = root.querySelector<HTMLElement>('[data-contact-problem]')!;
+    const fields = [...form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('input[required], textarea[required]')];
+    let submitted = false;
+
+    const check = (el: HTMLInputElement | HTMLTextAreaElement) => {
+      const value = el.value.trim();
+      const ok = value !== '' && (el.type !== 'email' || EMAIL.test(value));
+      const msg = document.getElementById(el.getAttribute('aria-describedby')!)!;
+      if (ok) {
+        el.removeAttribute('aria-invalid');
+        msg.hidden = true;
+        msg.textContent = '';
+      } else {
+        el.setAttribute('aria-invalid', 'true');
+        msg.textContent = el.dataset.error ?? '';
+        msg.hidden = false;
+      }
+      return ok;
+    };
+
+    // After a failed Send, re-check each field when the visitor leaves it, so errors clear as they're fixed.
+    fields.forEach((el) => el.addEventListener('blur', () => { if (submitted) check(el); }));
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      submitted = true;
+      problem.hidden = true;
+      const results = fields.map(check);
+      const firstBad = fields[results.indexOf(false)];
+      if (firstBad) { firstBad.focus(); return; }
+
+      const showSent = () => {
+        form.hidden = true;
+        sent.hidden = false;
+        sent.focus();
+      };
+
+      if (form.action.includes('YOUR_FORM_ID')) {
+        console.warn('Contact form: Formspree endpoint not set yet, so nothing was sent.');
+        showSent();
+        return;
+      }
+      try {
+        const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
+        if (!res.ok) throw new Error(String(res.status));
+        showSent();
+      } catch {
+        problem.hidden = false;
+      }
+    });
+  });
+</script>

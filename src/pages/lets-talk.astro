@@ -1,0 +1,37 @@
+---
+// Figma: Let's talk - Desktop / Mobile
+import Base from '../layouts/Base.astro';
+import ContactForm from '../components/ContactForm.astro';
+---
+<Base
+  title="Let’s talk – Joey Beaton"
+  description="Get in touch with Joey Beaton about UX and product design roles, freelance projects or collaborations. Send a message and I’ll reply as soon as I can."
+  current="talk"
+>
+  <div class="talk container">
+    <h1 class="talk__title t-heading-page">Get in Touch</h1>
+    <div class="talk__column">
+      <div class="talk__form"><ContactForm /></div>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .talk {
+    display: flex;
+    flex-direction: column;
+    gap: var(--layout-block-gap);
+  }
+  .talk__title {
+    color: var(--colour-text-heading);
+  }
+  @media (min-width: 1280px) {
+    .talk {
+      flex-direction: row;
+      gap: var(--layout-gutter);
+    }
+    .talk__title { flex: 1; }
+    .talk__column { flex: none; width: var(--layout-content-width); }
+    .talk__form { width: var(--layout-text-column); }
+  }
+</style>

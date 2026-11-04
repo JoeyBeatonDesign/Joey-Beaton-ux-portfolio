@@ -1,0 +1,72 @@
+---
+// Figma: Input (Type Single line / Message; State Default, Hover, Focus, Error, Filled).
+interface Props {
+  id: string;
+  name: string;
+  label: string;
+  placeholder: string;
+  error: string;
+  type?: 'text' | 'email';
+  multiline?: boolean;
+  autocomplete?: string;
+}
+const { id, name, label, placeholder, error, type = 'text', multiline = false, autocomplete } = Astro.props;
+const errorId = `${id}-error`;
+---
+<div class="field" data-field>
+  <label class="field__label t-form-label" for={id}>{label}</label>
+  {multiline
+    ? <textarea class="field__control t-body" id={id} name={name} placeholder={placeholder} required data-error={error} aria-describedby={errorId}></textarea>
+    : <input class="field__control t-body" id={id} name={name} type={type} placeholder={placeholder} autocomplete={autocomplete} required data-error={error} aria-describedby={errorId} />}
+  <p class="field__error t-body" id={errorId} hidden></p>
+</div>
+
+<style>
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--layout-inline);
+  }
+  .field__label {
+    color: var(--colour-text-heading);
+  }
+  .field__control {
+    width: 100%;
+    min-height: var(--layout-control-size);
+    padding: var(--layout-inline) var(--layout-stack);
+    border: var(--border-default) solid var(--colour-input-border);
+    border-radius: var(--radius-input);
+    background: var(--colour-input-bg);
+    color: var(--colour-text-heading);
+    font: inherit;
+    transition: border-color 150ms ease-out;
+  }
+  textarea.field__control {
+    min-height: var(--layout-message-height);
+    padding: var(--layout-stack);
+    resize: vertical;
+  }
+  .field__control::placeholder {
+    color: var(--colour-input-placeholder);
+    opacity: 1;
+  }
+  .field__control:hover {
+    border-color: var(--colour-action-outline);
+  }
+  /* Focus = State Focus in Figma: 2px border in colour/action/outline, plus the site focus ring */
+  .field__control:focus-visible {
+    border-color: var(--colour-action-outline);
+    outline-offset: 0;
+  }
+  .field__control:focus {
+    border-width: var(--border-active);
+    padding-inline: calc(var(--layout-stack) - (var(--border-active) - var(--border-default)));
+  }
+  /* Error */
+  .field__control[aria-invalid='true'] {
+    border: var(--border-active) solid var(--colour-feedback-error);
+  }
+  .field__error {
+    color: var(--colour-feedback-error);
+  }
+</style>

@@ -1,0 +1,61 @@
+---
+// Figma: 404 - Desktop / Mobile. GitHub Pages serves this for any unknown address.
+import Base from '../layouts/Base.astro';
+import Button from '../components/Button.astro';
+import NavLink from '../components/NavLink.astro';
+---
+<Base
+  title="Page not found – Joey Beaton"
+  description="Sorry, this page doesn’t exist or has moved. Head back to Joey Beaton’s portfolio to see UX case studies in accessibility, research and app design."
+  noindex
+>
+  <div class="nf container">
+    <p class="nf__code t-display-hero" aria-hidden="true">404</p>
+    <div class="nf__content">
+      <div class="nf__message">
+        <h1 class="nf__title t-heading-section">Page not found</h1>
+        <p class="nf__body t-body-intro">Sorry, this page doesn’t exist or has moved.</p>
+      </div>
+      <div class="nf__actions">
+        <Button href="/" class="nf__home">Back to home</Button>
+        <NavLink href="/my-work/">View my work</NavLink>
+      </div>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .nf {
+    display: flex;
+    flex-direction: column;
+    gap: var(--layout-block-gap);
+  }
+  .nf__code { color: var(--colour-text-muted); }
+  .nf__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--layout-block-gap);
+  }
+  .nf__message {
+    display: flex;
+    flex-direction: column;
+    gap: var(--layout-stack);
+  }
+  .nf__title { color: var(--colour-text-heading); }
+  .nf__body { color: var(--colour-text-body); }
+  .nf__actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--layout-stack);
+  }
+  .nf__actions :global(.nf__home) { width: 100%; }
+
+  @media (min-width: 1280px) {
+    .nf { flex-direction: row; gap: var(--layout-gutter); }
+    .nf__code { flex: 1; }
+    .nf__content { flex: none; width: var(--layout-content-width); }
+    .nf__actions { flex-direction: row; gap: var(--layout-block-gap); }
+    .nf__actions :global(.nf__home) { width: auto; }
+  }
+</style>

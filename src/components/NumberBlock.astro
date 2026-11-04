@@ -1,0 +1,36 @@
+---
+// Figma: Number block (used on About me). Number is decorative; title is an H2.
+interface Props {
+  number: string;
+  title: string;
+  class?: string;
+}
+const { number, title, class: className } = Astro.props;
+---
+<section class:list={['number-block', className]}>
+  <p class="number-block__number t-label" aria-hidden="true">{number}</p>
+  <div class="number-block__content">
+    <h2 class="number-block__title t-heading-item">{title}</h2>
+    <div class="number-block__body t-body"><slot /></div>
+  </div>
+</section>
+
+<style>
+  .number-block {
+    display: flex;
+    flex-direction: column;
+    gap: var(--layout-label-gap);
+  }
+  .number-block__number,
+  .number-block__body {
+    color: var(--colour-text-body);
+  }
+  .number-block__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--layout-stack);
+  }
+  .number-block__title {
+    color: var(--colour-text-heading);
+  }
+</style>
