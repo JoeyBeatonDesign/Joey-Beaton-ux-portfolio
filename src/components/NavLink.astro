@@ -1,0 +1,42 @@
+---
+// Figma: Nav link. Desktop uses Nav/Link; Mobile (menu) uses Heading/Section.
+// Default → Hover: heading colour + 2px bottom border (colour/border/hover). Active (current page): 2px border in colour/action/outline.
+interface Props {
+  href: string;
+  active?: boolean;
+  size?: 'desktop' | 'mobile';
+}
+const { href, active = false, size = 'desktop' } = Astro.props;
+---
+<a
+  href={href}
+  class:list={['nav-link', `nav-link--${size}`, size === 'desktop' ? 't-nav' : 't-heading-section', { 'is-active': active }]}
+  aria-current={active ? 'page' : undefined}
+><slot /></a>
+
+<style>
+  .nav-link {
+    display: inline-flex;
+    align-items: center;
+    color: var(--colour-text-body);
+    border-bottom: var(--border-active) solid transparent;
+    transition: color 150ms ease-out, border-color 150ms ease-out;
+  }
+  .nav-link--desktop {
+    min-height: var(--layout-hit-area);
+    padding-block: var(--layout-stack);
+  }
+  .nav-link--mobile {
+    min-height: var(--layout-hit-area);
+    padding-block: var(--layout-tight);
+    align-items: flex-end;
+  }
+  .nav-link:hover {
+    color: var(--colour-text-heading);
+    border-bottom-color: var(--colour-border-hover);
+  }
+  .nav-link.is-active {
+    color: var(--colour-text-heading);
+    border-bottom-color: var(--colour-action-outline);
+  }
+</style>

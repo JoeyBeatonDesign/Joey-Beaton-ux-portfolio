@@ -1,0 +1,312 @@
+/* Design tokens, generated from the Figma Portfolio file (variables + code syntax). Do not edit by hand: change the variable in Figma and regenerate. */
+
+/* Primitives */
+:root {
+  --white: #ffffff;
+  --navy-950: #071530;
+  --navy-900: #0a1f45;
+  --space-4: 4px;
+  --radius-0: 0px;
+  --navy-800: #132b57;
+  --navy-700: #1c3a6e;
+  --navy-500: #6b7a99;
+  --navy-200: #b9c3d6;
+  --navy-100: #e8ecf3;
+  --green-700: #0f6735;
+  --green-600: #13803f;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --space-48: 48px;
+  --space-64: 64px;
+  --space-96: 96px;
+  --space-120: 120px;
+  --radius-16: 16px;
+  --radius-full: 999px;
+  --font-size-144: 9rem;
+  --font-size-88: 5.5rem;
+  --font-size-56: 3.5rem;
+  --font-size-28: 1.75rem;
+  --font-size-18: 1.125rem;
+  --font-size-13: 0.8125rem;
+  --font-size-12: 0.75rem;
+  --font-family-display: "Barlow Semi Condensed", "Arial Narrow", system-ui, sans-serif;
+  --font-family-body: "Saira", system-ui, sans-serif;
+  --font-weight-regular: 400;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-size-16: 1rem;
+  --space-20: 20px;
+  --space-40: 40px;
+  --font-size-104: 6.5rem;
+  --font-size-64: 4rem;
+  --font-size-72: 4.5rem;
+  --font-size-48: 3rem;
+  --font-size-36: 2.25rem;
+  --font-size-24: 1.5rem;
+  --font-size-20: 1.25rem;
+  --size-909: 909px;
+  --space-0: 0px;
+  --size-440: 440px;
+  --size-600: 600px;
+  --shadow-navy-16: rgb(7 21 48 / 0.16);
+  --shadow-black-48: rgb(0 0 0 / 0.48);
+  --border-2: 2px;
+  --scrim-black-80: rgb(0 0 0 / 0.8);
+  --border-1: 1px;
+  --border-1-5: 1.5px;
+  --size-56: 56px;
+  --size-360: 360px;
+  --size-320: 320px;
+  --size-640: 640px;
+  --overlay-navy-900-70: rgb(10 31 69 / 0.7);
+  --overlay-navy-100-70: rgb(232 236 243 / 0.7);
+  --font-size-14: 0.875rem;
+  --size-160: 160px;
+  --red-300: #ff8a8a;
+  --red-700: #b3261e;
+  --navy-300: #8e9bb8;
+  --navy-600: #56637f;
+  --size-936: 936px;
+  --size-844: 844px;
+}
+
+/* Semantic: Light (default) */
+:root,
+[data-theme="light"] {
+  color-scheme: light;
+  --colour-bg-page: var(--navy-100);
+  --colour-bg-surface: var(--white);
+  --colour-text-heading: var(--navy-900);
+  --colour-text-body: var(--navy-900);
+  --colour-text-muted: var(--navy-600);
+  --colour-border-subtle: var(--navy-200);
+  --colour-action-bg: var(--green-600);
+  --colour-action-bg-hover: var(--green-700);
+  --colour-action-text: var(--white);
+  --colour-action-outline: var(--navy-900);
+  --colour-image-bg: var(--white);
+  --radius-card: var(--radius-16);
+  --radius-image: var(--radius-0);
+  --radius-button: var(--radius-full);
+  --colour-progress-done: var(--navy-900);
+  --colour-progress-todo: var(--navy-500);
+  --colour-bg-image-accent: var(--navy-900);
+  --colour-shadow: var(--shadow-navy-16);
+  --border-active: var(--border-2);
+  --colour-overlay-scrim: var(--scrim-black-80);
+  --border-default: var(--border-1);
+  --border-icon: var(--border-1-5);
+  --colour-overlay-card: var(--overlay-navy-100-70);
+  --colour-border-hover: var(--navy-500);
+  --colour-button-float-bg: var(--navy-200);
+  --colour-button-float-icon: var(--navy-900);
+  --colour-input-bg: var(--colour-bg-surface);
+  --colour-input-border: var(--navy-500);
+  --colour-input-placeholder: var(--colour-text-muted);
+  --radius-input: var(--radius-card);
+  --colour-feedback-error: var(--red-700);
+  --colour-focus-ring-inner: var(--navy-950);
+  --colour-focus-ring-outer: var(--white);
+}
+
+/* Semantic: Dark */
+[data-theme="dark"] {
+  color-scheme: dark;
+  --colour-bg-page: var(--navy-900);
+  --colour-bg-surface: var(--navy-800);
+  --colour-text-heading: var(--white);
+  --colour-text-body: var(--navy-200);
+  --colour-text-muted: var(--navy-300);
+  --colour-border-subtle: var(--navy-700);
+  --colour-action-bg: var(--green-600);
+  --colour-action-bg-hover: var(--green-700);
+  --colour-action-text: var(--white);
+  --colour-action-outline: var(--white);
+  --colour-image-bg: var(--navy-100);
+  --radius-card: var(--radius-16);
+  --radius-image: var(--radius-0);
+  --radius-button: var(--radius-full);
+  --colour-progress-done: var(--white);
+  --colour-progress-todo: var(--navy-500);
+  --colour-bg-image-accent: var(--navy-200);
+  --colour-shadow: var(--shadow-black-48);
+  --border-active: var(--border-2);
+  --colour-overlay-scrim: var(--scrim-black-80);
+  --border-default: var(--border-1);
+  --border-icon: var(--border-1-5);
+  --colour-overlay-card: var(--overlay-navy-900-70);
+  --colour-border-hover: var(--navy-500);
+  --colour-button-float-bg: var(--navy-700);
+  --colour-button-float-icon: var(--navy-200);
+  --colour-input-bg: var(--colour-bg-surface);
+  --colour-input-border: var(--navy-500);
+  --colour-input-placeholder: var(--colour-text-muted);
+  --radius-input: var(--radius-card);
+  --colour-feedback-error: var(--red-300);
+  --colour-focus-ring-inner: var(--navy-950);
+  --colour-focus-ring-outer: var(--white);
+}
+
+/* Dark from the device setting when no choice has been saved (before JS sets data-theme) */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    color-scheme: dark;
+    --colour-bg-page: var(--navy-900);
+    --colour-bg-surface: var(--navy-800);
+    --colour-text-heading: var(--white);
+    --colour-text-body: var(--navy-200);
+    --colour-text-muted: var(--navy-300);
+    --colour-border-subtle: var(--navy-700);
+    --colour-action-bg: var(--green-600);
+    --colour-action-bg-hover: var(--green-700);
+    --colour-action-text: var(--white);
+    --colour-action-outline: var(--white);
+    --colour-image-bg: var(--navy-100);
+    --radius-card: var(--radius-16);
+    --radius-image: var(--radius-0);
+    --radius-button: var(--radius-full);
+    --colour-progress-done: var(--white);
+    --colour-progress-todo: var(--navy-500);
+    --colour-bg-image-accent: var(--navy-200);
+    --colour-shadow: var(--shadow-black-48);
+    --border-active: var(--border-2);
+    --colour-overlay-scrim: var(--scrim-black-80);
+    --border-default: var(--border-1);
+    --border-icon: var(--border-1-5);
+    --colour-overlay-card: var(--overlay-navy-900-70);
+    --colour-border-hover: var(--navy-500);
+    --colour-button-float-bg: var(--navy-700);
+    --colour-button-float-icon: var(--navy-200);
+    --colour-input-bg: var(--colour-bg-surface);
+    --colour-input-border: var(--navy-500);
+    --colour-input-placeholder: var(--colour-text-muted);
+    --radius-input: var(--radius-card);
+    --colour-feedback-error: var(--red-300);
+    --colour-focus-ring-inner: var(--navy-950);
+    --colour-focus-ring-outer: var(--white);
+  }
+}
+
+/* Responsive: Mobile (0–767) */
+:root {
+  --layout-section: var(--space-64);
+  --layout-block-gap: var(--space-32);
+  --layout-margin: var(--space-16);
+  --layout-gutter: var(--space-16);
+  --layout-inline: var(--space-8);
+  --layout-tight: var(--space-4);
+  --layout-button-y: var(--space-20);
+  --layout-card-padding: var(--space-24);
+  --layout-stack: var(--space-16);
+  --layout-label-gap: var(--space-32);
+  --layout-image-text: var(--space-32);
+  --type-size-display-hero: var(--font-size-64);
+  --type-size-heading-page: var(--font-size-48);
+  --type-size-heading-section: var(--font-size-36);
+  --type-size-heading-item: var(--font-size-20);
+  --type-size-body-intro: var(--font-size-18);
+  --type-size-body-default: var(--font-size-16);
+  --type-size-label: var(--font-size-12);
+  --type-size-button: var(--font-size-14);
+  --layout-content-width: var(--size-909);
+  --layout-card-offset: var(--space-0);
+  --layout-image-medium-width: var(--size-440);
+  --layout-icon-size: var(--space-24);
+  --layout-hero-image-width: var(--size-600);
+  --layout-hit-area: var(--space-48);
+  --layout-control-size: var(--size-56);
+  --layout-progress-dot: var(--space-12);
+  --layout-badge-size: var(--space-96);
+  --layout-card-image-width: var(--size-360);
+  --layout-process-card-width: var(--size-320);
+  --layout-text-column: var(--size-640);
+  --type-size-nav: var(--type-size-label);
+  --layout-message-height: var(--size-160);
+  --type-size-form-label: var(--font-size-14);
+  --layout-page-min-height: var(--size-844);
+}
+
+/* Responsive: Tablet (768–1279) */
+@media (min-width: 768px) {
+  :root {
+    --layout-section: var(--space-96);
+    --layout-block-gap: var(--space-40);
+    --layout-margin: var(--space-24);
+    --layout-gutter: var(--space-16);
+    --layout-inline: var(--space-8);
+    --layout-tight: var(--space-4);
+    --layout-button-y: var(--space-20);
+    --layout-card-padding: var(--space-24);
+    --layout-stack: var(--space-16);
+    --layout-label-gap: var(--space-32);
+    --layout-image-text: var(--space-32);
+    --type-size-display-hero: var(--font-size-104);
+    --type-size-heading-page: var(--font-size-72);
+    --type-size-heading-section: var(--font-size-48);
+    --type-size-heading-item: var(--font-size-24);
+    --type-size-body-intro: var(--font-size-18);
+    --type-size-body-default: var(--font-size-16);
+    --type-size-label: var(--font-size-12);
+    --type-size-button: var(--font-size-14);
+    --layout-content-width: var(--size-909);
+    --layout-card-offset: var(--space-48);
+    --layout-image-medium-width: var(--size-440);
+    --layout-icon-size: var(--space-24);
+    --layout-hero-image-width: var(--size-600);
+    --layout-hit-area: var(--space-48);
+    --layout-control-size: var(--size-56);
+    --layout-progress-dot: var(--space-12);
+    --layout-badge-size: var(--space-96);
+    --layout-card-image-width: var(--size-360);
+    --layout-process-card-width: var(--size-320);
+    --layout-text-column: var(--size-640);
+    --type-size-nav: var(--type-size-label);
+    --layout-message-height: var(--size-160);
+    --type-size-form-label: var(--font-size-14);
+    --layout-page-min-height: var(--size-936);
+  }
+}
+
+/* Responsive: Desktop (1280+) */
+@media (min-width: 1280px) {
+  :root {
+    --layout-section: var(--space-120);
+    --layout-block-gap: var(--space-48);
+    --layout-margin: var(--space-32);
+    --layout-gutter: var(--space-24);
+    --layout-inline: var(--space-8);
+    --layout-tight: var(--space-4);
+    --layout-button-y: var(--space-20);
+    --layout-card-padding: var(--space-24);
+    --layout-stack: var(--space-16);
+    --layout-label-gap: var(--space-32);
+    --layout-image-text: var(--space-32);
+    --type-size-display-hero: var(--font-size-144);
+    --type-size-heading-page: var(--font-size-88);
+    --type-size-heading-section: var(--font-size-56);
+    --type-size-heading-item: var(--font-size-28);
+    --type-size-body-intro: var(--font-size-18);
+    --type-size-body-default: var(--font-size-16);
+    --type-size-label: var(--font-size-12);
+    --type-size-button: var(--font-size-14);
+    --layout-content-width: var(--size-909);
+    --layout-card-offset: var(--space-48);
+    --layout-image-medium-width: var(--size-440);
+    --layout-icon-size: var(--space-24);
+    --layout-hero-image-width: var(--size-600);
+    --layout-hit-area: var(--space-48);
+    --layout-control-size: var(--size-56);
+    --layout-progress-dot: var(--space-12);
+    --layout-badge-size: var(--space-96);
+    --layout-card-image-width: var(--size-360);
+    --layout-process-card-width: var(--size-320);
+    --layout-text-column: var(--size-640);
+    --type-size-nav: var(--font-size-14);
+    --layout-message-height: var(--size-160);
+    --type-size-form-label: var(--font-size-14);
+    --layout-page-min-height: var(--size-936);
+  }
+}

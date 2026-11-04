@@ -1,0 +1,162 @@
+---
+// Figma: Nav bar (Desktop 1440×104, Mobile 390×104) and Mobile menu.
+import NavLink from './NavLink.astro';
+import ThemeToggle from './ThemeToggle.astro';
+import Button from './Button.astro';
+import Icon from './Icon.astro';
+
+interface Props {
+  current?: 'home' | 'work' | 'about' | 'talk' | null;
+}
+const { current = null } = Astro.props;
+const LINKEDIN = 'https://www.linkedin.com/in/joeybeatondesign';
+const links = [
+  { key: 'home', label: 'Home', href: '/' },
+  { key: 'work', label: 'My work', href: '/my-work/' },
+  { key: 'about', label: 'About me', href: '/about/' },
+] as const;
+---
+<header class="nav">
+  <a href="/" class="nav__logo t-heading-item" aria-label="Joey Beaton, home">Joey Beaton</a>
+
+  <nav class="nav__links desktop-only" aria-label="Main">
+    {links.map((l) => <NavLink href={l.href} active={current === l.key}>{l.label}</NavLink>)}
+  </nav>
+
+  <div class="nav__actions">
+    <a class="nav__linkedin t-nav desktop-only" href={LINKEDIN} target="_blank" rel="noopener noreferrer">
+      LinkedIn<span class="visually-hidden"> (opens in a new tab)</span>
+    </a>
+    <ThemeToggle />
+    <Button href="/lets-talk/" class="desktop-only">Let’s talk</Button>
+    <button type="button" class="icon-button mobile-only" data-menu-open aria-haspopup="dialog" aria-controls="mobile-menu" aria-label="Open menu">
+      <Icon name="menu" />
+    </button>
+  </div>
+</header>
+
+<dialog id="mobile-menu" class="menu" aria-label="Menu">
+  <div class="menu__top">
+    <a href="/" class="nav__logo t-heading-item" aria-label="Joey Beaton, home">Joey Beaton</a>
+    <button type="button" class="icon-button" data-menu-close aria-label="Close menu">
+      <Icon name="close" />
+    </button>
+  </div>
+  <nav class="menu__links" aria-label="Main">
+    {links.map((l) => <NavLink href={l.href} active={current === l.key} size="mobile">{l.label}</NavLink>)}
+  </nav>
+  <div class="menu__footer">
+    <a class="nav__linkedin t-label" href={LINKEDIN} target="_blank" rel="noopener noreferrer">
+      LinkedIn<span class="visually-hidden"> (opens in a new tab)</span>
+    </a>
+    <Button href="/lets-talk/">Let’s talk</Button>
+  </div>
+</dialog>
+
+<style>
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--layout-stack);
+    width: 100%;
+    max-width: calc(1376px + 2 * var(--layout-margin));
+    margin-inline: auto;
+    padding: var(--layout-card-padding) var(--layout-margin);
+    background: var(--colour-bg-page);
+  }
+  .nav__logo {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--layout-hit-area);
+    color: var(--colour-text-heading);
+  }
+  .nav__links {
+    display: flex;
+    gap: var(--layout-label-gap);
+  }
+  .nav__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--layout-card-padding);
+  }
+  @media (max-width: 1279px) {
+    .nav__actions { gap: var(--layout-inline); }
+  }
+  .nav__linkedin {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--layout-hit-area);
+    color: var(--colour-text-heading);
+  }
+
+  .icon-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    width: var(--layout-control-size);
+    height: var(--layout-control-size);
+    padding: var(--layout-stack);
+    border: var(--border-default) solid var(--colour-action-outline);
+    border-radius: var(--radius-button);
+    background: transparent;
+    color: var(--colour-action-outline);
+    cursor: pointer;
+  }
+
+  /* Mobile menu: full-screen dialog. Open: 200ms fade. Close: instant. */
+  .menu {
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    max-height: none;
+    margin: 0;
+    padding: var(--layout-card-padding) var(--layout-margin);
+    border: 0;
+    background: var(--colour-bg-page);
+    color: var(--colour-text-body);
+    flex-direction: column;
+    gap: var(--layout-block-gap);
+  }
+  .menu[open] {
+    display: flex;
+    animation: menu-fade 200ms ease-out;
+  }
+  .menu::backdrop {
+    background: var(--colour-overlay-scrim);
+  }
+  @keyframes menu-fade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  .menu__top,
+  .menu__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--layout-card-padding);
+  }
+  .menu__links {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--layout-card-padding);
+  }
+</style>
+
+<script>
+  // Mobile menu: a modal dialog. showModal() keeps focus inside and closes on Esc;
+  // focus returns to the menu button when it closes.
+  const dialog = document.getElementById('mobile-menu') as HTMLDialogElement | null;
+  const opener = document.querySelector<HTMLButtonElement>('[data-menu-open]');
+  opener?.addEventListener('click', () => {
+    dialog?.showModal();
+    dialog?.querySelector<HTMLButtonElement>('[data-menu-close]')?.focus();
+  });
+  dialog?.querySelector('[data-menu-close]')?.addEventListener('click', () => dialog.close());
+  dialog?.addEventListener('close', () => opener?.focus());
+  // Close if the window grows past the mobile layout.
+  window.matchMedia('(min-width: 1280px)').addEventListener('change', (e) => { if (e.matches) dialog?.close(); });
+</script>

@@ -1,0 +1,39 @@
+---
+// Figma: Button / Primary (Default, Hover, Focus). Green pill, Button text style.
+interface Props {
+  href?: string;
+  type?: 'button' | 'submit';
+  full?: boolean;
+  class?: string;
+  [key: string]: unknown;
+}
+const { href, type = 'button', full = false, class: className, ...rest } = Astro.props;
+const classes = ['button', 't-button', full && 'button--full', className].filter(Boolean).join(' ');
+---
+{href
+  ? <a href={href} class={classes} {...rest}><slot /></a>
+  : <button type={type} class={classes} {...rest}><slot /></button>}
+
+<style>
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--layout-inline);
+    min-height: var(--layout-control-size);
+    padding: var(--layout-button-y) var(--layout-card-padding);
+    border: 0;
+    border-radius: var(--radius-button);
+    background: var(--colour-action-bg);
+    color: var(--colour-action-text);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 150ms ease-out;
+  }
+  .button:hover {
+    background: var(--colour-action-bg-hover);
+  }
+  .button--full {
+    width: 100%;
+  }
+</style>

@@ -1,0 +1,77 @@
+---
+// Figma: Home page - Desktop / Mobile
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import portrait from '../assets/portrait-home.png';
+---
+<Base
+  title="Joey Beaton – UX & Product Designer"
+  description="UX and product designer Joey Beaton. Case studies in accessibility, user research and app design, taking ideas from research to tested, accessible solutions."
+  current="home"
+>
+  <section class="hero container">
+    <div class="hero__text">
+      <p class="hero__intro t-body-intro">I’m a user-centred designer prioritising empathy, testing and accessibility over assumptions</p>
+      <h1 class="hero__name t-display-hero">Joey<br />Beaton</h1>
+    </div>
+    <div class="hero__portrait">
+      <Image src={portrait} alt="Black-and-white portrait of Joey Beaton smiling." widths={[400, 600, 800, 1200]} sizes="(min-width: 1280px) 400px, (min-width: 768px) 600px, 100vw" format="webp" loading="eager" />
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* Mobile and Tablet: text first, then the portrait (max layout/hero-image-width) */
+  .hero {
+    display: flex;
+    flex-direction: column;
+    gap: var(--layout-block-gap);
+  }
+  .hero__text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--layout-section);
+  }
+  .hero__intro {
+    color: var(--colour-text-body);
+  }
+  .hero__name {
+    color: var(--colour-text-heading);
+  }
+  .hero__portrait {
+    width: 100%;
+    max-width: var(--layout-hero-image-width);
+    aspect-ratio: 2 / 3;
+    border-radius: var(--radius-image);
+    background: var(--colour-bg-image-accent);
+    overflow: hidden;
+  }
+  .hero__portrait :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Desktop: portrait left (400 × 600), text right, pushed to the edges by layout/section */
+  @media (min-width: 1280px) {
+    .hero {
+      flex-direction: row-reverse;
+      justify-content: space-between;
+      align-items: stretch;
+      gap: var(--layout-block-gap);
+      padding-inline: var(--layout-section);
+    }
+    .hero__portrait {
+      flex: none;
+      width: 400px;
+      height: 600px;
+    }
+    .hero__text {
+      flex: 0 1 462px;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: var(--layout-section);
+      padding-bottom: var(--layout-tight);
+    }
+  }
+</style>
