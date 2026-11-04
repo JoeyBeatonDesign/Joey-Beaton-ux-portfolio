@@ -156,7 +156,7 @@ const links = [
     dialog?.querySelector<HTMLButtonElement>('[data-menu-close]')?.focus();
   });
   dialog?.querySelector('[data-menu-close]')?.addEventListener('click', () => dialog.close());
-  dialog?.addEventListener('close', () => opener?.focus());
+  dialog?.addEventListener('close', () => setTimeout(() => opener?.focus(), 0));
   // Close if the window grows past the mobile layout.
   window.matchMedia('(min-width: 1280px)').addEventListener('change', (e) => { if (e.matches) dialog?.close(); });
 </script>

@@ -24,7 +24,7 @@ const dialogId = `lightbox-${id}`;
 <figure class="fig">
   <button type="button" class="fig__media" data-lightbox-open={dialogId} aria-haspopup="dialog">
     <picture>
-      {mob && <source media="(max-width: 1279px)" srcset={mob.srcSet.attribute} sizes="100vw" />}
+      {mob && <source media="(max-width: 1279px)" srcset={mob.srcSet.attribute} sizes="100vw" width={mobile!.width} height={mobile!.height} />}
       <img src={desk.src} srcset={desk.srcSet.attribute} sizes="(min-width: 1280px) 813px, 100vw" alt={alt} width={image.width} height={image.height} loading="lazy" decoding="async" />
     </picture>
     <span class="fig__chip" aria-hidden="true"><Icon name="enlarge" /></span>
@@ -142,7 +142,8 @@ const dialogId = `lightbox-${id}`;
     height: auto;
   }
   @media (min-width: 1280px) {
-    .lightbox__img { max-height: 880px; }
+    /* Up to 880 tall (Figma Lightbox / Figure), and never taller than the screen leaves room for */
+    .lightbox__img { max-height: min(880px, calc(100dvh - 2 * var(--layout-margin) - var(--layout-control-size) - var(--layout-card-padding))); }
   }
 </style>
 
@@ -160,6 +161,7 @@ const dialogId = `lightbox-${id}`;
     dialog.addEventListener('click', (e) => {
       if (e.target === dialog || e.target === dialog.firstElementChild) dialog.close();
     });
-    dialog.addEventListener('close', () => opener.focus());
+    // Wait a tick: the browser restores its own focus on close, then we move it to the image.
+    dialog.addEventListener('close', () => setTimeout(() => opener.focus(), 0));
   });
 </script>
