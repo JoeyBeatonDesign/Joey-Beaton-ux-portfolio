@@ -38,7 +38,9 @@ const sets: { id: string; caption?: string; books: Book[] }[] = [
       <div class="bg__intro">
         <h3 class="libapp__heading">Have you read and enjoyed any of these?</h3>
         <p class="libapp__copy">Tap the heart for books you loved<br />Tap ✕ if a book or genre isn’t for you</p>
-        {s.caption && <p class="libapp__copy bg__caption">{s.caption}</p>}
+        {s.caption
+          ? <p class="libapp__copy bg__caption">{s.caption}</p>
+          : <p class="libapp__copy bg__caption bg__caption--spacer" aria-hidden="true">&nbsp;</p>}
       </div>
       <ul class="bg__grid">
         {s.books.map((b) => (
@@ -94,6 +96,8 @@ const sets: { id: string; caption?: string; books: Book[] }[] = [
   .bg__header { display: flex; flex-direction: column; gap: 4px; }
   .bg__intro { display: flex; flex-direction: column; gap: 12px; }
   .bg__caption { color: var(--lib-faint); }
+  /* Set 1 has no caption: keep its space so both grids start at the same height */
+  .bg__caption--spacer { visibility: hidden; }
   .bg__grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
