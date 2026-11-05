@@ -196,7 +196,7 @@ const dialogId = `lightbox-${id}`;
       dialog.showModal();
       dialog.querySelector<HTMLButtonElement>('[data-lightbox-close]')?.focus();
     });
-    dialog.querySelector('[data-lightbox-close]')?.addEventListener('click', () => dialog.close());
+    dialog.querySelectorAll('[data-lightbox-close]').forEach((b) => b.addEventListener('click', () => dialog.close()));
     // Click on the dark area outside the image closes it.
     dialog.addEventListener('click', (e) => {
       if (e.target === dialog || e.target === dialog.firstElementChild) dialog.close();

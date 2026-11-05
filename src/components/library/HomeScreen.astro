@@ -1,0 +1,105 @@
+---
+// Live rebuild of "Home page – personalized": four shelves that scroll sideways (mouse, touch or keyboard).
+// The Tune icon would open preferences in the real app, so it shows a note instead.
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/600.css';
+import '@fontsource/inter/700.css';
+import './app.css';
+
+const shelves: { h: string; books: [string, string, string][] }[] = [
+  { h: 'Because you liked Project Hail Mary', books: [['The Martian', 'Andy Weir', '#e07b66'], ['Blindsight', 'Peter Watts', '#dca86a'], ['A Memory Called Empire', 'Arkady Martine', '#6eb4dc'], ['Flowers for Algernon', 'Daniel Keyes', '#9b6ec0'], ['The Dispossessed', 'Ursula K. Le Guin', '#6ebd94']] },
+  { h: 'Fantasy - because you like The Hobbit', books: [['The Goblin Emperor', 'Katherine Addison', '#e07b66'], ['Jonathan Strange', 'Susanna Clarke', '#dca86a'], ['Stardust', 'Neil Gaiman', '#9b6ec0'], ['Uprooted', 'Naomi Novik', '#6ebd94'], ['The Buried Giant', 'Kazuo Ishiguro', '#6eb4dc']] },
+  { h: 'Mystery - because you liked Big Magic', books: [['The Secret History', 'Donna Tartt', '#e07b66'], ['A Fatal Grace', 'Louise Penny', '#9b6ec0'], ['Rebecca', 'Daphne du Maurier', '#6eb4dc'], ['In the Woods', 'Tana French', '#6ebd94'], ['The Little Stranger', 'Sarah Waters', '#dca86a']] },
+  { h: 'Popular right now — for a fresh read', books: [['Intermezzo', 'Sally Rooney', '#9b6ec0'], ['The Women', 'Kristin Hannah', '#e07b66'], ['James', 'Percival Everett', '#dca86a'], ['All Fours', 'Miranda July', '#6ebd94'], ['Orbital', 'Samantha Harvey', '#6eb4dc']] },
+];
+---
+<div class="libapp hs" data-home>
+  <div class="hs__top">
+    <p class="hs__app">Library</p>
+    <button type="button" class="hs__tune" aria-label="Tune your recommendations" data-note-text="Next step: tune your recommendations, shown further down the page.">
+      <svg width="16" height="14" viewBox="0 0 16 14" aria-hidden="true"><path d="M1 2h14M1 7h14M1 12h14" stroke="#6a6a6e" stroke-width="2" stroke-linecap="round" /><circle cx="11" cy="2" r="2.5" fill="#1a1a1e" /><circle cx="5" cy="7" r="2.5" fill="#1a1a1e" /><circle cx="10" cy="12" r="2.5" fill="#1a1a1e" /></svg>
+    </button>
+    <span class="hs__avatar" aria-hidden="true"></span>
+  </div>
+  <p class="hs__tip" aria-hidden="true">Tune your recommendations</p>
+  <p class="libapp__note hs__note" role="status" data-note></p>
+
+  <h3 class="libapp__heading hs__title">Start Reading</h3>
+  {shelves.map((s, i) => (
+    <section class="hs__shelf" aria-labelledby={`shelf-${i}`}>
+      <h4 class="hs__shelf-h" id={`shelf-${i}`}>{s.h}</h4>
+      <ul class="hs__row" tabindex="0" aria-label={`${s.h}, scrolls sideways`}>
+        {s.books.map(([t, a, c]) => (
+          <li class="hs__book">
+            <span class="hs__cover" style={`background: ${c}`} aria-hidden="true"></span>
+            <p class="hs__bt">{t}</p>
+            <p class="hs__ba">{a}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+  ))}
+</div>
+
+<style>
+  .hs {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-bottom: 24px;
+    overflow: hidden;
+  }
+  .hs__top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 24px;
+    border-bottom: 1px solid var(--lib-line);
+  }
+  .hs__app { flex: 1; font-size: 24px; font-weight: 700; }
+  .hs__tune {
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border: 1px solid var(--lib-line);
+    border-radius: 8px;
+    background: var(--lib-surface);
+    cursor: pointer;
+  }
+  .hs__avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--lib-surface); }
+  .hs__tip {
+    align-self: flex-end;
+    margin: 0 16px 0 0 !important;
+    padding: 6px 8px;
+    border: 1px solid var(--lib-line);
+    border-radius: 8px;
+    font-size: 11px;
+    color: var(--lib-faint);
+  }
+  .hs__note:empty { display: none; }
+  .hs__note { padding-inline: 24px; }
+  .hs__title { padding: 4px 24px 0; }
+  .hs__shelf { display: flex; flex-direction: column; gap: 8px; }
+  .hs__shelf-h { padding-inline: 24px; font-size: 16px; font-weight: 400; line-height: 1.5; color: var(--lib-ink); }
+  .hs__row {
+    display: flex;
+    gap: 12px;
+    margin: 0;
+    padding: 0 24px 8px;
+    overflow-x: auto;
+    list-style: none;
+    scroll-snap-type: x proximity;
+    scrollbar-width: thin;
+  }
+  .hs__book { flex: none; width: 96px; scroll-snap-align: start; display: flex; flex-direction: column; gap: 6px; }
+  .hs__cover { display: block; height: 128px; border-radius: 8px; }
+  .hs__bt { font-size: 14px; font-weight: 600; line-height: 1.45; color: var(--lib-ink); }
+  .hs__ba { font-size: 12px; line-height: 1.35; color: var(--lib-text); }
+</style>
+
+<script>
+  import { notes } from './libapp';
+  document.querySelectorAll<HTMLElement>('[data-home]').forEach((root) => notes(root));
+</script>

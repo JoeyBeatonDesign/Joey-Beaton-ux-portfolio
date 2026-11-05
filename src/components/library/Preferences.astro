@@ -1,0 +1,111 @@
+---
+// Live rebuild of "Preferences – tune your recommendations". Genre chips toggle and the adventurousness
+// choice switches, as in the prototype. Back closes the lightbox. Save shows a note instead of leaving.
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/600.css';
+import '@fontsource/inter/700.css';
+import './app.css';
+
+const genres: [string, boolean][] = [['Fantasy', true], ['Mystery', true], ['Romance', false], ['Sci-Fi', true], ['Literary fiction', true], ['Nonfiction', false], ['Biography', true], ['Horror', false], ['Young Adult', false], ['History', false]];
+const liked: [string, string][] = [['Rebecca', '#e07b66'], ['Stardust', '#9b6ec0'], ['Still Points', '#6ebd94'], ['Big Magic', '#dca86a']];
+const notFor: [string, string][] = [['The Power of Now', '#6ebd94'], ['Gone Girl', '#dca86a'], ['Twilight', '#6eb4dc'], ['Eat Pray Love', '#e07b66']];
+---
+<div class="libapp pf" data-prefs>
+  <div class="pf__header">
+    <div class="pf__title-row">
+      <button type="button" class="pf__back" aria-label="Back" data-lightbox-close>←</button>
+      <h3 class="libapp__heading">Tune your recommendations</h3>
+    </div>
+    <hr class="pf__divider" />
+  </div>
+
+  <section class="pf__section">
+    <h4 class="pf__label" id="pf-genres">Your genres</h4>
+    <p class="pf__hint">Tap to add or remove genres</p>
+    <div class="pf__chips" role="group" aria-labelledby="pf-genres">
+      {genres.map(([g, on]) => <button type="button" class="libapp__chip" aria-pressed={String(on)}>{g}</button>)}
+    </div>
+  </section>
+
+  <section class="pf__section">
+    <h4 class="pf__label" id="pf-adv">Adventurousness</h4>
+    <div class="libapp__seg" role="radiogroup" aria-labelledby="pf-adv">
+      <button type="button" class="libapp__opt" role="radio" aria-checked="false">Well-known books</button>
+      <button type="button" class="libapp__opt" role="radio" aria-checked="true">Lesser-known picks</button>
+    </div>
+  </section>
+
+  <section class="pf__section">
+    <h4 class="pf__label">Books you've liked</h4>
+    <ul class="pf__books">
+      {liked.map(([t, c]) => <li class="pf__book"><span class="pf__cover" style={`background: ${c}`}><span aria-hidden="true">✕</span></span><p class="pf__bt">{t}</p></li>)}
+    </ul>
+  </section>
+
+  <section class="pf__section">
+    <h4 class="pf__label">Not interested in</h4>
+    <ul class="pf__books">
+      {notFor.map(([t, c]) => <li class="pf__book"><span class="pf__cover" style={`background: ${c}`}><span aria-hidden="true">↩</span></span><p class="pf__bt">{t}</p></li>)}
+    </ul>
+  </section>
+
+  <div class="pf__footer">
+    <button type="button" class="libapp__primary" data-note-text="Saved. Your home page would now update with these picks.">Save changes</button>
+    <p class="libapp__note" role="status" data-note></p>
+  </div>
+</div>
+
+<style>
+  .pf {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-height: 812px;
+    padding: 57px 29px 29px;
+  }
+  .pf__header { display: flex; flex-direction: column; gap: 0; }
+  .pf__title-row { display: flex; align-items: center; gap: 4px; margin-left: -12px; }
+  .pf__back {
+    flex: none;
+    width: 44px;
+    height: 44px;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--lib-ink);
+    font-size: 22px;
+    cursor: pointer;
+  }
+  .pf__divider { width: 100%; margin: 0; border: 0; border-top: 1px solid var(--lib-line); }
+  .pf__section { display: flex; flex-direction: column; gap: 4px; }
+  .pf__label { font-size: 14px; font-weight: 600; line-height: 1.45; color: var(--lib-ink); }
+  .pf__hint { font-size: 12px; color: var(--lib-faint); }
+  .pf__chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+  .pf__books { display: flex; gap: 12px; margin: 4px 0 0; padding: 0; list-style: none; }
+  .pf__book { width: 72px; display: flex; flex-direction: column; gap: 4px; }
+  .pf__cover {
+    position: relative;
+    display: block;
+    height: 80px;
+    border-radius: 8px;
+  }
+  .pf__cover span {
+    position: absolute;
+    top: 4px;
+    right: 6px;
+    color: rgb(255 255 255 / 0.8);
+    font-size: 12px;
+  }
+  .pf__bt { font-size: 11px; line-height: 1.3; color: var(--lib-text); }
+  .pf__footer { display: flex; flex-direction: column; gap: 12px; margin-top: auto; }
+</style>
+
+<script>
+  import { toggles, radioGroup, notes } from './libapp';
+  document.querySelectorAll<HTMLElement>('[data-prefs]').forEach((root) => {
+    toggles(root, '.libapp__chip');
+    radioGroup(root, '.libapp__opt');
+    notes(root);
+  });
+</script>

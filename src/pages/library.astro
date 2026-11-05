@@ -5,6 +5,9 @@ import Row from '../components/case/Row.astro';
 import Section from '../components/case/Section.astro';
 import Figure from '../components/case/Figure.astro';
 import GenrePicker from '../components/library/GenrePicker.astro';
+import BookGrid from '../components/library/BookGrid.astro';
+import HomeScreen from '../components/library/HomeScreen.astro';
+import Preferences from '../components/library/Preferences.astro';
 import home from '../assets/figures/library-home-page.png';
 import homeM from '../assets/figures/library-home-page-mobile.png';
 import homeL from '../assets/figures/library-lightbox-home-page.png';
@@ -27,7 +30,9 @@ import prefsL from '../assets/figures/library-lightbox-preferences.png';
 >
   <div class="group">
     <Row divider={false} heading="Personalisation of a library app" body="I redesigned a library app onboarding experience so the first few taps after account creation shape a personalised home page, instead of defaulting every reader to the same bestseller list." />
-    <div class="right"><Figure id="library-home" hover="stage" image={home} mobile={homeM} lightbox={homeL} alt="Personalised home screen with rows of books, such as Because you liked Project Hail Mary, and genre picks." /></div>
+    <div class="right"><Figure id="library-home" hover="stage" image={home} mobile={homeM} lightbox={homeL} alt="Personalised home screen with rows of books, such as Because you liked Project Hail Mary, and genre picks.">
+        <HomeScreen slot="live" />
+      </Figure></div>
   </div>
 
   <Row number="01" title="The problem" summary="No onboarding led to generic book recommendations" progress="TTTD"
@@ -51,14 +56,18 @@ Next, the user moves a slider below the genres to choose between ‘well-known b
 If the user doesn’t recognise any of the first books, the cue ‘not see anything familiar’ leads them to the ‘show me more’ button. This shows them 12 more books, so they can give the app a better picture of their taste.
 
 Both onboarding pages include ‘skip this step’ and ‘take me to my homepage’ buttons. These let the user skip onboarding if they already know what book they’re looking for, or if they don’t have time when they first download the app.`} />
-    <div class="right"><Figure id="library-grid" hover="stage" image={grid} mobile={gridM} lightbox={gridL} alt="Onboarding step 2: tap the heart on books you’ve enjoyed, or ask for more, then go to your home page." /></div>
+    <div class="right"><Figure id="library-grid" hover="stage" image={grid} mobile={gridM} lightbox={gridL} alt="Onboarding step 2: tap the heart on books you’ve enjoyed, or ask for more, then go to your home page.">
+        <BookGrid slot="live" />
+      </Figure></div>
   </div>
 
   <div class="group">
     <Section class="right" body={`When the user arrives at their homepage, they see a personalised list of books based on the ones they told the app they enjoyed.
 
 Finally, the user can keep refining their taste on a dedicated page. Based on Netflix’s thumbs-up ratings, it lets them mark books as ‘loved’, ‘liked’ or ‘not for me’. Each rating tells the app more about the reading they enjoy and helps it recommend other books they’ll like.`} />
-    <div class="right"><Figure id="library-prefs" hover="stage" image={prefs} mobile={prefsM} lightbox={prefsL} alt="Tune your recommendations screen: edit genres, how adventurous to be, liked books and ones you’re not interested in." /></div>
+    <div class="right"><Figure id="library-prefs" hover="stage" image={prefs} mobile={prefsM} lightbox={prefsL} alt="Tune your recommendations screen: edit genres, how adventurous to be, liked books and ones you’re not interested in.">
+        <Preferences slot="live" />
+      </Figure></div>
   </div>
 
   <Row number="03" title="The journey" summary="What informed my decision making" progress="TDDD"

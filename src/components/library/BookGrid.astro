@@ -1,0 +1,180 @@
+---
+// Live rebuild of "Onboarding 2 – Book grid" (Set 1 and Set 2, shown side by side as in the Figma lightbox;
+// a swipeable row on small screens). Heart = loved (toggle). ✕ = not interested: the book fades out and a
+// replacement fades in (250ms), as in the prototype. Buttons that lead elsewhere show a note instead.
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/600.css';
+import '@fontsource/inter/700.css';
+import './app.css';
+
+type Book = { t: string; a: string; c: string; rt: string; ra: string; rc: string };
+const sets: { id: string; caption?: string; books: Book[] }[] = [
+  { id: '1', books: [
+    { t: 'Gone Girl', a: 'Gillian Flynn', c: '#6eb4dc', rt: 'The Girl on the Train', ra: 'Paula Hawkins', rc: '#9b6ec0' },
+    { t: 'Piranesi', a: 'Susanna Clarke', c: '#e07b66', rt: 'The Starless Sea', ra: 'Erin Morgenstern', rc: '#6ebd94' },
+    { t: 'Blue Hours', a: 'Tessa Crane', c: '#6ebd94', rt: 'The Thirteenth Tale', ra: 'Diane Setterfield', rc: '#e07b66' },
+    { t: 'Hail Mary', a: 'Andy Weir', c: '#dca86a', rt: 'Children of Time', ra: 'Adrian Tchaikovsky', rc: '#9b6ec0' },
+    { t: 'Pachinko', a: 'Min Jin Lee', c: '#9b6ec0', rt: 'Homegoing', ra: 'Yaa Gyasi', rc: '#dca86a' },
+    { t: 'Salt Line', a: 'Alice Porter', c: '#e07b66', rt: 'Never Let Me Go', ra: 'Kazuo Ishiguro', rc: '#6eb4dc' },
+  ] },
+  { id: '2', caption: 'Picked based on readers with similar taste', books: [
+    { t: 'The Hobbit', a: 'J.R.R. Tolkien', c: '#6ebd94', rt: 'The Alchemist', ra: 'Paulo Coelho', rc: '#6eb4dc' },
+    { t: 'Born a Crime', a: 'Trevor Noah', c: '#6eb4dc', rt: 'Normal People', ra: 'Sally Rooney', rc: '#6ebd94' },
+    { t: 'Driftwood', a: 'Sophie Lee', c: '#dca86a', rt: 'Low Road', ra: 'Rachel Walsh', rc: '#6ebd94' },
+    { t: 'Big Magic', a: 'Elizabeth Gilbert', c: '#e07b66', rt: 'Evelyn Hugo', ra: 'Taylor Jenkins Reid', rc: '#9b6ec0' },
+    { t: 'River Light', a: 'Amy Shen', c: '#9b6ec0', rt: 'Crow Country', ra: 'Mei Yuen', rc: '#dca86a' },
+    { t: 'Kite Runner', a: 'Khaled Hosseini', c: '#6ebd94', rt: 'Lessons', ra: 'Bonnie Garmus', rc: '#e07b66' },
+  ] },
+];
+---
+<div class="bg-screens" role="group" aria-label="Book grid, two sets">
+  {sets.map((s) => (
+    <div class="libapp bg" data-book-grid>
+      <div class="bg__header">
+        <p class="libapp__step">Step 2 of 2</p>
+        <div class="libapp__progress" aria-hidden="true"><span class="is-on"></span><span class="is-on"></span></div>
+      </div>
+      <div class="bg__intro">
+        <h3 class="libapp__heading">Have you read and enjoyed any of these?</h3>
+        <p class="libapp__copy">Tap the heart for books you loved<br />Tap ✕ if a book or genre isn’t for you</p>
+        {s.caption && <p class="libapp__copy bg__caption">{s.caption}</p>}
+      </div>
+      <ul class="bg__grid">
+        {s.books.map((b) => (
+          <li class="bg__card" style={`--c: ${b.c}`} data-card data-rt={b.rt} data-ra={b.ra} data-rc={b.rc}>
+            <p class="bg__title" data-title>{b.t}</p>
+            <p class="bg__author" data-author>{b.a}</p>
+            <button type="button" class="bg__heart" aria-pressed="false" aria-label={`Loved ${b.t}`} data-heart>
+              <span aria-hidden="true" class="bg__heart-o">♡</span><span aria-hidden="true" class="bg__heart-f">♥</span>
+            </button>
+            <button type="button" class="bg__x" aria-label={`Not interested in ${b.t}`} data-x>
+              <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 1l8 8M9 1L1 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" /></svg>
+            </button>
+          </li>
+        ))}
+      </ul>
+      {s.id === '1' && (
+        <div class="bg__more">
+          <p class="libapp__copy">Not seeing anything familiar?</p>
+          <button type="button" class="libapp__secondary" data-note-text="More books: the second set is shown alongside."><span aria-hidden="true">↺</span> Show me more</button>
+        </div>
+      )}
+      <div class="bg__footer">
+        <button type="button" class="libapp__primary" data-note-text="Next step: your personalised home page, shown at the top of the case study.">Take me to my home page</button>
+        <button type="button" class="libapp__link" data-note-text="Next step: your personalised home page, shown at the top of the case study.">Skip this step</button>
+        <p class="libapp__note" role="status" data-note></p>
+        <p class="visually-hidden" aria-live="polite" data-live></p>
+      </div>
+    </div>
+  ))}
+</div>
+
+<style>
+  .bg-screens {
+    display: flex;
+    gap: 16px;
+    max-width: 100%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 4px;
+  }
+  .bg {
+    flex: none;
+    scroll-snap-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    min-height: 812px;
+    padding: 64px 24px 24px;
+  }
+  @media (max-width: 767px) {
+    .bg { width: calc(100vw - 2 * var(--layout-margin) - 32px); }
+  }
+  .bg__header { display: flex; flex-direction: column; gap: 4px; }
+  .bg__intro { display: flex; flex-direction: column; gap: 12px; }
+  .bg__caption { color: var(--lib-faint); }
+  .bg__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .bg__card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-height: 152px;
+    padding: 32px 8px 16px;
+    border-radius: 8px;
+    background: var(--c);
+    color: #ffffff;
+    text-align: center;
+    transition: opacity 250ms ease-out;
+  }
+  .bg__card.is-out { opacity: 0; }
+  .bg__title { font-size: 14px; font-weight: 600; line-height: 1.45; }
+  .bg__author { font-size: 12px; line-height: 1.35; }
+  .bg__heart,
+  .bg__x {
+    position: absolute;
+    top: 4px;
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: #ffffff;
+    font-size: 14px;
+    line-height: 1;
+    cursor: pointer;
+  }
+  .bg__heart { right: 4px; }
+  .bg__x { left: 4px; }
+  .bg__heart-f { display: none; }
+  .bg__heart[aria-pressed='true'] .bg__heart-o { display: none; }
+  .bg__heart[aria-pressed='true'] .bg__heart-f { display: inline; }
+  .bg__more { display: flex; flex-direction: column; gap: 8px; }
+  .bg__footer { display: flex; flex-direction: column; gap: 12px; margin-top: auto; }
+</style>
+
+<script>
+  import { notes } from './libapp';
+  document.querySelectorAll<HTMLElement>('[data-book-grid]').forEach((root) => {
+    const live = root.querySelector<HTMLElement>('[data-live]')!;
+    notes(root);
+    root.querySelectorAll<HTMLElement>('[data-card]').forEach((card) => {
+      const heart = card.querySelector<HTMLButtonElement>('[data-heart]')!;
+      const x = card.querySelector<HTMLButtonElement>('[data-x]')!;
+      heart.addEventListener('click', () => {
+        heart.setAttribute('aria-pressed', String(heart.getAttribute('aria-pressed') !== 'true'));
+      });
+      x.addEventListener('click', () => {
+        const old = card.querySelector('[data-title]')!.textContent;
+        const swap = () => {
+          card.querySelector('[data-title]')!.textContent = card.dataset.rt!;
+          card.querySelector('[data-author]')!.textContent = card.dataset.ra!;
+          card.style.setProperty('--c', card.dataset.rc!);
+          heart.setAttribute('aria-pressed', 'false');
+          heart.setAttribute('aria-label', `Loved ${card.dataset.rt}`);
+          x.remove(); // a replacement can't be replaced again
+          card.classList.remove('is-out');
+          heart.focus();
+          live.textContent = `${old} removed. New suggestion: ${card.dataset.rt} by ${card.dataset.ra}.`;
+        };
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (reduce) { swap(); return; }
+        card.classList.add('is-out');
+        setTimeout(swap, 250);
+      });
+    });
+  });
+</script>
