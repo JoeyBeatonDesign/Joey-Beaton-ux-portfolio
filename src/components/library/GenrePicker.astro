@@ -1,0 +1,175 @@
+---
+// Live rebuild of the Library app's "Onboarding 1 – Genre picker" screen (Figma: Library visual, 375 wide).
+// Colours and type are the Library app's own (not the portfolio tokens), copied from the Figma screen.
+// Behaviour, as in the prototype: tap genres (toggle), Continue unlocks once 3 are picked,
+// and one adventurousness option can be chosen.
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/700.css';
+const genres = ['Fantasy', 'Mystery', 'Romance', 'Sci-Fi', 'Literary fiction', 'Nonfiction', 'Biography', 'Horror', 'Young adult', 'History'];
+const MIN = 3;
+---
+<div class="lib" data-genre-picker data-min={MIN}>
+  <div class="lib__header">
+    <p class="lib__step">Step 1 of 2</p>
+    <div class="lib__progress" aria-hidden="true"><span class="is-on"></span><span></span></div>
+  </div>
+
+  <div class="lib__intro">
+    <h3 class="lib__heading">What do you like to read?</h3>
+    <div class="lib__copy">
+      <p>Pick at least {MIN}</p>
+      <p>This shapes what shows up on your home page.</p>
+    </div>
+  </div>
+
+  <div class="lib__body">
+    <div class="lib__chips" role="group" aria-label="Genres">
+      {genres.map((g) => <button type="button" class="lib__chip" aria-pressed="false">{g}</button>)}
+    </div>
+
+    <div class="lib__adv">
+      <p class="lib__label" id="adv-label">How adventurous should we get?</p>
+      <div class="lib__seg" role="radiogroup" aria-labelledby="adv-label">
+        <button type="button" class="lib__opt" role="radio" aria-checked="false">Well-known books</button>
+        <button type="button" class="lib__opt" role="radio" aria-checked="false">Lesser-known picks</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="lib__footer">
+    <p class="visually-hidden" aria-live="polite" data-status></p>
+    <button type="button" class="lib__continue" aria-disabled="true" data-continue>Continue</button>
+  </div>
+</div>
+
+<style>
+  .lib {
+    --lib-bg: #f5f5f0;
+    --lib-surface: #eeeee9;
+    --lib-line: #e4e4df;
+    --lib-accent: #5b67ca;
+    --lib-ink: #1a1a1e;
+    --lib-text: #6e6e72;
+    --lib-faint: #a2a2a6;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+    max-width: 375px;
+    min-height: 812px;
+    padding: 64px 24px 24px;
+    border-radius: 16px;
+    background: var(--lib-bg);
+    color: var(--lib-ink);
+    font-family: 'Inter', system-ui, sans-serif;
+    text-align: left;
+  }
+  .lib p { margin: 0; }
+  .lib__header { display: flex; flex-direction: column; gap: 4px; }
+  .lib__step { font-size: 12px; font-weight: 500; color: var(--lib-faint); }
+  .lib__progress { display: flex; gap: 8px; }
+  .lib__progress span { flex: 1; height: 4px; border-radius: 2px; background: var(--lib-line); }
+  .lib__progress span.is-on { background: var(--lib-accent); }
+  .lib__intro { display: flex; flex-direction: column; gap: 12px; }
+  .lib__heading { margin: 0; font-size: 24px; font-weight: 700; line-height: 1.35; color: var(--lib-ink); }
+  .lib__copy { display: flex; flex-direction: column; gap: 6px; font-size: 13px; line-height: 1.45; color: var(--lib-text); }
+  .lib__body { display: flex; flex-direction: column; gap: 24px; flex: 1; }
+  .lib__chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .lib__chip {
+    padding: 12px;
+    border: 1px solid var(--lib-line);
+    border-radius: 9999px;
+    background: var(--lib-surface);
+    color: var(--lib-text);
+    font: 500 12px/1.2 'Inter', system-ui, sans-serif;
+    cursor: pointer;
+    transition: background-color 150ms ease-out, color 150ms ease-out, border-color 150ms ease-out;
+  }
+  .lib__chip[aria-pressed='true'] {
+    border-color: var(--lib-accent);
+    background: var(--lib-accent);
+    color: #ffffff;
+  }
+  .lib__adv { display: flex; flex-direction: column; gap: 12px; }
+  .lib__label { font-size: 12px; font-weight: 500; color: var(--lib-faint); }
+  .lib__seg {
+    display: flex;
+    gap: 4px;
+    padding: 4px;
+    border: 1px solid var(--lib-line);
+    border-radius: 12px;
+    background: var(--lib-surface);
+  }
+  .lib__opt {
+    flex: 1;
+    padding: 12px 8px;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--lib-faint);
+    font: 500 13px/1.45 'Inter', system-ui, sans-serif;
+    cursor: pointer;
+    transition: background-color 150ms ease-out, color 150ms ease-out;
+  }
+  .lib__opt[aria-checked='true'] { background: var(--lib-accent); color: #ffffff; }
+  .lib__continue {
+    width: 100%;
+    height: 56px;
+    border: 0;
+    border-radius: 16px;
+    background: var(--lib-surface);
+    color: var(--lib-faint);
+    font: 500 16px/1 'Inter', system-ui, sans-serif;
+    cursor: not-allowed;
+    transition: background-color 150ms ease-out, color 150ms ease-out;
+  }
+  .lib__continue[aria-disabled='false'] {
+    background: var(--lib-accent);
+    color: #ffffff;
+    cursor: pointer;
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-genre-picker]').forEach((root) => {
+    const min = Number(root.dataset.min);
+    const chips = [...root.querySelectorAll<HTMLButtonElement>('.lib__chip')];
+    const opts = [...root.querySelectorAll<HTMLButtonElement>('.lib__opt')];
+    const cont = root.querySelector<HTMLButtonElement>('[data-continue]')!;
+    const status = root.querySelector<HTMLElement>('[data-status]')!;
+
+    const update = () => {
+      const n = chips.filter((c) => c.getAttribute('aria-pressed') === 'true').length;
+      const ready = n >= min;
+      cont.setAttribute('aria-disabled', String(!ready));
+      status.textContent = ready ? `${n} genres picked. Continue is available.` : `${n} of ${min} genres picked.`;
+    };
+
+    chips.forEach((chip) => chip.addEventListener('click', () => {
+      chip.setAttribute('aria-pressed', String(chip.getAttribute('aria-pressed') !== 'true'));
+      update();
+    }));
+
+    // Radio group: click, or arrow keys to move between the two options.
+    const choose = (i: number) => opts.forEach((o, j) => {
+      o.setAttribute('aria-checked', String(i === j));
+      o.tabIndex = i === j ? 0 : -1;
+    });
+    opts.forEach((o, i) => {
+      o.tabIndex = i === 0 ? 0 : -1;
+      o.addEventListener('click', () => choose(i));
+      o.addEventListener('keydown', (e) => {
+        if (['ArrowRight', 'ArrowDown', 'ArrowLeft', 'ArrowUp'].includes(e.key)) {
+          e.preventDefault();
+          const next = (i + (e.key === 'ArrowRight' || e.key === 'ArrowDown' ? 1 : -1) + opts.length) % opts.length;
+          choose(next);
+          opts[next].focus();
+        }
+      });
+    });
+
+    cont.addEventListener('click', (e) => { if (cont.getAttribute('aria-disabled') === 'true') e.preventDefault(); });
+    update();
+  });
+</script>

@@ -40,7 +40,9 @@ const dialogId = `lightbox-${id}`;
     <div class="lightbox__controls">
       <button type="button" class="lightbox__close" data-lightbox-close aria-label="Close image"><Icon name="close" /></button>
     </div>
-    <img class="lightbox__img" src={big.src} alt={alt} width={(lightbox ?? image).width} height={(lightbox ?? image).height} loading="lazy" decoding="async" />
+    {Astro.slots.has('live')
+      ? <div class="lightbox__live"><slot name="live" /></div>
+      : <img class="lightbox__img" src={big.src} alt={alt} width={(lightbox ?? image).width} height={(lightbox ?? image).height} loading="lazy" decoding="async" />}
   </div>
 </dialog>
 
@@ -159,6 +161,11 @@ const dialogId = `lightbox-${id}`;
     background: var(--colour-bg-page);
     color: var(--colour-action-outline);
     cursor: pointer;
+  }
+  .lightbox__live {
+    display: flex;
+    justify-content: center;
+    width: 100%;
   }
   .lightbox__img {
     width: auto;

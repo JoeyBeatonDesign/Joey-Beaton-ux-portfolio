@@ -4,6 +4,7 @@ import CaseLayout from '../components/case/CaseLayout.astro';
 import Row from '../components/case/Row.astro';
 import Section from '../components/case/Section.astro';
 import Figure from '../components/case/Figure.astro';
+import GenrePicker from '../components/library/GenrePicker.astro';
 import home from '../assets/figures/library-home-page.png';
 import homeM from '../assets/figures/library-home-page-mobile.png';
 import homeL from '../assets/figures/library-lightbox-home-page.png';
@@ -37,7 +38,11 @@ import prefsL from '../assets/figures/library-lightbox-preferences.png';
       body={`The first page of onboarding personalises the user’s reading options through two interactions. First, the user picks at least three genres. They can’t continue until they have chosen three, which ensures the library catalogue can offer enough books for the discovery step that follows.
 
 Next, the user moves a slider below the genres to choose between ‘well-known books’ and ‘more adventurous’ options. This gives the app a further signal about the kind of reading the user is likely to enjoy.`} />
-    <div class="right"><Figure id="library-genre" hover="stage" image={genre} mobile={genreM} lightbox={genreL} alt="Onboarding step 1: pick at least 3 genres, then choose well-known or lesser-known books." /></div>
+    <div class="right">
+      <Figure id="library-genre" hover="stage" image={genre} mobile={genreM} lightbox={genreL} alt="Onboarding step 1: pick at least 3 genres, then choose well-known or lesser-known books.">
+        <GenrePicker slot="live" />
+      </Figure>
+    </div>
   </div>
 
   <div class="group">
