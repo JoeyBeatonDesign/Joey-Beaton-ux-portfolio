@@ -1,6 +1,6 @@
 ---
 // Figma: Image (Size Large / Figure, Stage On) + Lightbox / Lightbox / Figure.
-// The image sits on colour/bg/image-accent with layout/block-gap padding. Hover: Elevation/Hover + enlarge chip.
+// The image sits on colour/bg/image-accent with layout/block-gap padding. Hover: Elevation/Hover (no enlarge chip: removed at Joey's request).
 // Clicking opens a lightbox (modal dialog): focus moves to Close, Esc or a click outside closes it,
 // and focus returns to the image. Desktop shows `image`; below 1280px shows `mobile` when given.
 import { getImage } from 'astro:assets';
@@ -29,7 +29,6 @@ const dialogId = `lightbox-${id}`;
       {mob && <source media="(max-width: 1279px)" srcset={mob.srcSet.attribute} sizes="100vw" />}
       <img style={`--ar-d: ${image.width} / ${image.height}; --ar-m: ${(mobile ?? image).width} / ${(mobile ?? image).height}`} src={desk.src} srcset={desk.srcSet.attribute} sizes="(min-width: 1280px) 813px, 100vw" alt={alt} width={image.width} height={image.height} loading="lazy" decoding="async" />
     </picture>
-    <span class="fig__chip" aria-hidden="true"><Icon name="enlarge" /></span>
     <span class="visually-hidden">Enlarge image</span>
   </button>
   {caption && <figcaption class="fig__caption t-body">{caption}</figcaption>}
@@ -76,19 +75,6 @@ const dialogId = `lightbox-${id}`;
   @media (min-width: 1280px) {
     .fig__media img { aspect-ratio: var(--ar-d); }
   }
-  .fig__chip {
-    position: absolute;
-    top: var(--layout-stack);
-    right: var(--layout-stack);
-    display: grid;
-    place-items: center;
-    padding: var(--layout-inline);
-    border-radius: var(--radius-button);
-    background: var(--colour-bg-image-accent);
-    color: var(--navy-900);
-    opacity: 0;
-    transition: opacity 150ms ease-out;
-  }
   .fig__media:hover,
   .fig__media:focus-visible {
     box-shadow: 0 var(--space-8) var(--space-24) var(--space-0) var(--colour-shadow);
@@ -114,10 +100,6 @@ const dialogId = `lightbox-${id}`;
     box-shadow:
       0 0 0 calc(var(--border-active) * 2) var(--colour-focus-ring-outer),
       0 var(--space-8) var(--space-24) var(--space-0) var(--colour-shadow);
-  }
-  .fig__media:hover .fig__chip,
-  .fig__media:focus-visible .fig__chip {
-    opacity: 1;
   }
   .fig__caption { color: var(--colour-text-body); }
 
