@@ -14,15 +14,17 @@ interface Props {
   lightbox?: ImageMetadata;
   alt: string;
   caption?: string;
+  /** fill: picture grows edge to edge on hover. stage: only the stage colour changes (Library screens). */
+  hover?: 'fill' | 'stage';
 }
-const { id, image, mobile, lightbox, alt, caption } = Astro.props;
+const { id, image, mobile, lightbox, alt, caption, hover = 'fill' } = Astro.props;
 const desk = await getImage({ src: image, format: 'webp', widths: [909, 1818], width: 1818 });
 const mob = mobile ? await getImage({ src: mobile, format: 'webp', widths: [358, 716], width: 716 }) : null;
 const big = await getImage({ src: lightbox ?? image, format: 'webp', width: (lightbox ?? image).width });
 const dialogId = `lightbox-${id}`;
 ---
 <figure class="fig">
-  <button type="button" class="fig__media" data-lightbox-open={dialogId} aria-haspopup="dialog">
+  <button type="button" class="fig__media" data-lightbox-open={dialogId} data-hover={hover} aria-haspopup="dialog">
     <picture>
       {mob && <source media="(max-width: 1279px)" srcset={mob.srcSet.attribute} sizes="100vw" />}
       <img style={`--ar-d: ${image.width} / ${image.height}; --ar-m: ${(mobile ?? image).width} / ${(mobile ?? image).height}`} src={desk.src} srcset={desk.srcSet.attribute} sizes="(min-width: 1280px) 813px, 100vw" alt={alt} width={image.width} height={image.height} loading="lazy" decoding="async" />
@@ -89,6 +91,23 @@ const dialogId = `lightbox-${id}`;
   .fig__media:focus-visible {
     box-shadow: 0 var(--space-8) var(--space-24) var(--space-0) var(--colour-shadow);
   }
+  /* Hover, as in the Figma prototype (Image State=Hover, Stage=Off): the stage colour drops away
+     (colour/image/bg). "fill" also grows the picture edge to edge, as a zoom so the page doesn't move. */
+  .fig__media {
+    overflow: hidden;
+    transition: box-shadow 150ms ease-out, background-color 150ms ease-out;
+  }
+  .fig__media img {
+    transition: transform 150ms ease-out;
+  }
+  .fig__media:hover,
+  .fig__media:focus-visible {
+    background: var(--colour-image-bg);
+  }
+  .fig__media[data-hover='fill']:hover img,
+  .fig__media[data-hover='fill']:focus-visible img {
+    transform: scale(var(--fill-scale, 1));
+  }
   .fig__media:focus-visible {
     box-shadow:
       0 0 0 calc(var(--border-active) * 2) var(--colour-focus-ring-outer),
@@ -153,6 +172,15 @@ const dialogId = `lightbox-${id}`;
 </style>
 
 <script>
+  // Hover "fill": work out how much the picture must grow to reach the box edges (box width ÷ picture width).
+  const setFill = () => document.querySelectorAll<HTMLElement>('.fig__media[data-hover="fill"]').forEach((box) => {
+    const img = box.querySelector('img');
+    if (img && img.offsetWidth) box.style.setProperty('--fill-scale', String(box.clientWidth / img.offsetWidth));
+  });
+  setFill();
+  window.addEventListener('resize', setFill);
+  window.addEventListener('load', setFill);
+
   // One handler for every lightbox on the page.
   document.querySelectorAll<HTMLButtonElement>('[data-lightbox-open]').forEach((opener) => {
     const dialog = document.getElementById(opener.dataset.lightboxOpen!) as HTMLDialogElement | null;
