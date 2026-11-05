@@ -1,9 +1,9 @@
 ---
 // Figma: Contact form (State Default / Sent). Validation rules from the component description.
-// Messages are sent with Formspree. Replace FORMSPREE_ENDPOINT once Joey has the form address.
+// Messages are sent with Formspree (form xljjzbpa), which emails them to Joey.
 import Field from './Field.astro';
 import Button from './Button.astro';
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID';
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xljjzbpa';
 ---
 <div class="contact" data-contact>
   <form class="contact__form" action={FORMSPREE_ENDPOINT} method="POST" novalidate data-contact-form>
