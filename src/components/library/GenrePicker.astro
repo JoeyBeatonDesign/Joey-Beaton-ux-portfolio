@@ -40,6 +40,7 @@ const MIN = 3;
   <div class="lib__footer">
     <p class="visually-hidden" aria-live="polite" data-status></p>
     <button type="button" class="lib__continue" aria-disabled="true" data-continue>Continue</button>
+    <p class="lib__note" role="status" data-note></p>
   </div>
 </div>
 
@@ -50,8 +51,9 @@ const MIN = 3;
     --lib-line: #e4e4df;
     --lib-accent: #5b67ca;
     --lib-ink: #1a1a1e;
-    --lib-text: #6e6e72;
-    --lib-faint: #a2a2a6;
+    /* Greys darkened from the Figma app (#6e6e72 / #a2a2a6) so every label passes 4.5:1 on the cream and chip backgrounds */
+    --lib-text: #58585c;
+    --lib-faint: #6a6a6e;
     display: flex;
     flex-direction: column;
     gap: 24px;
@@ -124,6 +126,8 @@ const MIN = 3;
     cursor: not-allowed;
     transition: background-color 150ms ease-out, color 150ms ease-out;
   }
+  .lib__footer { display: flex; flex-direction: column; gap: 12px; }
+  .lib__note { min-height: 19px; font-size: 13px; line-height: 1.45; color: var(--lib-text); text-align: center; }
   .lib__continue[aria-disabled='false'] {
     background: var(--lib-accent);
     color: #ffffff;
@@ -169,7 +173,12 @@ const MIN = 3;
       });
     });
 
-    cont.addEventListener('click', (e) => { if (cont.getAttribute('aria-disabled') === 'true') e.preventDefault(); });
+    // This demo shows one step. Continue explains where the next step is instead of going anywhere.
+    const note = root.querySelector<HTMLElement>('[data-note]')!;
+    cont.addEventListener('click', (e) => {
+      if (cont.getAttribute('aria-disabled') === 'true') { e.preventDefault(); return; }
+      note.textContent = 'Next step: the book grid, shown further down the page.';
+    });
     update();
   });
 </script>
