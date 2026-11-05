@@ -42,10 +42,15 @@ const { title, pageTitle, description, next, meta } = Astro.props;
     flex-direction: column;
     gap: var(--layout-block-gap);
   }
+  /* Right-hand column: 909 wide (layout/content-width), narrowing only when the window is too narrow
+     to fit it beside a process card, so text, images, tables and callouts always share one left edge. */
+  .sections {
+    --right-col: min(var(--layout-content-width), 100% - var(--layout-process-card-width) - var(--layout-gutter));
+  }
   @media (min-width: 1280px) {
     .sections :global(.right) {
       align-self: flex-end;
-      width: var(--layout-content-width);
+      width: var(--right-col);
     }
   }
 </style>

@@ -66,7 +66,7 @@ const card = Boolean(title);
     }
     .row__mobile-divider { display: none; }
     .row__slot { flex: none; width: var(--layout-process-card-width); }
-    .row :global(.row__section) { flex: none; }
+    .row :global(.row__section) { flex: none; width: var(--right-col, var(--layout-content-width)); }
     .row--card :global(.row__section) > :global(.divider) { display: block; }
   }
   /* Desktop shows the divider inside the section; mobile shows it above the card instead */
