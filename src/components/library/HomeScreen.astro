@@ -136,6 +136,7 @@ const shelves: { h: string; books: [string, string, string][] }[] = [
     overflow-x: auto;
     list-style: none;
     scroll-snap-type: x proximity;
+    scroll-padding-inline: 24px; /* snap books to the 24px margin, not the edge */
   }
   .hs__row.is-dragging { scroll-snap-type: none; cursor: grabbing; user-select: none; }
   @media (pointer: fine) { .hs__row { cursor: grab; } }
