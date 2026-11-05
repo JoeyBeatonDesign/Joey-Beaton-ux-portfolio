@@ -13,7 +13,7 @@ const shelves: { h: string; books: [string, string, string][] }[] = [
   { h: 'Popular right now — for a fresh read', books: [['Intermezzo', 'Sally Rooney', '#a34ad9'], ['The Women', 'Kristin Hannah', '#cc482b'], ['James', 'Percival Everett', '#ae6209'], ['All Fours', 'Miranda July', '#1c854d'], ['Orbital', 'Samantha Harvey', '#257cad']] },
 ];
 ---
-<div class="libapp hs" data-home>
+<div class="libapp hs" data-home tabindex="0" role="region" aria-label="Home page, scrolls up and down">
   <div class="hs__top">
     <p class="hs__app">Library</p>
     <button type="button" class="hs__tune" aria-label="Tune your recommendations" data-note-text="Next step: tune your recommendations, shown further down the page.">
@@ -46,8 +46,15 @@ const shelves: { h: string; books: [string, string, string][] }[] = [
     display: flex;
     flex-direction: column;
     gap: 8px;
+    /* A phone-sized screen, as in Figma: the page scrolls up and down, each shelf side to side */
+    height: 812px;
+    min-height: 480px;
+    max-height: calc(100dvh - 2 * var(--layout-margin) - var(--layout-control-size) - var(--layout-card-padding));
     padding-bottom: 24px;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
   }
   .hs__top {
     display: flex;
@@ -55,6 +62,10 @@ const shelves: { h: string; books: [string, string, string][] }[] = [
     gap: 12px;
     padding: 12px 24px;
     border-bottom: 1px solid var(--lib-line);
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: var(--lib-bg);
   }
   .hs__app { flex: 1; font-size: 24px; font-weight: 700; }
   .hs__tune {
