@@ -7,19 +7,19 @@ import portrait from '../assets/portrait-about.png';
 ---
 <Base
   title="About me – Joey Beaton"
-  description="Joey Beaton is a UX designer with a background in photography, visual communication and teaching, focused on research, testing and iteration."
+  description="Joey Beaton is a UX designer with a background in photography, visual communication and education, focused on research, testing and iteration."
   current="about"
 >
   <div class="about container">
     <h1 class="about__title t-heading-page">About me</h1>
     <NumberBlock class="about__who" number="01" title="Who I am">
-      <p>I'm a UX designer with a background in photography, visual communication and teaching. I’m a user-centred designer carrying over my student-centred teaching approach to design. I focus on the user: research, test, iterate, ship, test, repeat, turning ambiguous problems into user tested solutions.</p>
+      <p>I'm a UX designer with a background in photography, visual communication and education. I’m a user-centred designer carrying over my student-centred education approach to design. I focus on the user: research, test, iterate, ship, test, repeat, turning ambiguous problems into user tested solutions.</p>
     </NumberBlock>
     <NumberBlock class="about__journey" number="02" title="My journey">
       <p>I have previously worked in the Netherlands, Egypt, Thailand, South Korea and Kenya. This brings insight and empathy, and an openness to doing things differently.<br />My dream job is working on products that will serve the next billion users.</p>
     </NumberBlock>
     <div class="about__portrait">
-      <Image src={portrait} alt="Joey Beaton smiling in front of a stone wall, in black and white." widths={[443, 886]} sizes="(min-width: 1280px) 443px, 100vw" format="webp" />
+      <Image src={portrait} alt="Joey Beaton smiling in front of a stone wall, in black and white." widths={[443, 886]} sizes="(min-width: 1280px) 443px, 100vw" format="webp" loading="eager" />
     </div>
   </div>
 </Base>
@@ -53,8 +53,8 @@ import portrait from '../assets/portrait-about.png';
       align-items: start;
     }
     .about__title { grid-column: 1 / span 4; grid-row: 1; }
-    .about :global(.about__who) { grid-column: 8 / span 3; grid-row: 1; }
+    .about :global(.about__who) { grid-column: 10 / span 3; grid-row: 1; }
     .about :global(.about__journey) { grid-column: 2 / span 3; grid-row: 2; }
-    .about__portrait { grid-column: 5 / span 4; grid-row: 2 / span 3; aspect-ratio: 443 / 553; }
+    .about__portrait { grid-column: 5 / span 4; grid-row: 1 / span 3; aspect-ratio: 443 / 553; }
   }
 </style>
