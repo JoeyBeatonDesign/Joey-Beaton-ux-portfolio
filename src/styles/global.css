@@ -196,3 +196,8 @@ button {
     scroll-behavior: auto !important;
   }
 }
+
+/* While a lightbox or the mobile menu is open, the page behind stays still */
+html:has(dialog[open]) {
+  overflow: hidden;
+}

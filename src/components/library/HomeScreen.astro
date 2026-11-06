@@ -14,7 +14,7 @@ const shelves: { h: string; books: [string, string, string][] }[] = [
 ];
 ---
 <div class="libapp hs-frame" data-home>
-<div class="hs" tabindex="0" role="region" aria-label="Home page, scrolls up and down">
+<div class="hs" tabindex="0" role="region" aria-label="Home page. Use up and down arrows to scroll.">
   <div class="hs__top">
     <p class="hs__app">Library</p>
     <button type="button" class="hs__tune" aria-label="Tune your recommendations" data-note-text="Next step: tune your recommendations, shown further down the page.">
@@ -28,7 +28,7 @@ const shelves: { h: string; books: [string, string, string][] }[] = [
   {shelves.map((s, i) => (
     <section class="hs__shelf" aria-labelledby={`shelf-${i}`}>
       <h4 class="hs__shelf-h" id={`shelf-${i}`}>{s.h}</h4>
-      <ul class="hs__row" tabindex="0" aria-label={`${s.h}, scrolls sideways`}>
+      <ul class="hs__row" tabindex="0" aria-label={`Shelf: ${s.h}. Use left and right arrows to scroll.`}>
         {s.books.map(([t, a, c]) => (
           <li class="hs__book">
             <span class="hs__cover" style={`background: ${c}`} aria-hidden="true"></span>
@@ -72,7 +72,13 @@ const shelves: { h: string; books: [string, string, string][] }[] = [
   /* No grey browser scrollbars, as in the app. Scrolling still works by wheel, touch, keyboard and dragging. */
   .hs, .hs__row { scrollbar-width: none; }
   .hs::-webkit-scrollbar, .hs__row::-webkit-scrollbar { display: none; }
-  .hs:focus-visible { outline-offset: -4px; }
+  /* The screen and shelves scroll inside a clipped phone, so draw the double focus ring
+     inside their edges (outer ring as an inset shadow, inner ring just inside it). */
+  .hs:focus-visible,
+  .hs__row:focus-visible {
+    outline-offset: calc(var(--border-active) * -3);
+    box-shadow: inset 0 0 0 calc(var(--border-active) * 2) var(--colour-focus-ring-outer);
+  }
   .hs__top {
     display: flex;
     align-items: center;
@@ -150,6 +156,20 @@ const shelves: { h: string; books: [string, string, string][] }[] = [
   import { notes } from './libapp';
   document.querySelectorAll<HTMLElement>('[data-home]').forEach((root) => {
     notes(root);
+    // Arrow keys: Left/Right scroll the focused shelf, Up/Down scroll the phone screen.
+    // Handled here so the keys never reach the page behind the lightbox.
+    const screen = root.querySelector<HTMLElement>('.hs')!;
+    const smooth = () => (window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth') as ScrollBehavior;
+    screen.addEventListener('keydown', (e) => {
+      const row = (e.target as HTMLElement).closest<HTMLElement>('.hs__row');
+      if (row && (e.key === 'ArrowLeft' || e.key === 'ArrowRight')) {
+        e.preventDefault();
+        row.scrollBy({ left: e.key === 'ArrowRight' ? 108 : -108, behavior: smooth() });
+      } else if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+        e.preventDefault();
+        screen.scrollBy({ top: e.key === 'ArrowDown' ? 80 : -80, behavior: smooth() });
+      }
+    });
     new ResizeObserver(() => {
       if (root.clientHeight) root.style.setProperty('--hs-scale', String(Math.min(root.clientWidth / 375, root.clientHeight / 812)));
     }).observe(root);
