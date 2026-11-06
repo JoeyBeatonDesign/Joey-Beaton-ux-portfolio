@@ -15,13 +15,13 @@ import portrait from '../assets/portrait-home.png';
       <h1 class="hero__name t-display-hero">Joey<br />Beaton</h1>
     </div>
     <div class="hero__portrait">
-      <Image src={portrait} alt="Black-and-white portrait of Joey Beaton smiling." widths={[400, 600, 800, 1200]} sizes="(min-width: 1280px) 400px, (min-width: 768px) 600px, 100vw" format="webp" loading="eager" />
+      <Image src={portrait} alt="Black-and-white portrait of Joey Beaton smiling." widths={[400, 600, 800, 1200]} sizes="(min-width: 768px) 600px, 100vw" format="webp" loading="eager" />
     </div>
   </section>
 </Base>
 
 <style>
-  /* Mobile and Tablet: text first, then the portrait (max layout/hero-image-width) */
+  /* Mobile and Tablet: text first, then the portrait (Medium image, 4:5, up to layout/hero-image-width) */
   .hero {
     display: flex;
     flex-direction: column;
@@ -30,9 +30,10 @@ import portrait from '../assets/portrait-home.png';
   .hero__text {
     display: flex;
     flex-direction: column;
-    gap: var(--layout-section);
+    gap: var(--layout-block-gap);
   }
   .hero__intro {
+    max-width: var(--layout-hero-text-width);
     color: var(--colour-text-body);
   }
   .hero__name {
@@ -41,7 +42,7 @@ import portrait from '../assets/portrait-home.png';
   .hero__portrait {
     width: 100%;
     max-width: var(--layout-hero-image-width);
-    aspect-ratio: 2 / 3;
+    aspect-ratio: 4 / 5;
     border-radius: var(--radius-image);
     background: var(--colour-bg-image-accent);
     overflow: hidden;
@@ -52,26 +53,44 @@ import portrait from '../assets/portrait-home.png';
     object-fit: cover;
   }
 
-  /* Desktop: portrait left (400 × 600), text right, pushed to the edges by layout/section */
+  /* Desktop: a fluid hero (Figma: "Home page - Desktop – fluid preview" frames).
+     The photo is as tall as the screen minus the nav, with layout/block-gap above and below,
+     kept between layout/hero-image-min-width and layout/hero-image-width wide (4:5).
+     The name grows with the photo from type/size/display/hero to type/size/display/hero-max,
+     and never wider than its column. Photo left, gap space/64, text right. */
   @media (min-width: 1280px) {
     .hero {
+      --nav-h: calc(var(--layout-control-size) + 2 * var(--layout-card-padding));
+      --photo-h: clamp(
+        calc(var(--layout-hero-image-min-width) * 5 / 4),
+        calc(100svh - var(--nav-h) - 2 * var(--layout-block-gap)),
+        calc(var(--layout-hero-image-width) * 5 / 4)
+      );
       flex-direction: row-reverse;
-      justify-content: space-between;
-      align-items: stretch;
-      gap: var(--layout-block-gap);
+      justify-content: flex-start;
+      align-items: flex-start;
+      gap: var(--space-64);
       padding-inline: var(--layout-section);
     }
     .hero__portrait {
       flex: none;
-      width: 400px;
-      height: 600px;
+      width: calc(var(--photo-h) * 4 / 5);
+      height: var(--photo-h);
     }
     .hero__text {
-      flex: 0 1 462px;
-      justify-content: space-between;
-      align-items: flex-end;
-      gap: var(--layout-section);
+      flex: 1 1 0;
+      min-width: 0;
+      container-type: inline-size;
       padding-bottom: var(--layout-tight);
+    }
+    .hero__name {
+      text-align: right;
+      /* 144/550: the name keeps its Figma proportion to the photo. 3.25: "BEATON" is about 3.2 × the font size wide. */
+      font-size: clamp(
+        var(--type-size-display-hero),
+        min(var(--photo-h) * 144 / 550, 100cqi / 3.25),
+        var(--type-size-display-hero-max)
+      );
     }
   }
 </style>

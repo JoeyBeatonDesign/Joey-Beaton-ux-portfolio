@@ -26,6 +26,7 @@
   --radius-16: 16px;
   --radius-full: 999px;
   --font-size-144: 9rem;
+  --font-size-192: 12rem;
   --font-size-88: 5.5rem;
   --font-size-56: 3.5rem;
   --font-size-28: 1.75rem;
@@ -51,6 +52,7 @@
   --space-0: 0px;
   --size-440: 440px;
   --size-600: 600px;
+  --size-462: 462px;
   --shadow-navy-16: rgb(7 21 48 / 0.16);
   --shadow-black-48: rgb(0 0 0 / 0.48);
   --border-2: 2px;
@@ -204,6 +206,7 @@
   --layout-label-gap: var(--space-32);
   --layout-image-text: var(--space-32);
   --type-size-display-hero: var(--font-size-64);
+  --type-size-display-hero-max: var(--font-size-64);
   --type-size-heading-page: var(--font-size-48);
   --type-size-heading-section: var(--font-size-36);
   --type-size-heading-item: var(--font-size-20);
@@ -216,6 +219,8 @@
   --layout-image-medium-width: var(--size-440);
   --layout-icon-size: var(--space-24);
   --layout-hero-image-width: var(--size-600);
+  --layout-hero-image-min-width: var(--size-440);
+  --layout-hero-text-width: var(--size-909);
   --layout-hit-area: var(--space-48);
   --layout-control-size: var(--size-56);
   --layout-progress-dot: var(--space-12);
@@ -244,6 +249,7 @@
     --layout-label-gap: var(--space-32);
     --layout-image-text: var(--space-32);
     --type-size-display-hero: var(--font-size-104);
+    --type-size-display-hero-max: var(--font-size-104);
     --type-size-heading-page: var(--font-size-72);
     --type-size-heading-section: var(--font-size-48);
     --type-size-heading-item: var(--font-size-24);
@@ -256,6 +262,8 @@
     --layout-image-medium-width: var(--size-440);
     --layout-icon-size: var(--space-24);
     --layout-hero-image-width: var(--size-600);
+    --layout-hero-image-min-width: var(--size-440);
+    --layout-hero-text-width: var(--size-909);
     --layout-hit-area: var(--space-48);
     --layout-control-size: var(--size-56);
     --layout-progress-dot: var(--space-12);
@@ -285,6 +293,7 @@
     --layout-label-gap: var(--space-32);
     --layout-image-text: var(--space-32);
     --type-size-display-hero: var(--font-size-144);
+    --type-size-display-hero-max: var(--font-size-192);
     --type-size-heading-page: var(--font-size-88);
     --type-size-heading-section: var(--font-size-56);
     --type-size-heading-item: var(--font-size-28);
@@ -297,6 +306,8 @@
     --layout-image-medium-width: var(--size-440);
     --layout-icon-size: var(--space-24);
     --layout-hero-image-width: var(--size-600);
+    --layout-hero-image-min-width: var(--size-440);
+    --layout-hero-text-width: var(--size-462);
     --layout-hit-area: var(--space-48);
     --layout-control-size: var(--size-56);
     --layout-progress-dot: var(--space-12);
