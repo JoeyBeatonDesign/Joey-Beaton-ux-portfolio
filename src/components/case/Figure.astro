@@ -179,9 +179,15 @@ const dialogId = `lightbox-${id}`;
       dialog.querySelector<HTMLButtonElement>('[data-lightbox-close]')?.focus();
     });
     dialog.querySelectorAll('[data-lightbox-close]').forEach((b) => b.addEventListener('click', () => dialog.close()));
-    // Click on the dark area outside the image closes it.
+    // Click on the dark area outside the image (or outside a live app screen) closes it.
+    // Both the press and the release must be outside, so dragging a shelf or selecting text never closes it.
+    const content = '.lightbox__img, .libapp, .lib, .lightbox__controls';
+    const outside = (t: EventTarget | null) => t instanceof Element && !t.closest(content);
+    let downOutside = false;
+    dialog.addEventListener('pointerdown', (e) => { downOutside = outside(e.target); });
     dialog.addEventListener('click', (e) => {
-      if (e.target === dialog || e.target === dialog.firstElementChild) dialog.close();
+      if (downOutside && outside(e.target)) dialog.close();
+      downOutside = false;
     });
     // Wait a tick: the browser restores its own focus on close, then we move it to the image.
     dialog.addEventListener('close', () => setTimeout(() => opener.focus(), 0));
