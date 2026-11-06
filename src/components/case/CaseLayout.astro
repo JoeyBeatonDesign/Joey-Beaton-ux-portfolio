@@ -1,9 +1,9 @@
 ---
-// Shared shell for every case study: header, meta, the stacked sections, View all work and Back to top.
+// Shared shell for every case study: header, meta, the stacked sections, Previous / Back to top / Next, and the floating Back to top.
 import Base from '../../layouts/Base.astro';
 import ProjectHeader from './ProjectHeader.astro';
 import ProjectMeta from './ProjectMeta.astro';
-import ButtonPair from './ButtonPair.astro';
+import ProjectNav from './ProjectNav.astro';
 import BackToTop from './BackToTop.astro';
 interface Props {
   title: string;
@@ -20,7 +20,7 @@ const { title, pageTitle, description, next, meta } = Astro.props;
   <div class="sections container">
     <ProjectMeta items={meta} />
     <slot />
-    <div class="sections__end"><ButtonPair href="/my-work/" label="View all work" /></div>
+    <ProjectNav />
   </div>
   <BackToTop />
 </Base>
@@ -31,10 +31,6 @@ const { title, pageTitle, description, next, meta } = Astro.props;
     flex-direction: column;
     gap: var(--layout-section);
     margin-top: var(--layout-block-gap);
-  }
-  .sections__end {
-    display: flex;
-    justify-content: flex-end;
   }
   /* A group: text and its images, spaced by layout/block-gap; images and loose sections sit in the right-hand column */
   .sections :global(.group) {

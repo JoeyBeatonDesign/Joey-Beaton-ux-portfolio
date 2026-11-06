@@ -34,16 +34,25 @@ import Icon from '../Icon.astro';
 </style>
 
 <script>
-  const btn = document.querySelector<HTMLAnchorElement>('[data-back-to-top]');
-  if (btn) {
-    const update = () => { btn.hidden = window.scrollY < window.innerHeight; };
-    window.addEventListener('scroll', update, { passive: true });
-    update();
-    btn.addEventListener('click', (e) => {
+  // Every "back to top" link (the floating one and the one in the project nav) scrolls smoothly to the top,
+  // instantly with reduced motion, and moves focus to the main content.
+  document.querySelectorAll<HTMLAnchorElement>('[data-back-to-top], [data-scroll-top]').forEach((a) => {
+    a.addEventListener('click', (e) => {
       e.preventDefault();
       const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
       document.getElementById('main')?.focus({ preventScroll: true });
     });
+  });
+  // The floating button shows after one screen of scrolling, and hides again once the
+  // Previous / Back to top / Next row is on screen, so there are never two.
+  const btn = document.querySelector<HTMLAnchorElement>('[data-back-to-top]');
+  const nav = document.querySelector('[data-project-nav]');
+  if (btn) {
+    let navVisible = false;
+    const update = () => { btn.hidden = window.scrollY < window.innerHeight || navVisible; };
+    if (nav) new IntersectionObserver(([e]) => { navVisible = e.isIntersecting; update(); }).observe(nav);
+    window.addEventListener('scroll', update, { passive: true });
+    update();
   }
 </script>

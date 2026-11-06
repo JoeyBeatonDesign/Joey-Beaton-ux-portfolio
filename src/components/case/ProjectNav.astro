@@ -1,0 +1,92 @@
+---
+// Figma: "Project nav" at the end of each case study.
+// Tablet and desktop: Previous project (left), Back to top (centre), Next project (right).
+// Mobile: three circle buttons with a label under each (PREVIOUS / TOP / NEXT).
+// Each link has a full name for screen readers, e.g. "Previous project: Pulse".
+import ButtonPair from './ButtonPair.astro';
+import Icon from '../Icon.astro';
+import { neighbours } from '../../data/projects';
+const n = neighbours(Astro.url.pathname);
+---
+{n && (
+  <nav class="pnav" aria-label="Case studies" data-project-nav>
+    <div class="pnav__wide">
+      <ButtonPair direction="previous" href={n.prev.href} label="Previous project" ariaLabel={`Previous project: ${n.prev.name}`} />
+      <a href="#top" class="pnav__circle pnav__top" data-scroll-top aria-label="Back to top"><Icon name="arrow-up" /></a>
+      <ButtonPair direction="next" href={n.next.href} label="Next project" ariaLabel={`Next project: ${n.next.name}`} />
+    </div>
+    <div class="pnav__narrow">
+      <a href={n.prev.href} class="pnav__item" aria-label={`Previous project: ${n.prev.name}`}>
+        <span class="pnav__circle" aria-hidden="true"><Icon name="arrow-left" /></span>
+        <span class="pnav__word t-label" aria-hidden="true">Previous</span>
+      </a>
+      <a href="#top" class="pnav__item" data-scroll-top aria-label="Back to top">
+        <span class="pnav__circle pnav__top" aria-hidden="true"><Icon name="arrow-up" /></span>
+        <span class="pnav__word t-label" aria-hidden="true">Top</span>
+      </a>
+      <a href={n.next.href} class="pnav__item" aria-label={`Next project: ${n.next.name}`}>
+        <span class="pnav__circle" aria-hidden="true"><Icon name="arrow-right" /></span>
+        <span class="pnav__word t-label" aria-hidden="true">Next</span>
+      </a>
+    </div>
+  </nav>
+)}
+
+<style>
+  .pnav__wide,
+  .pnav__narrow {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--layout-gutter);
+  }
+  .pnav__wide { display: none; align-items: center; }
+  .pnav__narrow { display: grid; grid-template-columns: 1fr auto 1fr; align-items: start; }
+  .pnav__narrow > :first-child { justify-self: start; }
+  .pnav__narrow > :last-child { justify-self: end; }
+  /* Three columns, so Back to top sits exactly in the centre whatever the button widths */
+  @media (min-width: 768px) {
+    .pnav__wide { display: grid; grid-template-columns: 1fr auto 1fr; }
+    .pnav__wide > :global(:first-child) { justify-self: start; }
+    .pnav__wide > :global(:last-child) { justify-self: end; }
+    .pnav__narrow { display: none; }
+  }
+
+  /* Circle buttons: the Figma Button / Arrow (56px, outline) */
+  .pnav__circle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--layout-control-size);
+    height: var(--layout-control-size);
+    border: var(--border-default) solid var(--colour-action-outline);
+    border-radius: var(--radius-button);
+    color: var(--colour-action-outline);
+    transition: background-color 150ms ease-out, color 150ms ease-out, border-color 150ms ease-out;
+  }
+  /* Back to top keeps the floating button's look (Button / Arrow, Direction=Up) */
+  .pnav__top {
+    background: var(--colour-button-float-bg);
+    color: var(--colour-button-float-icon);
+  }
+  .pnav__item {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--layout-inline);
+    border-radius: var(--radius-button);
+    text-decoration: none;
+  }
+  .pnav__word {
+    color: var(--colour-text-body);
+    text-transform: uppercase;
+  }
+  a.pnav__circle:hover,
+  .pnav__item:hover .pnav__circle {
+    background: var(--colour-action-bg-hover);
+    border-color: var(--colour-action-bg-hover);
+    color: var(--colour-action-text);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .pnav__circle { transition: none; }
+  }
+</style>

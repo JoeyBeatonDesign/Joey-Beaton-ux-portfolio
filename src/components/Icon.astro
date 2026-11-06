@@ -1,7 +1,7 @@
 ---
 // Icons exported from the Figma Components page. They use currentColor so they follow the token colour of their parent.
 interface Props {
-  name: 'moon' | 'sun' | 'menu' | 'close' | 'arrow-right' | 'arrow-up' | 'enlarge';
+  name: 'moon' | 'sun' | 'menu' | 'close' | 'arrow-right' | 'arrow-left' | 'arrow-up' | 'enlarge';
   class?: string;
 }
 const { name, class: className } = Astro.props;
@@ -26,8 +26,8 @@ const { name, class: className } = Astro.props;
     <path d="M5 5L19 19M19 5L5 19" stroke="currentColor" style="stroke-width: var(--border-icon)" stroke-linecap="round" />
   </svg>
 )}
-{(name === 'arrow-right' || name === 'arrow-up') && (
-  <svg class={className} style={name === 'arrow-up' ? 'transform: rotate(-90deg)' : undefined} width="24" height="12" viewBox="0 0 24 12" fill="none" aria-hidden="true" focusable="false">
+{(name === 'arrow-right' || name === 'arrow-left' || name === 'arrow-up') && (
+  <svg class={className} style={name === 'arrow-up' ? 'transform: rotate(-90deg)' : name === 'arrow-left' ? 'transform: rotate(180deg)' : undefined} width="24" height="12" viewBox="0 0 24 12" fill="none" aria-hidden="true" focusable="false">
     <path d="M23.1577 6.0533C23.4506 5.76041 23.4506 5.28553 23.1577 4.99264L18.3848 0.21967C18.0919 -0.0732232 17.617 -0.0732235 17.3241 0.21967C17.0312 0.512563 17.0312 0.987437 17.3241 1.28033L21.5668 5.52297L17.3241 9.76561C17.0312 10.0585 17.0312 10.5334 17.3241 10.8263C17.617 11.1192 18.0919 11.1192 18.3848 10.8263L23.1577 6.0533ZM0 5.52297V6.27297H22.6274V4.77297H0V5.52297Z" fill="currentColor" />
   </svg>
 )}

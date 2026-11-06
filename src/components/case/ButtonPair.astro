@@ -1,12 +1,14 @@
 ---
-// Figma: Button / Pair (Button / Arrow + Button / Primary). One link, so it's a single tab stop.
+// Figma: Button / Pair, Direction=Next (arrow, then label) or Direction=Previous (label, then left arrow).
+// One link, so it's a single tab stop. ariaLabel adds detail for screen readers, e.g. "Next project: Pulse".
 import Icon from '../Icon.astro';
-interface Props { href: string; label: string; class?: string }
-const { href, label, class: className } = Astro.props;
+interface Props { href: string; label: string; class?: string; direction?: 'next' | 'previous'; ariaLabel?: string }
+const { href, label, class: className, direction = 'next', ariaLabel } = Astro.props;
 ---
-<a href={href} class:list={['pair', className]}>
-  <span class="pair__arrow" aria-hidden="true"><Icon name="arrow-right" /></span>
-  <span class="pair__label t-button">{label}</span>
+<a href={href} class:list={['pair', className]} aria-label={ariaLabel}>
+  {direction === 'previous' && <span class="pair__label t-button">{label}</span>}
+  <span class="pair__arrow" aria-hidden="true"><Icon name={direction === 'previous' ? 'arrow-left' : 'arrow-right'} /></span>
+  {direction === 'next' && <span class="pair__label t-button">{label}</span>}
 </a>
 
 <style>
