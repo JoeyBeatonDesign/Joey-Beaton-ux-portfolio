@@ -63,11 +63,8 @@ const n = neighbours(Astro.url.pathname);
     color: var(--colour-action-outline);
     transition: background-color 150ms ease-out, color 150ms ease-out, border-color 150ms ease-out;
   }
-  /* Back to top keeps the floating button's look (Button / Arrow, Direction=Up) */
-  .pnav__top {
-    background: var(--colour-button-float-bg);
-    color: var(--colour-button-float-icon);
-  }
+  /* Back to top here looks like Previous and Next (Figma: Button / Arrow, Direction=Top).
+     The floating Back to top keeps its own filled look. */
   .pnav__item {
     display: inline-flex;
     flex-direction: column;
