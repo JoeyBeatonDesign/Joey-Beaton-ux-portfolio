@@ -147,6 +147,7 @@ const links = [
 </style>
 
 <script>
+  import { trapFocus } from '../scripts/trapFocus';
   // Mobile menu: a modal dialog. showModal() keeps focus inside and closes on Esc;
   // focus returns to the menu button when it closes.
   const dialog = document.getElementById('mobile-menu') as HTMLDialogElement | null;
@@ -156,6 +157,7 @@ const links = [
     dialog?.querySelector<HTMLButtonElement>('[data-menu-close]')?.focus();
   });
   dialog?.querySelector('[data-menu-close]')?.addEventListener('click', () => dialog.close());
+  if (dialog) trapFocus(dialog);
   dialog?.addEventListener('close', () => setTimeout(() => opener?.focus(), 0));
   // Close if the window grows past the mobile layout.
   window.matchMedia('(min-width: 1280px)').addEventListener('change', (e) => { if (e.matches) dialog?.close(); });

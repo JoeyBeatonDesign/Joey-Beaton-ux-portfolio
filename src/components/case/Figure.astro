@@ -161,6 +161,7 @@ const dialogId = `lightbox-${id}`;
 </style>
 
 <script>
+  import { trapFocus } from '../../scripts/trapFocus';
   // Hover "fill": work out how much the picture must grow to reach the box edges (box width ÷ picture width).
   const setFill = () => document.querySelectorAll<HTMLElement>('.fig__media[data-hover="fill"]').forEach((box) => {
     const img = box.querySelector('img');
@@ -179,6 +180,7 @@ const dialogId = `lightbox-${id}`;
       dialog.querySelector<HTMLButtonElement>('[data-lightbox-close]')?.focus();
     });
     dialog.querySelectorAll('[data-lightbox-close]').forEach((b) => b.addEventListener('click', () => dialog.close()));
+    trapFocus(dialog);
     // Click on the dark area outside the image (or outside a live app screen) closes it.
     // Both the press and the release must be outside, so dragging a shelf or selecting text never closes it.
     const content = '.lightbox__img, .libapp, .lib, .lightbox__controls';
