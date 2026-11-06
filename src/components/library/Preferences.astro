@@ -14,7 +14,7 @@ const notFor: [string, string][] = [['The Power of Now', '#1c854d'], ['Gone Girl
 <div class="libapp pf" data-prefs>
   <div class="pf__header">
     <div class="pf__title-row">
-      <button type="button" class="pf__back" aria-label="Back" data-lightbox-close>←</button>
+      <button type="button" class="pf__back" aria-label="Back" data-lightbox-close>←︎</button>
       <h3 class="libapp__heading">Tune your recommendations</h3>
     </div>
     <hr class="pf__divider" />
@@ -39,14 +39,14 @@ const notFor: [string, string][] = [['The Power of Now', '#1c854d'], ['Gone Girl
   <section class="pf__section">
     <h4 class="pf__label">Books you've liked</h4>
     <ul class="pf__books">
-      {liked.map(([t, c]) => <li class="pf__book"><span class="pf__cover" style={`background: ${c}`}><span aria-hidden="true">✕</span></span><p class="pf__bt">{t}</p></li>)}
+      {liked.map(([t, c]) => <li class="pf__book"><span class="pf__cover" style={`background: ${c}`}><span aria-hidden="true">✕︎</span></span><p class="pf__bt">{t}</p></li>)}
     </ul>
   </section>
 
   <section class="pf__section">
     <h4 class="pf__label">Not interested in</h4>
     <ul class="pf__books">
-      {notFor.map(([t, c]) => <li class="pf__book"><span class="pf__cover" style={`background: ${c}`}><span aria-hidden="true">↩</span></span><p class="pf__bt">{t}</p></li>)}
+      {notFor.map(([t, c]) => <li class="pf__book"><span class="pf__cover" style={`background: ${c}`}><span aria-hidden="true">↩︎</span></span><p class="pf__bt">{t}</p></li>)}
     </ul>
   </section>
 

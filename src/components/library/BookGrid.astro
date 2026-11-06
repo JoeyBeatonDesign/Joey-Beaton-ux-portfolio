@@ -37,7 +37,7 @@ const sets: { id: string; caption?: string; books: Book[] }[] = [
       </div>
       <div class="bg__intro">
         <h3 class="libapp__heading">Have you read and enjoyed any of these?</h3>
-        <p class="libapp__copy">Tap the heart for books you loved<br />Tap ✕ if a book or genre isn’t for you</p>
+        <p class="libapp__copy">Tap the heart for books you loved<br />Tap ✕︎ if a book or genre isn’t for you</p>
         {s.caption
           ? <p class="libapp__copy bg__caption">{s.caption}</p>
           : <p class="libapp__copy bg__caption bg__caption--spacer" aria-hidden="true">&nbsp;</p>}
@@ -48,7 +48,7 @@ const sets: { id: string; caption?: string; books: Book[] }[] = [
             <p class="bg__title" data-title>{b.t}</p>
             <p class="bg__author" data-author>{b.a}</p>
             <button type="button" class="bg__heart" aria-pressed="false" aria-label={`Loved ${b.t}`} data-heart>
-              <span aria-hidden="true" class="bg__heart-o">♡</span><span aria-hidden="true" class="bg__heart-f">♥</span>
+              <span aria-hidden="true" class="bg__heart-o">♡︎</span><span aria-hidden="true" class="bg__heart-f">♥︎</span>
             </button>
             <button type="button" class="bg__x" aria-label={`Not interested in ${b.t}`} data-x>
               <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 1l8 8M9 1L1 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" /></svg>
@@ -59,7 +59,7 @@ const sets: { id: string; caption?: string; books: Book[] }[] = [
       {s.id === '1' && (
         <div class="bg__more">
           <p class="libapp__copy">Not seeing anything familiar?</p>
-          <button type="button" class="libapp__secondary" data-note-text="More books: the second set is shown alongside."><span aria-hidden="true">↺</span> Show me more</button>
+          <button type="button" class="libapp__secondary" data-note-text="More books: the second set is shown alongside."><span aria-hidden="true">↺︎</span> Show me more</button>
         </div>
       )}
       <div class="bg__footer">
