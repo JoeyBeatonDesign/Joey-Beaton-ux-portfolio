@@ -24,6 +24,8 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xljjzbpa';
     flex-direction: column;
     gap: var(--layout-label-gap);
   }
+  /* display:flex above would otherwise override the hidden attribute once the message is sent */
+  .contact__form[hidden] { display: none; }
   .contact__form :global(.contact__send) {
     align-self: flex-start;
   }
